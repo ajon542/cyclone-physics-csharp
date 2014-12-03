@@ -1,0 +1,7 @@
+﻿
+namespace Cyclone
+{
+    class Contacts
+    {
+    }
+}
