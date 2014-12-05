@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Cyclone.Math;
 
 namespace Cyclone
@@ -177,7 +178,7 @@ namespace Cyclone
         private double restLength;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="ParticleSpring"/> class.
+        /// Creates a new instance of the <see cref="ParticleAnchoredSpring"/> class.
         /// </summary>
         /// <param name="anchor">Location of the anchored end of the spring.</param>
         /// <param name="springConstant">A value that gives the stiffness of the spring.</param>
@@ -216,11 +217,69 @@ namespace Cyclone
         }
     }
 
+    /// <summary>
+    /// A force generator that applies a spring force only when extended.
+    /// </summary>
     public class ParticleBungee : IParticleForceGenerator
     {
+        /// <summary>
+        /// The particle at the other end of the spring.
+        /// </summary>
+        private Particle other;
+
+        /// <summary>
+        /// A value that gives the stiffness of the spring.
+        /// </summary>
+        private double springConstant;
+
+        /// <summary>
+        /// The natural length of the spring when no forces are acting upon it.
+        /// </summary>
+        private double restLength;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ParticleBungee"/> class.
+        /// </summary>
+        /// <param name="other">The particle at the other end of the spring.</param>
+        /// <param name="springConstant">A value that gives the stiffness of the spring.</param>
+        /// <param name="restLength">The natural length of the spring when no forces are acting upon it.</param>
+        public ParticleBungee(Particle other, double springConstant, double restLength)
+        {
+            if (other == null)
+            {
+                throw new ArgumentNullException("other");
+            }
+
+            this.other = other;
+            this.springConstant = springConstant;
+            this.restLength = restLength;
+        }
+
+        /// <summary>
+        /// Apply a spring force to the particle.
+        /// </summary>
+        /// <param name="particle">The particle</param>
+        /// <param name="duration">Time interval over which to update the force.</param>
         public void UpdateForce(Particle particle, double duration)
         {
-            throw new NotImplementedException();
+            // Calculate the vector of the spring.
+            Vector3 force = particle.Position;
+            force -= other.Position;
+
+            // Check if the bungee is compressed.
+            double magnitude = force.Magnitude;
+            if (magnitude <= restLength)
+            {
+                return;
+            }
+
+            // Calculate the magnitude of the force.
+            magnitude = (restLength - magnitude) * springConstant;
+
+            // Calculate the final force and apply it.
+            force.Normalize();
+            force *= magnitude;
+            particle.AddForce(force);
         }
     }
 
