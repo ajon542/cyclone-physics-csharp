@@ -148,7 +148,7 @@ namespace Cyclone
             magnitude -= restLength;
             magnitude *= springConstant;
 
-            // Calculate the final force an apply it.
+            // Calculate the final force and apply it.
             force.Normalize();
             force *= -magnitude;
             particle.AddForce(force);
@@ -156,13 +156,63 @@ namespace Cyclone
     }
 
     /// <summary>
-    /// A spring force generator 
+    /// A force generator that applies a spring force, where one end is
+    /// attached to a fixed point in space.
     /// </summary>
     public class ParticleAnchoredSpring : IParticleForceGenerator
     {
+        /// <summary>
+        /// Location of the anchored end of the spring.
+        /// </summary>
+        private Vector3 anchor;
+
+        /// <summary>
+        /// A value that gives the stiffness of the spring.
+        /// </summary>
+        private double springConstant;
+
+        /// <summary>
+        /// The natural length of the spring when no forces are acting upon it.
+        /// </summary>
+        private double restLength;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ParticleSpring"/> class.
+        /// </summary>
+        /// <param name="anchor">Location of the anchored end of the spring.</param>
+        /// <param name="springConstant">A value that gives the stiffness of the spring.</param>
+        /// <param name="restLength">The natural length of the spring when no forces are acting upon it.</param>
+        public ParticleAnchoredSpring(Vector3 anchor, double springConstant, double restLength)
+        {
+            //if (anchor == null)
+            //{
+            //    throw new ArgumentNullException("anchor");
+            //}
+
+            this.anchor = anchor;
+            this.springConstant = springConstant;
+            this.restLength = restLength;
+        }
+
+        /// <summary>
+        /// Apply a spring force to the particle.
+        /// </summary>
+        /// <param name="particle">The particle</param>
+        /// <param name="duration">Time interval over which to update the force.</param>
         public void UpdateForce(Particle particle, double duration)
         {
-            throw new NotImplementedException();
+            // Calculate the vector of the spring.
+            Vector3 force = particle.Position;
+            force -= anchor;
+
+            // Calculate the magnitude of the force.
+            double magnitude = force.Magnitude;
+            magnitude = (restLength - magnitude)*springConstant;
+
+            // Calculate the final force and apply it.
+            force.Normalize();
+            force *= magnitude;
+            particle.AddForce(force);
         }
     }
 
