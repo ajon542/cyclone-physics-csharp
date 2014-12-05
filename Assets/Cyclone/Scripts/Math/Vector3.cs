@@ -126,6 +126,56 @@ namespace Cyclone.Math
         }
 
         /// <summary>
+        /// Creates a hash representation of the object.
+        /// </summary>
+        /// <returns>The hash representation of the object.</returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        /// <summary>
+        /// Determines if the vector is equal to the given object.
+        /// </summary>
+        /// <param name="obj">The object to be compared.</param>
+        /// <returns><c>true</c> if equal; otherwise, <c>false</c>.</returns>
+        public override bool Equals(System.Object obj)
+        {
+            // If parameter is null return false.
+            if (obj == null)
+            {
+                return false;
+            }
+
+            // If parameter cannot be cast to Point return false.
+            Vector3 v = obj as Vector3;
+            if ((System.Object)v == null)
+            {
+                return false;
+            }
+
+            // Return true if the vectors match.
+            return Core.Equals(x, v.x) && Core.Equals(y, v.y) && Core.Equals(z, v.z);
+        }
+
+        /// <summary>
+        /// Determines if the vector is equal to the given vector.
+        /// </summary>
+        /// <param name="obj">The vector to be compared.</param>
+        /// <returns><c>true</c> if equal; otherwise, <c>false</c>.</returns>
+        public bool Equals(Vector3 v)
+        {
+            // If parameter is null return false:
+            if ((object)v == null)
+            {
+                return false;
+            }
+
+            // Return true if the vectors match.
+            return Core.Equals(x, v.x) && Core.Equals(y, v.y) && Core.Equals(z, v.z);
+        }
+
+        /// <summary>
         /// Inequality operator.
         /// </summary>
         /// <param name="lhs">The left vector.</param>
