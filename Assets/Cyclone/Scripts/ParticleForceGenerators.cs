@@ -1,4 +1,5 @@
-﻿using Cyclone.Math;
+﻿using System;
+using Cyclone.Math;
 
 namespace Cyclone
 {
@@ -84,6 +85,100 @@ namespace Cyclone
             force.Normalize();
             force *= -dragCoeff;
             particle.AddForce(force);
+        }
+    }
+
+    /// <summary>
+    /// A basic spring force generator calculating the length of the
+    /// spring and using Hook's law to calculate the force.
+    /// </summary>
+    public class ParticleSpring : IParticleForceGenerator
+    {
+        /// <summary>
+        /// The particle at the other end of the spring.
+        /// </summary>
+        private Particle other;
+
+        /// <summary>
+        /// A value that gives the stiffness of the spring.
+        /// </summary>
+        private double springConstant;
+
+        /// <summary>
+        /// The natural length of the spring when no forces are acting upon it.
+        /// </summary>
+        private double restLength;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ParticleSpring"/> class.
+        /// </summary>
+        /// <param name="other">The particle at the other end of the spring.</param>
+        /// <param name="springConstant">A value that gives the stiffness of the spring.</param>
+        /// <param name="restLength">The natural length of the spring when no forces are acting upon it.</param>
+        public ParticleSpring(Particle other, double springConstant, double restLength)
+        {
+            if (other == null)
+            {
+                throw new ArgumentNullException("other");
+            }
+
+            this.other = other;
+            this.springConstant = springConstant;
+            this.restLength = restLength;
+        }
+
+        /// <summary>
+        /// Apply a spring force to the particle.
+        /// </summary>
+        /// <param name="particle">The particle</param>
+        /// <param name="duration">Time interval over which to update the force.</param>
+        public void UpdateForce(Particle particle, double duration)
+        {
+            // Calculate the vector of the spring.
+            Vector3 force = particle.Position;
+            force -= other.Position;
+
+            // Calculate the magnitude of the force.
+            double magnitude = force.Magnitude;
+            // TODO: Not sure why this Abs calculation is used here.
+            // If the distance between the two particles is less than the restLength,
+            // the particles have a force which pulls them together. I would have expected
+            // the two particles to push apart.
+            //magnitude = System.Math.Abs(magnitude - restLength);
+            magnitude -= restLength;
+            magnitude *= springConstant;
+
+            // Calculate the final force an apply it.
+            force.Normalize();
+            force *= -magnitude;
+            particle.AddForce(force);
+        }
+    }
+
+    /// <summary>
+    /// A spring force generator 
+    /// </summary>
+    public class ParticleAnchoredSpring : IParticleForceGenerator
+    {
+        public void UpdateForce(Particle particle, double duration)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ParticleBungee : IParticleForceGenerator
+    {
+        public void UpdateForce(Particle particle, double duration)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ParticleBuoyancy : IParticleForceGenerator
+    {
+        public void UpdateForce(Particle particle, double duration)
+        {
+            throw new NotImplementedException();
         }
     }
 }
