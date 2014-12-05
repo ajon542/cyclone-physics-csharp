@@ -20,7 +20,7 @@ public class Buoyancy : MonoBehaviour
     /// The maximum submersion depth of the object before it generates its
     /// maximum buoyancy force.
     /// </summary>
-    public double maxDepth = -3.0f;
+    public double maxDepth = -1.0f;
 
     /// <summary>
     /// The volume of the object.
@@ -35,7 +35,7 @@ public class Buoyancy : MonoBehaviour
     /// <summary>
     /// The gravity.
     /// </summary>
-    public double gravity = -20.0f;
+    public double gravity = -10.0f;
 
     /// <summary>
     /// The particle force registry.
@@ -49,10 +49,10 @@ public class Buoyancy : MonoBehaviour
 
     private void Start()
     {
-        particle.Mass = 2.0f;
+        particle.Mass = 4.0f;
         particle.Acceleration = new Cyclone.Math.Vector3(0.0f, gravity, 0.0f);
         particle.Position = new Cyclone.Math.Vector3(crate.transform.position.x, crate.transform.position.y, crate.transform.position.z);
-        particle.Damping = 0.99f;
+        particle.Damping = 0.8f;
 
         Cyclone.ParticleBuoyancy buoyancy = new Cyclone.ParticleBuoyancy
             (
