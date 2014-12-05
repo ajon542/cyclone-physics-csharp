@@ -1,14 +1,41 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Demonstration of the buoyancy of an object in water.
+/// TODO: Haven't found decent default settings.
+/// </summary>
 public class Buoyancy : MonoBehaviour
 {
+    /// <summary>
+    /// The object representing the water surface.
+    /// </summary>
     public Transform water;
+
+    /// <summary>
+    /// The buoyant object.
+    /// </summary>
     public Transform crate;
 
-    public double maxDepth = 1.0f;
-    public double volume = 100.0f;
+    /// <summary>
+    /// The maximum submersion depth of the object before it generates its
+    /// maximum buoyancy force.
+    /// </summary>
+    public double maxDepth = -3.0f;
+
+    /// <summary>
+    /// The volume of the object.
+    /// </summary>
+    public double volume = 0.05f;
+
+    /// <summary>
+    /// The density of the liquid.
+    /// </summary>
     public double liquidDensity = 1000.0f;
-    public double gravity = -9.8f;
+    
+    /// <summary>
+    /// The gravity.
+    /// </summary>
+    public double gravity = -20.0f;
 
     /// <summary>
     /// The particle force registry.
@@ -25,7 +52,7 @@ public class Buoyancy : MonoBehaviour
         particle.Mass = 2.0f;
         particle.Acceleration = new Cyclone.Math.Vector3(0.0f, gravity, 0.0f);
         particle.Position = new Cyclone.Math.Vector3(crate.transform.position.x, crate.transform.position.y, crate.transform.position.z);
-        particle.Damping = 0.4f;
+        particle.Damping = 0.99f;
 
         Cyclone.ParticleBuoyancy buoyancy = new Cyclone.ParticleBuoyancy
             (
