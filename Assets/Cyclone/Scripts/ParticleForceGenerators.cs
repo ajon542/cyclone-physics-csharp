@@ -284,11 +284,48 @@ namespace Cyclone
         }
     }
 
+    /// <summary>
+    /// A force generator that applies a buoyancy force for a plane of liquid parallel to XZ plane.
+    /// </summary>
     public class ParticleBuoyancy : IParticleForceGenerator
     {
+        private double maxDepth;
+        private double volume;
+        private double waterHeight;
+        private double liquidDensity;
+
+        public ParticleBuoyancy(double maxDepth, double volume, double waterHeight, double liquidDensity = 1000.0f)
+        {
+            this.maxDepth = maxDepth;
+            this.volume = volume;
+            this.waterHeight = waterHeight;
+            this.liquidDensity = liquidDensity;
+        }
+
         public void UpdateForce(Particle particle, double duration)
         {
-            throw new NotImplementedException();
+            // Calculate the submersion depth.
+            double depth = particle.Position.y;
+
+            // Make sure we are not out of the water.
+            if (depth >= waterHeight + maxDepth)
+            {
+                return;
+            }
+
+            Vector3 force = new Vector3();
+
+            // Check if we are at maximum depth.
+            if (depth <= waterHeight - maxDepth)
+            {
+                force.y = liquidDensity*volume;
+                particle.AddForce(force);
+                return;
+            }
+
+            // Otherwise we are partly submerged.
+            force.y = liquidDensity*volume*(depth - maxDepth - waterHeight)/2*maxDepth;
+            particle.AddForce(force);
         }
     }
 }
