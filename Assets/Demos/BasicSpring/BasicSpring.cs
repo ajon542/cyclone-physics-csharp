@@ -2,7 +2,6 @@
 
 /// <summary>
 /// Demonstration of a basic spring force between two objects.
-/// TODO: The behavior appears incorrect.
 /// </summary>
 public class BasicSpring : MonoBehaviour
 {
@@ -40,7 +39,7 @@ public class BasicSpring : MonoBehaviour
         particle1.Mass = 2.0f;
         particle1.Velocity = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
         particle1.Acceleration = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        particle1.Position = new Cyclone.Math.Vector3(-4.0f, 0.0f, 0.0f);
+        particle1.Position = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
         particle1.Damping = 0.95f;
 
         particle2.Mass = 2.0f;
@@ -54,8 +53,8 @@ public class BasicSpring : MonoBehaviour
         object2.transform.position = new Vector3((float)particle2.Position.x, (float)particle2.Position.y, (float)particle2.Position.z);
 
         // Create the particle springs.
-        Cyclone.ParticleSpring particleSpring1 = new Cyclone.ParticleSpring(particle2, 1.0f, 3.0f);
-        Cyclone.ParticleSpring particleSpring2 = new Cyclone.ParticleSpring(particle1, 1.0f, 3.0f);
+        Cyclone.ParticleSpring particleSpring1 = new Cyclone.ParticleSpring(particle2, 1.0f, 5.0f);
+        Cyclone.ParticleSpring particleSpring2 = new Cyclone.ParticleSpring(particle1, 1.0f, 5.0f);
 
         // Add the particle springs to the force registry.
         registry.Add(particle1, particleSpring1);

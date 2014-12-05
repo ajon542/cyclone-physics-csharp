@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Cyclone.Math
 {
@@ -347,6 +348,17 @@ namespace Cyclone.Math
             x = -x;
             y = -y;
             z = -z;
+        }
+
+        /// <summary>
+        /// Convert to a string representation.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("({0}, {1}, {2})", x, y, z);
+            return sb.ToString();
         }
     }
 }

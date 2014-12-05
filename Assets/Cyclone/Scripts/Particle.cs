@@ -31,9 +31,25 @@ namespace Cyclone
         protected Vector3 ForceAccum { get; set; }
 
         /// <summary>
+        /// The acceleration of the particle.
+        /// </summary>
+        private Vector3 acceleration;
+
+        /// <summary>
         /// Gets or sets the acceleration of the particle.
         /// </summary>
-        public Vector3 Acceleration { get; set; }
+        public Vector3 Acceleration
+        {
+            get
+            {
+                // Return a copy of the acceleration.
+                return new Vector3(acceleration.x, acceleration.y, acceleration.z);
+            }
+            set
+            {
+                acceleration = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the inverse mass of the particle.

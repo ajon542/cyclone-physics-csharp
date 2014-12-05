@@ -40,16 +40,16 @@ public class Bungee : MonoBehaviour
         anchorParticle.Velocity = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
         anchorParticle.Acceleration = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
         anchorParticle.Position = new Cyclone.Math.Vector3(anchor.transform.position.x, anchor.transform.position.y, anchor.transform.position.z);
-        anchorParticle.Damping = 0.01f;
+        anchorParticle.Damping = 0.99f;
 
         particle.Mass = 2.0f;
         particle.Velocity = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
         particle.Acceleration = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
         particle.Position = new Cyclone.Math.Vector3(object1.transform.position.x, object1.transform.position.y, object1.transform.position.z);
-        particle.Damping = 0.01f;
+        particle.Damping = 0.99f;
 
         // Create the particle anchored bungee.
-        Cyclone.ParticleBungee bungee = new Cyclone.ParticleBungee(anchorParticle, 1.0f, 2.0f);
+        Cyclone.ParticleBungee bungee = new Cyclone.ParticleBungee(anchorParticle, 5.0f, 2.0f);
 
         // Add the particle spring to the force registry.
         registry.Add(particle, bungee);

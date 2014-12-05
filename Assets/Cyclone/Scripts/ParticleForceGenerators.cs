@@ -213,6 +213,7 @@ namespace Cyclone
             // Calculate the final force and apply it.
             force.Normalize();
             force *= magnitude;
+
             particle.AddForce(force);
         }
     }

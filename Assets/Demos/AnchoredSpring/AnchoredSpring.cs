@@ -3,10 +3,6 @@ using UnityEngine;
 
 /// <summary>
 /// Demonstration of a basic spring anchored to a fixed point in space.
-/// TODO: My understanding of the spring appears to be incorrect. The object at the spring end, although
-/// initially moves towards the resting position, it gradually get shot further and further away.
-/// I would have thought the object at the end of the spring would gradually get closer and closer to the
-/// resting position.
 /// </summary>
 public class AnchoredSpring : MonoBehaviour
 {
@@ -40,7 +36,7 @@ public class AnchoredSpring : MonoBehaviour
         particle.Velocity = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
         particle.Acceleration = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
         particle.Position = new Cyclone.Math.Vector3(object1.transform.position.x, object1.transform.position.y, object1.transform.position.z);
-        particle.Damping = 0.01f;
+        particle.Damping = 0.99f;
 
         // Create the particle anchored spring.
         Cyclone.Math.Vector3 anchorPosition = new Cyclone.Math.Vector3(anchor.transform.position.x, anchor.transform.position.y, anchor.transform.position.z);
