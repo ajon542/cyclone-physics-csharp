@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using Cyclone.Math;
 
 namespace Cyclone
 {
-    // TODO: Springs and things Chapter 6
-
     /// <summary>
     /// A force generator that applies a gravitational force to the particle.
     /// </summary>
