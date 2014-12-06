@@ -3,14 +3,6 @@ using Cyclone.Math;
 
 namespace Cyclone
 {
-    // TODO: One concern with the bahaviour of the properties of this class is
-    // an issue that was introduced because the Acceleration was returning a reference.
-    // This is the default behaviour of C#.
-    // Over the period of the simulation the Acceleration was being accumulated and the
-    // results were incorrect. This prompted me to return a copy of the Acceleration
-    // to resolve the issue. But, in other cases such as Position and ForceAccum we want
-    // to return a reference. A proper solution would be to provide both mechanisms so
-    // the user can decide whether they need a reference or a copy.
     public class Particle
     {
         /// <summary>
@@ -153,6 +145,33 @@ namespace Cyclone
             Acceleration.x = x;
             Acceleration.y = y;
             Acceleration.z = z;
+        }
+
+        /// <summary>
+        /// Get a copy of the particle position.
+        /// </summary>
+        /// <returns>A copy of the particle position vector.</returns>
+        public Vector3 GetPosition()
+        {
+            return new Vector3(Position.x, Position.y, Position.z);
+        }
+
+        /// <summary>
+        /// Get a copy of the particle velocity.
+        /// </summary>
+        /// <returns>A copy of the particle velocity vector.</returns>
+        public Vector3 GetVelocity()
+        {
+            return new Vector3(Velocity.x, Velocity.y, Velocity.z);
+        }
+
+        /// <summary>
+        /// Get a copy of the particle acceleration.
+        /// </summary>
+        /// <returns>A copy of the particle acceleration vector.</returns>
+        public Vector3 GetAcceleration()
+        {
+            return new Vector3(Acceleration.x, Acceleration.y, Acceleration.z);
         }
 
         /// <summary>
