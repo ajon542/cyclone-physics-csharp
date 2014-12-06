@@ -31,25 +31,9 @@ namespace Cyclone
         protected Vector3 ForceAccum { get; set; }
 
         /// <summary>
-        /// The acceleration of the particle.
-        /// </summary>
-        private Vector3 acceleration;
-
-        /// <summary>
         /// Gets or sets the acceleration of the particle.
         /// </summary>
-        public Vector3 Acceleration
-        {
-            get
-            {
-                // Return a copy of the acceleration.
-                return new Vector3(acceleration.x, acceleration.y, acceleration.z);
-            }
-            set
-            {
-                acceleration = value;
-            }
-        }
+        public Vector3 Acceleration { get; set; }
 
         /// <summary>
         /// Gets or sets the inverse mass of the particle.
@@ -179,8 +163,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="duration">
         /// Time interval over which to update the position and velocity.
-        /// This is currently the time between frames. Alternatively the
-        /// physics could be decouple from the render loop.
+        /// This is currently the time between frames.
         /// </param>
         public void Integrate(double duration)
         {
@@ -199,8 +182,8 @@ namespace Cyclone
             // Update linear position.
             Position.AddScaledVector(Velocity, duration);
 
-            // Work out the acceleration from the force
-            Vector3 resultingAcc = Acceleration;
+            // Work out the acceleration from the force.
+            Vector3 resultingAcc = GetAcceleration();
             resultingAcc.AddScaledVector(ForceAccum, InverseMass);
 
             // Update linear velocity from the acceleration.
