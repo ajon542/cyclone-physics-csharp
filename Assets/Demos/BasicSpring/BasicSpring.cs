@@ -37,15 +37,10 @@ public class BasicSpring : MonoBehaviour
     {
         // Set particle properties.
         particle1.Mass = 2.0f;
-        particle1.Velocity = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        particle1.Acceleration = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        particle1.Position = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
         particle1.Damping = 0.95f;
 
         particle2.Mass = 2.0f;
-        particle2.Velocity = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        particle2.Acceleration = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        particle2.Position = new Cyclone.Math.Vector3(4.0f, 0.0f, 0.0f);
+        particle2.SetPosition(4.0f, 0.0f, 0.0f);
         particle2.Damping = 0.95f;
 
         // Set the object position.

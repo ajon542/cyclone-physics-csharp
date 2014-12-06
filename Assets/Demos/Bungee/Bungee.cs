@@ -37,15 +37,11 @@ public class Bungee : MonoBehaviour
     {
         // Set particle properties.
         anchorParticle.Mass = 2.0f;
-        anchorParticle.Velocity = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        anchorParticle.Acceleration = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        anchorParticle.Position = new Cyclone.Math.Vector3(anchor.transform.position.x, anchor.transform.position.y, anchor.transform.position.z);
+        anchorParticle.SetPosition(anchor.transform.position.x, anchor.transform.position.y, anchor.transform.position.z);
         anchorParticle.Damping = 0.99f;
 
         particle.Mass = 2.0f;
-        particle.Velocity = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        particle.Acceleration = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        particle.Position = new Cyclone.Math.Vector3(object1.transform.position.x, object1.transform.position.y, object1.transform.position.z);
+        particle.SetPosition(object1.transform.position.x, object1.transform.position.y, object1.transform.position.z);
         particle.Damping = 0.99f;
 
         // Create the particle anchored bungee.

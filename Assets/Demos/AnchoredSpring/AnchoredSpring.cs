@@ -33,9 +33,7 @@ public class AnchoredSpring : MonoBehaviour
     {
         // Set particle properties.
         particle.Mass = 2.0f;
-        particle.Velocity = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        particle.Acceleration = new Cyclone.Math.Vector3(0.0f, 0.0f, 0.0f);
-        particle.Position = new Cyclone.Math.Vector3(object1.transform.position.x, object1.transform.position.y, object1.transform.position.z);
+        particle.SetPosition(object1.transform.position.x, object1.transform.position.y, object1.transform.position.z);
         particle.Damping = 0.99f;
 
         // Create the particle anchored spring.

@@ -35,9 +35,9 @@ public class Ballistic : MonoBehaviour
     private void Start()
     {
         particle.Mass = 2.0f;
-        particle.Velocity = new Cyclone.Math.Vector3(velocity.x, velocity.y, velocity.z);
-        particle.Acceleration = new Cyclone.Math.Vector3(acceleration.x, acceleration.y, acceleration.z);
-        particle.Position = new Cyclone.Math.Vector3(0.0f, 2.0f, 0.0f);
+        particle.SetPosition(transform.position.x, transform.position.y, transform.position.z);
+        particle.SetVelocity(velocity.x, velocity.y, velocity.z);
+        particle.SetAcceleration(acceleration.x, acceleration.y, acceleration.z);
         particle.Damping = damping;
 
         SetObjectPosition(particle.Position);

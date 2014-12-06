@@ -50,8 +50,8 @@ public class Buoyancy : MonoBehaviour
     private void Start()
     {
         particle.Mass = 4.0f;
-        particle.Acceleration = new Cyclone.Math.Vector3(0.0f, gravity, 0.0f);
-        particle.Position = new Cyclone.Math.Vector3(crate.transform.position.x, crate.transform.position.y, crate.transform.position.z);
+        particle.SetAcceleration(0.0f, gravity, 0.0f);
+        particle.SetPosition(crate.transform.position.x, crate.transform.position.y, crate.transform.position.z);
         particle.Damping = 0.8f;
 
         Cyclone.ParticleBuoyancy buoyancy = new Cyclone.ParticleBuoyancy
