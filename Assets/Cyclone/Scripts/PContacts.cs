@@ -47,7 +47,15 @@ namespace Cyclone
         /// <returns>The separating velocity.</returns>
         protected double CalculateSeparatingVelocity()
         {
-            throw new NotImplementedException();
+            // Cacluclate the relative velocity.
+            Vector3 relativeVelocity = particle[0].GetVelocity();
+            if (particle[1] != null)
+            {
+                relativeVelocity -= particle[1].GetVelocity();
+            }
+
+            // Return the dot product of velocity and contact normal.
+            return relativeVelocity * ContactNormal;
         }
 
         /// <summary>

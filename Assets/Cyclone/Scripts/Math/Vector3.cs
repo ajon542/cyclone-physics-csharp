@@ -261,7 +261,18 @@ namespace Cyclone.Math
         /// <returns>The dot product.</returns>
         public double ScalarProduct(Vector3 vector)
         {
-            return x * vector.x + y * vector.y + z * vector.z;
+            return (x * vector.x) + (y * vector.y) + (z * vector.z);
+        }
+
+        /// <summary>
+        /// Calculate the dot product.
+        /// </summary>
+        /// <param name="lhs">The left vector.</param>
+        /// <param name="rhs">The right vector.</param>
+        /// <returns>The dot product.</returns>
+        public static double operator *(Vector3 lhs, Vector3 rhs)
+        {
+            return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z);
         }
 
         /// <summary>
