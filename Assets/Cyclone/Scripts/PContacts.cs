@@ -21,6 +21,8 @@ namespace Cyclone
         /// </summary>
         public Particle[] particle;
 
+        public Vector3[] ParticleMovement;
+
         /// <summary>
         /// Holds the normal restitution coefficient at the contact.
         /// </summary>
@@ -30,6 +32,11 @@ namespace Cyclone
         /// Holds the direction of the contact in world coordinates.
         /// </summary>
         public Vector3 ContactNormal { get; set; }
+
+        /// <summary>
+        /// Holds the depth of the penetration at the contact.
+        /// </summary>
+        private double Penetration { get; set; }
 
         /// <summary>
         /// Resolves this contact for both velocity and interpenetration.
@@ -73,7 +80,48 @@ namespace Cyclone
         /// <param name="duration">Time interval over which to update the interpenetration.</param>
         private void ResolveInterpenetration(double duration)
         {
-            throw new NotImplementedException();
+            // If there is no penetration, nothing to do.
+            if(Penetration <= 0)
+            {
+                return;
+            }
+
+            // The movement of each object is based on their inverse mass.
+            double totalInverseMass = particle[0].InverseMass;
+
+            if(particle[1] != null)
+            {
+                totalInverseMass += particle[1].InverseMass;
+            }
+
+            // If all particles have infinite mass, nothing to do.
+            if(totalInverseMass <= 0)
+            {
+                return;
+            }
+
+            // Find the amount of penetration resolution per unit of inverse mass.
+            Vector3 movePerIMass = ContactNormal * (Penetration / totalInverseMass);
+
+            // Calculate the movement amounts.
+            ParticleMovement[0] = movePerIMass * particle[0].InverseMass;
+
+            if(particle[1] != null)
+            {
+                ParticleMovement[1] = movePerIMass * particle[1].InverseMass;
+            }
+            else
+            {
+                ParticleMovement[1].Clear();
+            }
+
+            // Apply the penetration resolution.
+            particle[0].Position += ParticleMovement[0];
+
+            if(particle[1] != null)
+            {
+                particle[1].Position += ParticleMovement[1];
+            }
         }
     }
 }
