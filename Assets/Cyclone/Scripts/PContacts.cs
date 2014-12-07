@@ -36,13 +36,13 @@ namespace Cyclone
         /// <summary>
         /// Holds the depth of the penetration at the contact.
         /// </summary>
-        private double Penetration { get; set; }
+        public double Penetration { get; set; }
 
         /// <summary>
         /// Resolves this contact for both velocity and interpenetration.
         /// </summary>
         /// <param name="duration">Time interval over which to calculate velocity and interpenetration.</param>
-        protected void Resolve(double duration)
+        public void Resolve(double duration)
         {
             ResolveVelocity(duration);
             ResolveInterpenetration(duration);
@@ -52,7 +52,7 @@ namespace Cyclone
         /// Calculates the separating velocity at this contact.
         /// </summary>
         /// <returns>The separating velocity.</returns>
-        protected double CalculateSeparatingVelocity()
+        public double CalculateSeparatingVelocity()
         {
             // Cacluclate the relative velocity.
             Vector3 relativeVelocity = particle[0].GetVelocity();
@@ -190,6 +190,75 @@ namespace Cyclone
             {
                 particle[1].Position += ParticleMovement[1];
             }
+        }
+    }
+
+    /// <summary>
+    /// The contact resolution implementation for particle contacts.
+    /// One resolver instance can be shared for the entire simulation.
+    /// </summary>
+    public class ParticleContactResolver
+    {
+        /// <summary>
+        /// Gets or sets the number of iterations allowed.
+        /// </summary>
+        public int Iterations { get; set; }
+
+        /// <summary>
+        /// This is a performance tracking value; we keep track of the
+        /// number of iterations used.
+        /// </summary>
+        protected int IterationsUsed { get; set; }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ParticleContactResolver"/> class.
+        /// </summary>
+        /// <param name="iterations">The number of iterations allowed.</param>
+        public ParticleContactResolver(int iterations)
+        {
+            Iterations = iterations;
+        }
+
+        /// <summary>
+        /// Resolves a set of particle contacts for both penetration and velocity.
+        /// TODO: Revisit the method arguments, we could possibly use a list.
+        /// </summary>
+        /// <param name="contactArray">The set of particle contacts.</param>
+        /// <param name="numberOfContacts">The number of contacts.</param>
+        /// <param name="duration">Time interval over which to resolve the contacts.</param>
+        public void ResolveContacts(ParticleContact[] contactArray, int numberOfContacts, double duration)
+        {
+            IterationsUsed = 0;
+
+            while(IterationsUsed < Iterations)
+            {
+                // Find the contact with the largest closing separating velocity.
+                double max = Double.MaxValue;
+                int maxIndex = numberOfContacts;
+
+                for(int i = 0; i < numberOfContacts; ++i)
+                {
+                    double sepVelocity = contactArray[i].CalculateSeparatingVelocity();
+
+                    if((sepVelocity < max) && (sepVelocity < 0 || contactArray[i].Penetration > 0))
+                    {
+                        max = sepVelocity;
+                        maxIndex = i;
+                    }
+                }
+
+                // Do we have anything worth resolving?
+                if(maxIndex == numberOfContacts)
+                {
+                    break;
+                }
+
+                // Resolve this contact.
+                contactArray[maxIndex].Resolve(duration);
+
+                ++IterationsUsed;
+            }
+
         }
     }
 }
