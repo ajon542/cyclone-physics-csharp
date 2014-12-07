@@ -4,12 +4,26 @@ using Cyclone.Math;
 namespace Cyclone
 {
     /// <summary>
-    /// Links connect two particles together, generating a contact if
-    /// they violate the constraints of their link. It is used as a base
-    /// class for cables and rods, and could be used as a base class for
-    /// springs with a limit to their extension.
+    /// Basic interface for contact generators applying to particles.
+    /// TODO: This may be better as an interface rather than abstract class.
     /// </summary>
-    public abstract class ParticleLink // TODO: ParticleContactGenerator
+    public abstract class ParticleContactGenerator
+    {
+        /// <summary>
+        /// Generates the contacts.
+        /// </summary>
+        /// TODO: Argument should be a list of contacts.
+        /// <param name="contact">List of contacts.</param>
+        /// <param name="limit">Maximum number of contacts.</param>
+        /// <returns>The number of contacts that have been written.</returns>
+        public abstract int AddContact(ParticleContact contact, int limit);
+    }
+
+    /// <summary>
+    /// Cables link a pair of particles, generating a contact if the stray too
+    /// far apart.
+    /// </summary>
+    public class ParticleCable : ParticleContactGenerator
     {
         /// <summary>
         /// Holds the pair of particles that are connected by this link.
@@ -17,26 +31,32 @@ namespace Cyclone
         public Particle[] particle;
 
         /// <summary>
-        /// Gets or sets the curent length of this link.
+        /// Gets or sets the maximum length of this cable.
         /// </summary>
-        protected abstract double CurrentLength();
+        public double MaxLength { get; set; }
 
         /// <summary>
-        /// Generates the contacts to keep this link from being violated.
-        /// This class can only ever generate a single contact.
+        /// Gets or sets the restitution (bounciness) of this cable.
         /// </summary>
-        /// TODO: Finish the comment.
-        /// <param name="contact"></param>
-        /// <param name="limit"></param>
-        /// <returns></returns>
-        public abstract int AddContact(ParticleContact contact, int limit);
-    }
-
-    public class ParticleCable : ParticleLink
-    {
-        public double MaxLength { get; set; }
         public double Restitution { get; set; }
 
+        /// <summary>
+        /// Calculates the current length of this cable.
+        /// </summary>
+        /// <returns></returns>
+        protected double CurrentLength()
+        {
+            Vector3 relativePos = particle[0].GetPosition() - particle[1].GetPosition();
+            return relativePos.Magnitude;
+        }
+
+        /// <summary>
+        /// Generates the given contact structure with the contact needed
+        /// to keep the cable from overextending.
+        /// </summary>
+        /// <param name="contact">List of contacts.</param>
+        /// <param name="limit">Maximum number of contacts.</param>
+        /// <returns>The number of contacts that have been written.</returns>
         public override int AddContact(ParticleContact contact, int limit)
         {
             // Find the length of the cable.
@@ -49,7 +69,6 @@ namespace Cyclone
             }
 
             // Otherwise, return the contact.
-            // TODO: Probably need to have 'contact' as a reference or an out.
             contact.particle[0] = particle[0];
             contact.particle[1] = particle[1];
 
@@ -63,12 +82,6 @@ namespace Cyclone
             contact.Restitution = Restitution;
 
             return 1;
-        }
-
-        protected override double CurrentLength()
-        {
-            Vector3 relativePos = particle[0].GetPosition() - particle[1].GetPosition();
-            return relativePos.Magnitude;
         }
     }
 }
