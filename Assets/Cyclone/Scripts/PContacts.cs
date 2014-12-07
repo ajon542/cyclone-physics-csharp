@@ -71,7 +71,75 @@ namespace Cyclone
         /// <param name="duration">Time interval over which to update the impulse.</param>
         private void ResolveVelocity(double duration)
         {
-            throw new NotImplementedException();
+            // Find the velocity in the direction of the contact.
+            double separatingVelocity = CalculateSeparatingVelocity();
+
+            // Check if it needs to be resolved.
+            if(separatingVelocity > 0)
+            {
+                // The contact is either separating or stationary;
+                // there's no impulse required.
+                return;
+            }
+
+            // Calculate the new separating velocity.
+            double newSepVelocity = -separatingVelocity * Restitution;
+
+            // Check the velocity buildup due to acceleration only.
+            Vector3 accCausedVelocity = particle[0].GetAcceleration();
+
+            if(particle[1] != null)
+            {
+                accCausedVelocity -= particle[1].GetAcceleration();
+            }
+
+            double accCausedSepVelocity = accCausedVelocity * ContactNormal * duration;
+
+            // If there is a closing velocity due to acceleration buildup,
+            // remove it from the separating velocity.
+            if(accCausedSepVelocity < 0)
+            {
+                newSepVelocity += Restitution * accCausedSepVelocity;
+
+                if(newSepVelocity < 0)
+                {
+                    newSepVelocity = 0;
+                }
+            }
+
+            double deltaVelocity = newSepVelocity - separatingVelocity;
+
+            // We apply the change in velocity to each object in proportion
+            // to their inverse mass (those with lower inverse mass get less
+            // change in velocity).
+            double totalInverseMass = particle[0].InverseMass;
+
+            if(particle[1] != null)
+            {
+                totalInverseMass += particle[1].InverseMass;
+            }
+
+            // If all particles have infinite mass, then impulses have no effect.
+            if(totalInverseMass <= 0)
+            {
+                return;
+            }
+
+            // Calculate the impulse to apply.
+            double impulse = deltaVelocity / totalInverseMass;
+
+            // Find the amount of impulse per unit of inverse mass.
+            Vector3 impulsePerIMass = ContactNormal * impulse;
+            
+            // Apply impulses: they are applied in the direction of the contact,
+            // and ae propertional to inverse mass.
+            particle[0].Velocity += impulsePerIMass * particle[0].InverseMass;
+
+            if(particle[1] !=null)
+            {
+                // Particle 1 goes in the opposite direction.
+                particle[1].Velocity += impulsePerIMass * -particle[1].InverseMass;
+            }
         }
 
         /// <summary>
