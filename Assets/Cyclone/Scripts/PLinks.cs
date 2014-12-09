@@ -38,6 +38,10 @@ namespace Cyclone
         /// <summary>
         /// Gets or sets the restitution (bounciness) of this cable.
         /// </summary>
+        /// <remarks>
+        /// A value of 0.0 means no bounciness.
+        /// A value of 1.0 means very bouncy.
+        /// </remarks>
         public double Restitution { get; set; }
 
         /// <summary>
