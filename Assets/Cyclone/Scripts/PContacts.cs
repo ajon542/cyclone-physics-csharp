@@ -5,7 +5,7 @@ namespace Cyclone
 {
     /// <summary>
     /// A contact represents two objects in contact (in this case
-    /// PartcileContact representing two particles). Resolving a contact
+    /// ParticleContact representing two particles). Resolving a contact
     /// removes their interpenetration, and applies sufficient impulse to
     /// keep them apart. Colliding bodies may also rebound.
     /// 
@@ -54,7 +54,7 @@ namespace Cyclone
         /// <returns>The separating velocity.</returns>
         public double CalculateSeparatingVelocity()
         {
-            // Cacluclate the relative velocity.
+            // Calculate the relative velocity.
             Vector3 relativeVelocity = particle[0].GetVelocity();
             if (particle[1] != null)
             {
@@ -176,7 +176,7 @@ namespace Cyclone
 
             if(particle[1] != null)
             {
-                ParticleMovement[1] = movePerIMass * particle[1].InverseMass;
+                ParticleMovement[1] = movePerIMass * -particle[1].InverseMass;
             }
             else
             {
