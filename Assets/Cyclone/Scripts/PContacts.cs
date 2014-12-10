@@ -252,6 +252,31 @@ namespace Cyclone
                 // Resolve this contact.
                 contactArray[maxIndex].Resolve(duration);
 
+                // Update the interpenetrations for all particles.
+                Vector3[] move = contactArray[maxIndex].ParticleMovement;
+                for (int i = 0; i < numberOfContacts; i++)
+                {
+                    if (contactArray[i].particle[0] == contactArray[maxIndex].particle[0])
+                    {
+                        contactArray[i].Penetration -= move[0] * contactArray[i].ContactNormal;
+                    }
+                    else if (contactArray[i].particle[0] == contactArray[maxIndex].particle[1])
+                    {
+                        contactArray[i].Penetration -= move[1] * contactArray[i].ContactNormal;
+                    }
+                    if (contactArray[i].particle[1] != null)
+                    {
+                        if (contactArray[i].particle[1] == contactArray[maxIndex].particle[0])
+                        {
+                            contactArray[i].Penetration += move[0] * contactArray[i].ContactNormal;
+                        }
+                        else if (contactArray[i].particle[1] == contactArray[maxIndex].particle[1])
+                        {
+                            contactArray[i].Penetration += move[1] * contactArray[i].ContactNormal;
+                        }
+                    }
+                }
+
                 ++IterationsUsed;
             }
 

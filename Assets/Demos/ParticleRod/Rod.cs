@@ -30,13 +30,11 @@ public class Rod : MonoBehaviour
     {
         particle1.Mass = 2.0f;
         particle1.Damping = 0.95f;
-        //particle1.SetVelocity(2.0f, 0.0f, 0.0f);
         particle1.SetAcceleration(0.0f, 10.0f, 0.0f);
         particle1.SetPosition(object1.transform.position.x, object1.transform.position.y, object1.transform.position.z);
 
         particle2.Mass = 2.0f;
         particle2.Damping = 0.95f;
-        //particle1.SetVelocity(-2.0f, 0.0f, 0.0f);
         particle2.SetAcceleration(0.0f, -10.0f, 0.0f);
         particle2.SetPosition(object2.transform.position.x, object2.transform.position.y, object2.transform.position.z);
 
