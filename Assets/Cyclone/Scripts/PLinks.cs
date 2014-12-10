@@ -177,6 +177,9 @@ namespace Cyclone
         /// </summary>
         public double MaxLength { get; set; }
 
+        /// <summary>
+        /// Gets or sets the location of the anchored end of the cable.
+        /// </summary>
         public Vector3 Anchor { get; set; }
 
         /// <summary>
