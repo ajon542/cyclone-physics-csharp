@@ -88,4 +88,76 @@ namespace Cyclone
             return 1;
         }
     }
+
+    /// <summary>
+    /// Rods link a pair of particles, generating a contact if the stray too
+    /// far apart or too close.
+    /// </summary>
+    public class ParticleRod : ParticleContactGenerator
+    {
+        /// <summary>
+        /// Holds the pair of particles that are connected by this link.
+        /// </summary>
+        public Particle[] particle;
+
+        /// <summary>
+        /// Gets or sets the length of this rod.
+        /// </summary>
+        public double Length { get; set; }
+
+        /// <summary>
+        /// Calculates the current length of this cable.
+        /// </summary>
+        /// <returns></returns>
+        protected double CurrentLength()
+        {
+            Vector3 relativePos = particle[0].GetPosition() - particle[1].GetPosition();
+            return relativePos.Magnitude;
+        }
+
+        /// <summary>
+        /// Generates the given contact structure with the contact needed
+        /// to keep the cable from extending or compressing.
+        /// </summary>
+        /// <param name="contact">List of contacts.</param>
+        /// <param name="limit">Maximum number of contacts.</param>
+        /// <returns>The number of contacts that have been written.</returns>
+        public override int AddContact(ParticleContact contact, int limit)
+        {
+            // Find the length of the cable.
+            double length = CurrentLength();
+
+            // Check if we are overextended.
+            if (length == Length)
+            {
+                return 0;
+            }
+
+            // Otherwise, return the contact.
+            contact.particle[0] = particle[0];
+            contact.particle[1] = particle[1];
+
+            // Calculate the normal.
+            Vector3 normal = particle[1].GetPosition() - particle[0].GetPosition();
+            normal.Normalize();
+
+            // The contact normal depends on whether the particles are
+            // extending or compressing.
+            if(length > Length)
+            {
+                contact.ContactNormal = normal;
+                contact.Penetration = length - Length;
+            }
+            else
+            {
+                contact.ContactNormal = normal * -1;
+                contact.Penetration = Length - length;
+            }
+
+            // Always use a zero restitution (no bounciness).
+            contact.Restitution = 0.0f;
+
+            return 1;
+        }
+    }
 }
