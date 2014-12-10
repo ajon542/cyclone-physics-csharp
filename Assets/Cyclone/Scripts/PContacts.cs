@@ -23,6 +23,14 @@ namespace Cyclone
 
         public Vector3[] ParticleMovement;
 
+        public ParticleContact()
+        {
+            particle = new Particle[2];
+            ParticleMovement = new Vector3[2];
+            ParticleMovement[0] = new Vector3();
+            ParticleMovement[1] = new Vector3();
+        }
+
         /// <summary>
         /// Holds the normal restitution coefficient at the contact.
         /// </summary>
