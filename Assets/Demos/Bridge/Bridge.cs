@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Bridge : MonoBehaviour
 {
     /// <summary>
-    /// Number of particles in the simulated brige demo.
+    /// Number of particles in the simulated bridge demo.
     /// </summary>
     private const int NumParticles = 12;
 
@@ -24,12 +24,12 @@ public class Bridge : MonoBehaviour
     private const int RodCount = 6;
 
     /// <summary>
-    /// The initial mass of the particles.
+    /// The initial mass of the particle.
     /// </summary>
     private const float BaseMass = 2.0f;
 
     /// <summary>
-    /// The imiginary mass position on the bridge.
+    /// The imaginary mass position on the bridge.
     /// </summary>
     private int massPos;
 
@@ -49,7 +49,7 @@ public class Bridge : MonoBehaviour
     private Cyclone.ParticleContactResolver contactResolver = new Cyclone.ParticleContactResolver(1);
 
     /// <summary>
-    /// THe contact generators such as the rods, cables and supports in the scene.
+    /// The contact generators i.e. rods, cables and supports in the scene.
     /// </summary>
     private List<Cyclone.ParticleContactGenerator> contactGenerators = new List<Cyclone.ParticleContactGenerator>(); 
 
