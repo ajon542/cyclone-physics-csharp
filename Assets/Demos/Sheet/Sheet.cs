@@ -73,7 +73,7 @@ public class Sheet : MonoBehaviour
         Cyclone.ParticleCableAnchor cableAnchor3 = new Cyclone.ParticleCableAnchor();
         cableAnchor3.particle = new Cyclone.Particle[2];
         cableAnchor3.particle[0] = particles[GridSize - 1];
-        cableAnchor3.Anchor = new Cyclone.Math.Vector3(GridSize, 0.01f, 0.0f);
+        cableAnchor3.Anchor = new Cyclone.Math.Vector3(0.0f, 0.01f, GridSize);
         cableAnchor3.Restitution = 0.0f;
         cableAnchor3.MaxLength = 0.01f;
         contactGenerators.Add(cableAnchor3);
@@ -81,29 +81,10 @@ public class Sheet : MonoBehaviour
         Cyclone.ParticleCableAnchor cableAnchor4 = new Cyclone.ParticleCableAnchor();
         cableAnchor4.particle = new Cyclone.Particle[2];
         cableAnchor4.particle[0] = particles[particles.Count - GridSize];
-        cableAnchor4.Anchor = new Cyclone.Math.Vector3(0.0f, 0.01f, GridSize);
+        cableAnchor4.Anchor = new Cyclone.Math.Vector3(GridSize, 0.01f, 0.0f);
         cableAnchor4.Restitution = 0.0f;
         cableAnchor4.MaxLength = 0.01f;
         contactGenerators.Add(cableAnchor4);
-
-        /*Cyclone.ParticleCableAnchor cableAnchor2 = new Cyclone.ParticleCableAnchor();
-        cableAnchor2.particle = new Cyclone.Particle[2];
-        cableAnchor2.particle[0] = particles[particles.Count - 1];
-        cableAnchor2.Anchor = new Cyclone.Math.Vector3(10.0f, 10.0f, 0.0f);
-        cableAnchor2.Restitution = 0.0f;
-        cableAnchor2.MaxLength = 10.0f;
-        contactGenerators.Add(cableAnchor2);*/
-
-        // Add the rods.
-        /*for (int x = 0; x < particles.Count - 1; x++)
-        {
-            Cyclone.ParticleRod rod = new Cyclone.ParticleRod();
-            rod.particle = new Cyclone.Particle[2];
-            rod.particle[0] = particles[x];
-            rod.particle[1] = particles[x + 1];
-            rod.Length = 1.0f;
-            contactGenerators.Add(rod);
-        }*/
 
         for (int x = 0; x < GridSize; x++)
         {
@@ -130,9 +111,6 @@ public class Sheet : MonoBehaviour
                 contactGenerators.Add(rod);
             }
         }
-
-        // Update the game object positions.
-        //PositionGameObjects();
     }
 
     /// <summary>
@@ -170,16 +148,4 @@ public class Sheet : MonoBehaviour
             gameObjects[i].transform.position = pos;
         }
     }
-
-    /// <summary>
-    /// Update the game object positions.
-    /// </summary>
-    /*private void PositionGameObjects()
-    {
-        for (int i = 0; i < GridSize; i++)
-        {
-            Vector3 pos = new Vector3((float)particles[i].Position.x, (float)particles[i].Position.y, (float)particles[i].Position.z);
-            gameObjects[i].transform.position = pos;
-        }
-    }*/
 }
