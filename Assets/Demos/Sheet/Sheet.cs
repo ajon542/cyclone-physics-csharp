@@ -56,21 +56,46 @@ public class Sheet : MonoBehaviour
         Cyclone.ParticleCableAnchor cableAnchor1 = new Cyclone.ParticleCableAnchor();
         cableAnchor1.particle = new Cyclone.Particle[2];
         cableAnchor1.particle[0] = particles[0];
-        cableAnchor1.Anchor = new Cyclone.Math.Vector3(0.0f, 10.0f, 0.0f);
+        cableAnchor1.Anchor = new Cyclone.Math.Vector3(0.0f, 0.01f, 0.0f);
         cableAnchor1.Restitution = 0.0f;
-        cableAnchor1.MaxLength = 10.0f;
+        cableAnchor1.MaxLength = 0.01f;
         contactGenerators.Add(cableAnchor1);
 
         Cyclone.ParticleCableAnchor cableAnchor2 = new Cyclone.ParticleCableAnchor();
         cableAnchor2.particle = new Cyclone.Particle[2];
         cableAnchor2.particle[0] = particles[particles.Count - 1];
+        cableAnchor2.Anchor = new Cyclone.Math.Vector3(GridSize, 0.01f, GridSize);
+        cableAnchor2.Restitution = 0.0f;
+        cableAnchor2.MaxLength = 0.01f;
+        contactGenerators.Add(cableAnchor2);
+
+
+        Cyclone.ParticleCableAnchor cableAnchor3 = new Cyclone.ParticleCableAnchor();
+        cableAnchor3.particle = new Cyclone.Particle[2];
+        cableAnchor3.particle[0] = particles[GridSize - 1];
+        cableAnchor3.Anchor = new Cyclone.Math.Vector3(GridSize, 0.01f, 0.0f);
+        cableAnchor3.Restitution = 0.0f;
+        cableAnchor3.MaxLength = 0.01f;
+        contactGenerators.Add(cableAnchor3);
+
+        Cyclone.ParticleCableAnchor cableAnchor4 = new Cyclone.ParticleCableAnchor();
+        cableAnchor4.particle = new Cyclone.Particle[2];
+        cableAnchor4.particle[0] = particles[particles.Count - GridSize];
+        cableAnchor4.Anchor = new Cyclone.Math.Vector3(0.0f, 0.01f, GridSize);
+        cableAnchor4.Restitution = 0.0f;
+        cableAnchor4.MaxLength = 0.01f;
+        contactGenerators.Add(cableAnchor4);
+
+        /*Cyclone.ParticleCableAnchor cableAnchor2 = new Cyclone.ParticleCableAnchor();
+        cableAnchor2.particle = new Cyclone.Particle[2];
+        cableAnchor2.particle[0] = particles[particles.Count - 1];
         cableAnchor2.Anchor = new Cyclone.Math.Vector3(10.0f, 10.0f, 0.0f);
         cableAnchor2.Restitution = 0.0f;
         cableAnchor2.MaxLength = 10.0f;
-        contactGenerators.Add(cableAnchor2);
+        contactGenerators.Add(cableAnchor2);*/
 
         // Add the rods.
-        for (int x = 0; x < particles.Count - 1; x++)
+        /*for (int x = 0; x < particles.Count - 1; x++)
         {
             Cyclone.ParticleRod rod = new Cyclone.ParticleRod();
             rod.particle = new Cyclone.Particle[2];
@@ -78,6 +103,32 @@ public class Sheet : MonoBehaviour
             rod.particle[1] = particles[x + 1];
             rod.Length = 1.0f;
             contactGenerators.Add(rod);
+        }*/
+
+        for (int x = 0; x < GridSize; x++)
+        {
+            for (int z = 0; z < GridSize - 1; z++)
+            {
+                Cyclone.ParticleRod rod = new Cyclone.ParticleRod();
+                rod.particle = new Cyclone.Particle[2];
+                rod.particle[0] = particles[x * GridSize + z];
+                rod.particle[1] = particles[x * GridSize + z + 1];
+                rod.Length = 1.0f;
+                contactGenerators.Add(rod);
+            }
+        }
+
+        for (int z = 0; z < GridSize - 1; z++)
+        {
+            for (int x = 0; x < GridSize; x++)
+            {
+                Cyclone.ParticleRod rod = new Cyclone.ParticleRod();
+                rod.particle = new Cyclone.Particle[2];
+                rod.particle[0] = particles[z * GridSize + x];
+                rod.particle[1] = particles[((z + 1) * GridSize) + x];
+                rod.Length = 1.0f;
+                contactGenerators.Add(rod);
+            }
         }
 
         // Update the game object positions.
