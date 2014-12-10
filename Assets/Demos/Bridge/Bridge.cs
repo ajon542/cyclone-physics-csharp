@@ -7,6 +7,7 @@ public class Bridge : MonoBehaviour
     private const int CableCount = 10;
     private const int SupportCount = 12;
     private const int RodCount = 6;
+    private const float BaseMass = 2.0f;
 
     public List<Transform> gameObjects;
 
@@ -23,7 +24,7 @@ public class Bridge : MonoBehaviour
         for (int i = 0; i < NumParticles; i++)
         {
             Cyclone.Particle particle = new Cyclone.Particle();
-            particle.Mass = 2.0f;
+            particle.Mass = BaseMass;
             particle.Damping = 0.9f;
             particle.SetAcceleration(0.0f, -10.0f, 0.0f);
             particle.SetPosition((i / 2) * 2.0f - 5.0f, 4, (i % 2) * 2.0f - 1.0f);
@@ -40,7 +41,6 @@ public class Bridge : MonoBehaviour
             pc.MaxLength = 1.9f;
             pc.Restitution = 0.3f;
             cables.Add(pc);
-            //world.getContactGenerators().push_back(&cables[i]);
         }
 
         for (int i = 0; i < SupportCount; i++)
@@ -60,7 +60,6 @@ public class Bridge : MonoBehaviour
             }
             cableAnchor.Restitution = 0.5f;
             supports.Add(cableAnchor);
-            // world.getContactGenerators().push_back(&supports[i]);
         }
 
         for (int i = 0; i < RodCount; i++)
@@ -72,7 +71,6 @@ public class Bridge : MonoBehaviour
             rod.particle[1] = particles[i * 2 + 1];
             rod.Length = 2;
             rods.Add(rod);
-            //world.getContactGenerators().push_back(&rods[i]);
         }
 
         for (int i = 0; i < NumParticles; i++)
@@ -82,8 +80,39 @@ public class Bridge : MonoBehaviour
         }
     }
 
+    int massPos;
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (massPos > 0)
+            {
+                foreach(Cyclone.Particle particle in particles)
+                {
+                    particle.Mass = BaseMass;
+                }
+
+                massPos--;
+                particles[massPos * 2].Mass = 100.0f;
+                particles[massPos * 2 + 1].Mass = 100.0f;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (massPos < 5)
+            {
+                foreach (Cyclone.Particle particle in particles)
+                {
+                    particle.Mass = BaseMass;
+                }
+
+                massPos++;
+                particles[massPos * 2].Mass = 100.0f;
+                //particles[massPos * 2 + 1].Mass = 100.0f;
+            }
+        }
+
         double duration = Time.deltaTime;
 
         // Create the particle contact.
