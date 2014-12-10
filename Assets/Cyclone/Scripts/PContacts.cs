@@ -178,10 +178,6 @@ namespace Cyclone
             {
                 ParticleMovement[1] = movePerIMass * -particle[1].InverseMass;
             }
-            else
-            {
-                ParticleMovement[1].Clear();
-            }
 
             // Apply the penetration resolution.
             particle[0].Position += ParticleMovement[0];
