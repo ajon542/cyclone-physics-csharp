@@ -140,7 +140,7 @@ namespace Cyclone.Math
         {
             // Make sure the determinant is non-zero.
             double det = GetDeterminant();
-            if (det == 0)
+            if (Core.Equals(det, 0.0))
             {
                 return;
             }
