@@ -52,8 +52,6 @@ public class Cable : MonoBehaviour
 
         // Create the particle contact.
         Cyclone.ParticleContact particleContact = new Cyclone.ParticleContact();
-        particleContact.particle = new Cyclone.Particle[2];
-        particleContact.ParticleMovement = new Cyclone.Math.Vector3[2];
         
         // Obtain a pair of contacting particles from the particle cable.
         if (particleCable.AddContact(particleContact, 1) > 0)
