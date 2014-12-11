@@ -13,6 +13,7 @@ public class Matrix4Test : MonoBehaviour
         Debug.Log("Matrix4Test.Test1 " + (Test1() ? "Succeeded" : "Failed"));
         Debug.Log("Matrix4Test.Test2 " + (Test2() ? "Succeeded" : "Failed"));
         Debug.Log("Matrix4Test.Test3 " + (Test3() ? "Succeeded" : "Failed"));
+        Debug.Log("Matrix4Test.Test4 " + (Test4() ? "Succeeded" : "Failed"));
     }
 
     /// <summary>
@@ -77,7 +78,43 @@ public class Matrix4Test : MonoBehaviour
         return m3 != notExpected;
     }
 
+    /// <summary>
+    /// Tests the determinant of a matrix.
+    /// </summary>
+    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     private bool Test3()
+    {
+        var m1 = new Matrix4
+            (
+            1.0, 0.0, 0.0, 1.0,
+            0.0, 2.0, 1.0, 2.0,
+            2.0, 1.0, 0.0, 1.0
+            );
+
+        double det = m1.GetDeterminant();
+
+        return det == -1.0;
+    }
+
+    /// <summary>
+    /// Tests the determinant of a matrix.
+    /// </summary>
+    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
+    private bool Test4()
+    {
+        var m1 = new Matrix4
+            (
+            1.0, 2.0, 3.0, 4.0,
+            5.0, 6.0, 7.0, 8.0,
+            9.0, 10.0, 11.0, 12.0
+            );
+
+        double det = m1.GetDeterminant();
+
+        return det == 0.0;
+    }
+
+    private bool Test400()
     {
         var m1 = new Matrix4
             (
