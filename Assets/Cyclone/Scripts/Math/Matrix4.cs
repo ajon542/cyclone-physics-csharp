@@ -1,17 +1,79 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cyclone.Math
 {
+    /// <summary>
+    /// Holds a transform matrix, consisting of a rotation matrix and
+    /// a position.
+    /// </summary>
     public class Matrix4
     {
-        public double[] Data { get; set; }
+        /// <summary>
+        /// The matrix has 12 elements, it is assumed that the
+        /// remaining four are (0,0,0,1); producing a homogenous matrix.
+        /// </summary>
+        private const int ElementCount = 12;
 
+        /// <summary>
+        /// Gets the matrix data.
+        /// </summary>
+        public double[] Data { get; private set; }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="Matrix4"/> class.
+        /// </summary>
         public Matrix4()
         {
-            Data = new double[12];
+            Data = new double[ElementCount];
             Data[0] = Data[5] = Data[10] = 1;
         }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="Matrix4"/> class.
+        /// </summary>
+        /// <param name="m0">Matrix data.</param>
+        /// <param name="m1">Matrix data.</param>
+        /// <param name="m2">Matrix data.</param>
+        /// <param name="m3">Matrix data.</param>
+        /// <param name="m4">Matrix data.</param>
+        /// <param name="m5">Matrix data.</param>
+        /// <param name="m6">Matrix data.</param>
+        /// <param name="m7">Matrix data.</param>
+        /// <param name="m8">Matrix data.</param>
+        /// <param name="m9">Matrix data.</param>
+        /// <param name="m10">Matrix data.</param>
+        /// <param name="m11">Matrix data.</param>
+        public Matrix4
+            (
+            double m0, double m1, double m2, double m3,
+            double m4, double m5, double m6, double m7,
+            double m8, double m9, double m10, double m11
+            )
+        {
+            Data = new[] { m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11 };
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="Matrix4"/> class.
+        /// </summary>
+        /// <param name="values">Matrix data.</param>
+        public Matrix4(List<double> values)
+        {
+            if (values.Count != ElementCount)
+            {
+                throw new Exception("not enough values to initialize this matrix");
+            }
+            Data = values.ToArray();
+        }
+
+        /// <summary>
+        /// Sets the matrix to be a diagonal matrix with the given coefficients.
+        /// </summary>
+        /// <param name="a">Matrix diagonal data.</param>
+        /// <param name="b">Matrix diagonal data.</param>
+        /// <param name="c">Matrix diagonal data.</param>
         public void SetDiagonal(double a, double b, double c)
         {
             Data[0] = a;
@@ -208,6 +270,86 @@ namespace Cyclone.Math
             //Data[10] = 1 - (2 * q.i * q.i + 2 * q.j * q.j);
             //Data[11] = pos.z;
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Equality operator.
+        /// </summary>
+        /// <param name="lhs">The left matrix.</param>
+        /// <param name="rhs">The right matrix.</param>
+        /// <returns><c>true</c> if equal; otherwise, <c>false</c>.</returns>
+        public static bool operator ==(Matrix4 lhs, Matrix4 rhs)
+        {
+            for (int i = 0; i < lhs.Data.Length; i++)
+            {
+                if (!Core.Equals(lhs.Data[i], rhs.Data[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Creates a hash representation of the object.
+        /// </summary>
+        /// <returns>The hash representation of the object.</returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        /// <summary>
+        /// Determines if the matrix is equal to the given object.
+        /// </summary>
+        /// <param name="obj">The object to be compared.</param>
+        /// <returns><c>true</c> if equal; otherwise, <c>false</c>.</returns>
+        public override bool Equals(System.Object obj)
+        {
+            // If parameter is null return false.
+            if (obj == null)
+            {
+                return false;
+            }
+
+            // If parameter cannot be cast to Point return false.
+            Matrix4 m = obj as Matrix4;
+            if ((System.Object)m == null)
+            {
+                return false;
+            }
+
+            // Return true if the matrices match.
+            return (this == m);
+        }
+
+        /// <summary>
+        /// Determines if the matrix is equal to the given matrix.
+        /// </summary>
+        /// <param name="m">The matrix to be compared.</param>
+        /// <returns><c>true</c> if equal; otherwise, <c>false</c>.</returns>
+        public bool Equals(Matrix4 m)
+        {
+            // If parameter is null return false:
+            if ((object)m == null)
+            {
+                return false;
+            }
+
+            // Return true if the matrices match.
+            return (this == m);
+        }
+
+        /// <summary>
+        /// Inequality operator.
+        /// </summary>
+        /// <param name="lhs">The left matrix.</param>
+        /// <param name="rhs">The right matrix.</param>
+        /// <returns><c>true</c> if not equal; otherwise, <c>false</c>.</returns>
+        public static bool operator !=(Matrix4 lhs, Matrix4 rhs)
+        {
+            return !(lhs == rhs);
         }
     }
 }
