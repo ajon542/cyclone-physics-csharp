@@ -14,6 +14,7 @@ public class Matrix4Test : MonoBehaviour
         Debug.Log("Matrix4Test.Test2 " + (Test2() ? "Succeeded" : "Failed"));
         Debug.Log("Matrix4Test.Test3 " + (Test3() ? "Succeeded" : "Failed"));
         Debug.Log("Matrix4Test.Test4 " + (Test4() ? "Succeeded" : "Failed"));
+        Debug.Log("Matrix4Test.Test5 " + (Test5() ? "Succeeded" : "Failed"));
     }
 
     /// <summary>
@@ -114,8 +115,10 @@ public class Matrix4Test : MonoBehaviour
         return det == 0.0;
     }
 
-    private bool Test400()
+    private bool Test5()
     {
+        var tmp = new Matrix4();
+
         var m1 = new Matrix4
             (
             1.0, 0.0, 0.0, 1.0,
@@ -125,13 +128,16 @@ public class Matrix4Test : MonoBehaviour
 
         var expected = new Matrix4
             (
-            1.0, 0.0, 0.0, -1.0,
-            -2.0, 0.0, 1.0, 1.0,
-            4.0, 1.0, -2.0, -4.0
+            -1.0, 0.0, 0.0, 1.0,
+            2.0, 0.0, -1.0, -1.0,
+            -4.0, -1.0, 2.0, 4.0
             );
 
-        var result = m1.Inverse();
+        tmp.SetInverse2(m1);
 
-        return result == expected;
+        Matrix4 inverse = m1 * expected;
+        Matrix4 result = new Matrix4();
+
+        return result == (m1 * tmp);
     }
 }
