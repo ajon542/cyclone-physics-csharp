@@ -272,11 +272,10 @@ namespace Cyclone.Math
             SetInverse(thisMatrixCopy);
         }
 
-        /**
-         * Sets the matrix to be the transpose of the given matrix.
-         *
-         * @param m The matrix to transpose and use to set this.
-         */
+        /// <summary>
+        /// Sets the matrix to be the transpose of the given matrix.
+        /// </summary>
+        /// <param name="m">The matrix to transpose.</param>
         void SetTranspose(Matrix3 m)
         {
             Data[0] = m.Data[0];
@@ -290,7 +289,10 @@ namespace Cyclone.Math
             Data[8] = m.Data[8];
         }
 
-        /** Returns a new matrix containing the transpose of this matrix. */
+        /// <summary>
+        /// Returns a new matrix containing the transpose of this matrix.
+        /// </summary>
+        /// <returns>A new matrix containing the transpose of this matrix.</returns>
         Matrix3 Transpose()
         {
             Matrix3 result = new Matrix3();
@@ -325,11 +327,11 @@ namespace Cyclone.Math
         }
 
         /// <summary>
-        /// Perform multiplication of a matrix and a vector.
+        /// Perform multiplication of a matrix and a scalar.
         /// </summary>
         /// <param name="lhs">The left matrix.</param>
-        /// <param name="vector">The vector.</param>
-        /// <returns>A new vector as a result of multiplication of the given matrix and vector.</returns>
+        /// <param name="scalar">The scalar value.</param>
+        /// <returns>A new vector as a result of multiplication of the given matrix and scalar.</returns>
         public static Matrix3 operator *(Matrix3 lhs, double scalar)
         {
             Matrix3 result = new Matrix3(lhs);
@@ -341,6 +343,12 @@ namespace Cyclone.Math
             return result;
         }
 
+        /// <summary>
+        /// Perform additions of two 3x3 matrices.
+        /// </summary>
+        /// <param name="lhs">The left matrix.</param>
+        /// <param name="rhs">The right matrix.</param>
+        /// <returns>A new vector as a result of addition of the given matrices.</returns>
         public static Matrix3 operator +(Matrix3 lhs, Matrix3 rhs)
         {
             Matrix3 result = new Matrix3(lhs);
@@ -352,6 +360,11 @@ namespace Cyclone.Math
             return result;
         }
 
+        /// <summary>
+        /// Sets this matrix to be the rotation matrix corresponding to
+        /// the given quaternion.
+        /// </summary>
+        /// <param name="q">The quaternion defining the orientation.</param>
         public void SetOrientation(Quaternion q)
         {
             Data[0] = 1 - (2 * q.j * q.j + 2 * q.k * q.k);
@@ -365,6 +378,13 @@ namespace Cyclone.Math
             Data[8] = 1 - (2 * q.i * q.i + 2 * q.j * q.j);
         }
 
+        /// <summary>
+        /// Interpolates a couple of matrices.
+        /// </summary>
+        /// <param name="a">The first matrix.</param>
+        /// <param name="b">The second matrix.</param>
+        /// <param name="prop">The proportion to interpolate.</param>
+        /// <returns>A new matrix representing the interpolation.</returns>
         public Matrix3 LinearInterpolate(Matrix3 a, Matrix3 b, double prop)
         {
             Matrix3 result = new Matrix3();
@@ -373,6 +393,86 @@ namespace Cyclone.Math
                 result.Data[i] = a.Data[i] * (1 - prop) + b.Data[i] * prop;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Equality operator.
+        /// </summary>
+        /// <param name="lhs">The left matrix.</param>
+        /// <param name="rhs">The right matrix.</param>
+        /// <returns><c>true</c> if equal; otherwise, <c>false</c>.</returns>
+        public static bool operator ==(Matrix3 lhs, Matrix3 rhs)
+        {
+            for (int i = 0; i < lhs.Data.Length; i++)
+            {
+                if (!Core.Equals(lhs.Data[i], rhs.Data[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Creates a hash representation of the object.
+        /// </summary>
+        /// <returns>The hash representation of the object.</returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        /// <summary>
+        /// Determines if the matrix is equal to the given object.
+        /// </summary>
+        /// <param name="obj">The object to be compared.</param>
+        /// <returns><c>true</c> if equal; otherwise, <c>false</c>.</returns>
+        public override bool Equals(System.Object obj)
+        {
+            // If parameter is null return false.
+            if (obj == null)
+            {
+                return false;
+            }
+
+            // If parameter cannot be cast to Point return false.
+            Matrix3 m = obj as Matrix3;
+            if ((System.Object)m == null)
+            {
+                return false;
+            }
+
+            // Return true if the matrices match.
+            return (this == m);
+        }
+
+        /// <summary>
+        /// Determines if the matrix is equal to the given matrix.
+        /// </summary>
+        /// <param name="m">The matrix to be compared.</param>
+        /// <returns><c>true</c> if equal; otherwise, <c>false</c>.</returns>
+        public bool Equals(Matrix3 m)
+        {
+            // If parameter is null return false:
+            if ((object)m == null)
+            {
+                return false;
+            }
+
+            // Return true if the matrices match.
+            return (this == m);
+        }
+
+        /// <summary>
+        /// Inequality operator.
+        /// </summary>
+        /// <param name="lhs">The left matrix.</param>
+        /// <param name="rhs">The right matrix.</param>
+        /// <returns><c>true</c> if not equal; otherwise, <c>false</c>.</returns>
+        public static bool operator !=(Matrix3 lhs, Matrix3 rhs)
+        {
+            return !(lhs == rhs);
         }
     }
 }

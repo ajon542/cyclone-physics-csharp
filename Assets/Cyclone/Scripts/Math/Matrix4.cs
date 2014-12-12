@@ -360,21 +360,20 @@ namespace Cyclone.Math
         /// <param name="pos">The position vector.</param>
         public void SetOrientationAndPos(Quaternion q, Vector3 pos)
         {
-            //Data[0] = 1 - (2 * q.j * q.j + 2 * q.k * q.k);
-            //Data[1] = 2 * q.i * q.j + 2 * q.k * q.r;
-            //Data[2] = 2 * q.i * q.k - 2 * q.j * q.r;
-            //Data[3] = pos.x;
+            Data[0] = 1 - (2 * q.j * q.j + 2 * q.k * q.k);
+            Data[1] = 2 * q.i * q.j + 2 * q.k * q.r;
+            Data[2] = 2 * q.i * q.k - 2 * q.j * q.r;
+            Data[3] = pos.x;
 
-            //Data[4] = 2 * q.i * q.j - 2 * q.k * q.r;
-            //Data[5] = 1 - (2 * q.i * q.i + 2 * q.k * q.k);
-            //Data[6] = 2 * q.j * q.k + 2 * q.i * q.r;
-            //Data[7] = pos.y;
+            Data[4] = 2 * q.i * q.j - 2 * q.k * q.r;
+            Data[5] = 1 - (2 * q.i * q.i + 2 * q.k * q.k);
+            Data[6] = 2 * q.j * q.k + 2 * q.i * q.r;
+            Data[7] = pos.y;
 
-            //Data[8] = 2 * q.i * q.k + 2 * q.j * q.r;
-            //Data[9] = 2 * q.j * q.k - 2 * q.i * q.r;
-            //Data[10] = 1 - (2 * q.i * q.i + 2 * q.j * q.j);
-            //Data[11] = pos.z;
-            throw new NotImplementedException();
+            Data[8] = 2 * q.i * q.k + 2 * q.j * q.r;
+            Data[9] = 2 * q.j * q.k - 2 * q.i * q.r;
+            Data[10] = 1 - (2 * q.i * q.i + 2 * q.j * q.j);
+            Data[11] = pos.z;
         }
 
         /// <summary>
