@@ -69,6 +69,30 @@ namespace Cyclone.Math
         }
 
         /// <summary>
+        /// Creates a new instance of the <see cref="Matrix4"/> class.
+        /// </summary>
+        /// <param name="values">Matrix data.</param>
+        public Matrix4(double[] values)
+        {
+            if (values.Length != ElementCount)
+            {
+                throw new Exception("not enough values to initialize this matrix");
+            }
+            Data = new double[ElementCount];
+            values.CopyTo(Data, 0);
+        }
+
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="other">The other matrix.</param>
+        public Matrix4(Matrix4 other)
+        {
+            Data = new double[ElementCount];
+            other.Data.CopyTo(Data, 0);
+        }
+
+        /// <summary>
         /// Sets the matrix to be a diagonal matrix with the given coefficients.
         /// </summary>
         /// <param name="a">Matrix diagonal data.</param>
@@ -81,6 +105,12 @@ namespace Cyclone.Math
             Data[10] = c;
         }
 
+        /// <summary>
+        /// Perform matrix multiplication.
+        /// </summary>
+        /// <param name="lhs">The left matrix.</param>
+        /// <param name="rhs">The right matrix.</param>
+        /// <returns>A new matrix as a result of multiplication of the left and right matrix.</returns>
         public static Matrix4 operator *(Matrix4 lhs, Matrix4 rhs)
         {
             Matrix4 result = new Matrix4();
@@ -103,6 +133,12 @@ namespace Cyclone.Math
             return result;
         }
 
+        /// <summary>
+        /// Perform multiplication of a matrix and a vector.
+        /// </summary>
+        /// <param name="lhs">The left matrix.</param>
+        /// <param name="vector">The vector.</param>
+        /// <returns>A new vector as a result of multiplication of the given matrix and vector.</returns>
         public static Vector3 operator *(Matrix4 lhs, Vector3 vector)
         {
             return new Vector3
@@ -121,11 +157,20 @@ namespace Cyclone.Math
                 );
         }
 
+        /// <summary>
+        /// Transform the given vector.
+        /// </summary>
+        /// <param name="vector">The vector to transform.</param>
+        /// <returns>The transformed vector.</returns>
         public Vector3 Transform(Vector3 vector)
         {
             return this * vector;
         }
 
+        /// <summary>
+        /// Get the determinant of this matrix.
+        /// </summary>
+        /// <returns>The determinant of this matrix.</returns>
         public double GetDeterminant()
         {
             return -Data[2] * Data[5] * Data[8] +
@@ -136,6 +181,10 @@ namespace Cyclone.Math
                     Data[0] * Data[5] * Data[10];
         }
 
+        /// <summary>
+        /// Sets this matrix to the inverse of the argument matrix.
+        /// </summary>
+        /// <param name="m">The matrix to invert.</param>
         public void SetInverse(Matrix4 m)
         {
             // Make sure the determinant is non-zero.
@@ -178,6 +227,10 @@ namespace Cyclone.Math
                        - m.Data[0] * m.Data[5] * m.Data[11]) * det;
         }
 
+        /// <summary>
+        /// Returns a copy of this matrix inverted.
+        /// </summary>
+        /// <returns>A copy of this matrix inverted.</returns>
         public Matrix4 Inverse()
         {
             Matrix4 result = new Matrix4();
@@ -185,9 +238,15 @@ namespace Cyclone.Math
             return result;
         }
 
+        /// <summary>
+        /// Inverts this matrix.
+        /// </summary>
         public void Invert()
         {
-            SetInverse(this);
+            // The reason for the copy of the matrix, is due to the
+            // fact everything is passed by reference.
+            Matrix4 thisMatrixCopy = new Matrix4(this);
+            SetInverse(thisMatrixCopy);
         }
 
         public Vector3 TransformDirection(Vector3 vector)
