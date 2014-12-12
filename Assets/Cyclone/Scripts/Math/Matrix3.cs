@@ -219,7 +219,7 @@ namespace Cyclone.Math
         /// Sets the matrix to be the inverse of the given matrix.
         /// </summary>
         /// <param name="m">The matrix to invert.</param>
-        void SetInverse(Matrix3 m)
+        public void SetInverse(Matrix3 m)
         {
             double t4 = m.Data[0] * m.Data[4];
             double t6 = m.Data[0] * m.Data[5];
