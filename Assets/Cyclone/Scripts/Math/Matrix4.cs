@@ -33,26 +33,26 @@ namespace Cyclone.Math
         /// <summary>
         /// Creates a new instance of the <see cref="Matrix4"/> class.
         /// </summary>
-        /// <param name="m0">Matrix data.</param>
-        /// <param name="m1">Matrix data.</param>
-        /// <param name="m2">Matrix data.</param>
-        /// <param name="m3">Matrix data.</param>
-        /// <param name="m4">Matrix data.</param>
-        /// <param name="m5">Matrix data.</param>
-        /// <param name="m6">Matrix data.</param>
-        /// <param name="m7">Matrix data.</param>
-        /// <param name="m8">Matrix data.</param>
-        /// <param name="m9">Matrix data.</param>
-        /// <param name="m10">Matrix data.</param>
-        /// <param name="m11">Matrix data.</param>
+        /// <param name="c0">Matrix data.</param>
+        /// <param name="c1">Matrix data.</param>
+        /// <param name="c2">Matrix data.</param>
+        /// <param name="c3">Matrix data.</param>
+        /// <param name="c4">Matrix data.</param>
+        /// <param name="c5">Matrix data.</param>
+        /// <param name="c6">Matrix data.</param>
+        /// <param name="c7">Matrix data.</param>
+        /// <param name="c8">Matrix data.</param>
+        /// <param name="c9">Matrix data.</param>
+        /// <param name="c10">Matrix data.</param>
+        /// <param name="c11">Matrix data.</param>
         public Matrix4
             (
-            double m0, double m1, double m2, double m3,
-            double m4, double m5, double m6, double m7,
-            double m8, double m9, double m10, double m11
+            double c0, double c1, double c2, double c3,
+            double c4, double c5, double c6, double c7,
+            double c8, double c9, double c10, double c11
             )
         {
-            Data = new[] { m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11 };
+            Data = new[] { c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11 };
         }
 
         /// <summary>
