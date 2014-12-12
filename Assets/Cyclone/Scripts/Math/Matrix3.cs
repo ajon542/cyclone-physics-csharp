@@ -62,6 +62,16 @@ namespace Cyclone.Math
         }
 
         /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="other">The other matrix.</param>
+        public Matrix3(Matrix3 other)
+        {
+            Data = new double[ElementCount];
+            other.Data.CopyTo(Data, 0);
+        }
+
+        /// <summary>
         /// Sets the matrix to be a diagonal matrix with the given
         /// values along the leading diagonal.
         /// </summary>
@@ -146,6 +156,227 @@ namespace Cyclone.Math
             Data[6] = compOne.z;
             Data[7] = compTwo.z;
             Data[8] = compThree.z;
+        }
+
+        /// <summary>
+        /// Perform multiplication of a matrix and a vector.
+        /// </summary>
+        /// <param name="lhs">The left matrix.</param>
+        /// <param name="vector">The vector.</param>
+        /// <returns>A new vector as a result of multiplication of the given matrix and vector.</returns>
+        public static Vector3 operator *(Matrix3 lhs, Vector3 vector)
+        {
+            return new Vector3
+                (
+                vector.x * lhs.Data[0] + vector.y * lhs.Data[1] + vector.z * lhs.Data[2],
+                vector.x * lhs.Data[3] + vector.y * lhs.Data[4] + vector.z * lhs.Data[5],
+                vector.x * lhs.Data[6] + vector.y * lhs.Data[7] + vector.z * lhs.Data[8]
+                );
+        }
+
+        /// <summary>
+        /// Transform the given vector.
+        /// </summary>
+        /// <param name="vector">The vector to transform.</param>
+        /// <returns>The transformed vector.</returns>
+        public Vector3 Transform(Vector3 vector)
+        {
+            return this * vector;
+        }
+
+        /// <summary>
+        /// Transform the given vector by the transpose of this matrix.
+        /// </summary>
+        /// <param name="vector">The vector to transform.</param>
+        /// <returns>The resulting vector.</returns>
+        public Vector3 TransformTranspose(Vector3 vector)
+        {
+            return new Vector3
+                (
+                vector.x * Data[0] + vector.y * Data[3] + vector.z * Data[6],
+                vector.x * Data[1] + vector.y * Data[4] + vector.z * Data[7],
+                vector.x * Data[2] + vector.y * Data[5] + vector.z * Data[8]
+                );
+        }
+
+        /// <summary>
+        /// Gets a vector representing one row in the matrix.
+        /// </summary>
+        /// <param name="i">The row index.</param>
+        /// <returns>A vector representing a row in the matrix.</returns>
+        public Vector3 GetRowVector(int i)
+        {
+            return new Vector3(Data[i * 3], Data[i * 3 + 1], Data[i * 3 + 2]);
+        }
+
+        /// <summary>
+        /// Gets a vector representing one axis (i.e. one column) in the matrix.
+        /// </summary>
+        /// <param name="i">The row index.</param>
+        /// <returns>A vector representing an axis in the matrix.</returns>
+        public Vector3 GetAxisVector(int i)
+        {
+            return new Vector3(Data[i], Data[i + 3], Data[i + 6]);
+        }
+
+        /// <summary>
+        /// Sets the matrix to be the inverse of the given matrix.
+        /// </summary>
+        /// <param name="m">The matrix to invert.</param>
+        void SetInverse(Matrix3 m)
+        {
+            double t4 = m.Data[0] * m.Data[4];
+            double t6 = m.Data[0] * m.Data[5];
+            double t8 = m.Data[1] * m.Data[3];
+            double t10 = m.Data[2] * m.Data[3];
+            double t12 = m.Data[1] * m.Data[6];
+            double t14 = m.Data[2] * m.Data[6];
+
+            // Calculate the determinant
+            double t16 = (t4 * m.Data[8] - t6 * m.Data[7] - t8 * m.Data[8] +
+                        t10 * m.Data[7] + t12 * m.Data[5] - t14 * m.Data[4]);
+
+            // Make sure the determinant is non-zero.
+            if (Core.Equals(t16, 0.0))
+            {
+                return;
+            }
+            double t17 = 1 / t16;
+
+            Data[0] = (m.Data[4] * m.Data[8] - m.Data[5] * m.Data[7]) * t17;
+            Data[1] = -(m.Data[1] * m.Data[8] - m.Data[2] * m.Data[7]) * t17;
+            Data[2] = (m.Data[1] * m.Data[5] - m.Data[2] * m.Data[4]) * t17;
+            Data[3] = -(m.Data[3] * m.Data[8] - m.Data[5] * m.Data[6]) * t17;
+            Data[4] = (m.Data[0] * m.Data[8] - t14) * t17;
+            Data[5] = -(t6 - t10) * t17;
+            Data[6] = (m.Data[3] * m.Data[7] - m.Data[4] * m.Data[6]) * t17;
+            Data[7] = -(m.Data[0] * m.Data[7] - t12) * t17;
+            Data[8] = (t4 - t8) * t17;
+        }
+
+        /// <summary>
+        /// Returns a new matrix containing the inverse of this matrix.
+        /// </summary>
+        /// <returns>A new matrix containing the inverse of this matrix.</returns>
+        public Matrix3 Inverse()
+        {
+            Matrix3 result = new Matrix3();
+            result.SetInverse(this);
+            return result;
+        }
+
+        /// <summary>
+        /// Inverts this matrix.
+        /// </summary>
+        public void Invert()
+        {
+            // The reason for the copy of the matrix, is due to the
+            // fact everything is passed by reference.
+            Matrix3 thisMatrixCopy = new Matrix3(this);
+            SetInverse(thisMatrixCopy);
+        }
+
+        /**
+         * Sets the matrix to be the transpose of the given matrix.
+         *
+         * @param m The matrix to transpose and use to set this.
+         */
+        void SetTranspose(Matrix3 m)
+        {
+            Data[0] = m.Data[0];
+            Data[1] = m.Data[3];
+            Data[2] = m.Data[6];
+            Data[3] = m.Data[1];
+            Data[4] = m.Data[4];
+            Data[5] = m.Data[7];
+            Data[6] = m.Data[2];
+            Data[7] = m.Data[5];
+            Data[8] = m.Data[8];
+        }
+
+        /** Returns a new matrix containing the transpose of this matrix. */
+        Matrix3 Transpose()
+        {
+            Matrix3 result = new Matrix3();
+            result.SetTranspose(this);
+            return result;
+        }
+
+        /// <summary>
+        /// Perform matrix multiplication.
+        /// </summary>
+        /// <param name="lhs">The left matrix.</param>
+        /// <param name="rhs">The right matrix.</param>
+        /// <returns>A new matrix as a result of multiplication of the left and right matrix.</returns>
+        public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
+        {
+            Matrix3 result = new Matrix3
+                (
+                lhs.Data[0] * rhs.Data[0] + lhs.Data[1] * rhs.Data[3] + lhs.Data[2] * rhs.Data[6],
+                lhs.Data[0] * rhs.Data[1] + lhs.Data[1] * rhs.Data[4] + lhs.Data[2] * rhs.Data[7],
+                lhs.Data[0] * rhs.Data[2] + lhs.Data[1] * rhs.Data[5] + lhs.Data[2] * rhs.Data[8],
+
+                lhs.Data[3] * rhs.Data[0] + lhs.Data[4] * rhs.Data[3] + lhs.Data[5] * rhs.Data[6],
+                lhs.Data[3] * rhs.Data[1] + lhs.Data[4] * rhs.Data[4] + lhs.Data[5] * rhs.Data[7],
+                lhs.Data[3] * rhs.Data[2] + lhs.Data[4] * rhs.Data[5] + lhs.Data[5] * rhs.Data[8],
+
+                lhs.Data[6] * rhs.Data[0] + lhs.Data[7] * rhs.Data[3] + lhs.Data[8] * rhs.Data[6],
+                lhs.Data[6] * rhs.Data[1] + lhs.Data[7] * rhs.Data[4] + lhs.Data[8] * rhs.Data[7],
+                lhs.Data[6] * rhs.Data[2] + lhs.Data[7] * rhs.Data[5] + lhs.Data[8] * rhs.Data[8]
+                );
+
+            return result;
+        }
+
+        /// <summary>
+        /// Perform multiplication of a matrix and a vector.
+        /// </summary>
+        /// <param name="lhs">The left matrix.</param>
+        /// <param name="vector">The vector.</param>
+        /// <returns>A new vector as a result of multiplication of the given matrix and vector.</returns>
+        public static Matrix3 operator *(Matrix3 lhs, double scalar)
+        {
+            Matrix3 result = new Matrix3(lhs);
+
+            result.Data[0] *= scalar; result.Data[1] *= scalar; result.Data[2] *= scalar;
+            result.Data[3] *= scalar; result.Data[4] *= scalar; result.Data[5] *= scalar;
+            result.Data[6] *= scalar; result.Data[7] *= scalar; result.Data[8] *= scalar;
+
+            return result;
+        }
+
+        public static Matrix3 operator +(Matrix3 lhs, Matrix3 rhs)
+        {
+            Matrix3 result = new Matrix3(lhs);
+
+            result.Data[0] += rhs.Data[0]; result.Data[1] += rhs.Data[1]; result.Data[2] += rhs.Data[2];
+            result.Data[3] += rhs.Data[3]; result.Data[4] += rhs.Data[4]; result.Data[5] += rhs.Data[5];
+            result.Data[6] += rhs.Data[6]; result.Data[7] += rhs.Data[7]; result.Data[8] += rhs.Data[8];
+
+            return result;
+        }
+
+        public void SetOrientation(Quaternion q)
+        {
+            Data[0] = 1 - (2 * q.j * q.j + 2 * q.k * q.k);
+            Data[1] = 2 * q.i * q.j + 2 * q.k * q.r;
+            Data[2] = 2 * q.i * q.k - 2 * q.j * q.r;
+            Data[3] = 2 * q.i * q.j - 2 * q.k * q.r;
+            Data[4] = 1 - (2 * q.i * q.i + 2 * q.k * q.k);
+            Data[5] = 2 * q.j * q.k + 2 * q.i * q.r;
+            Data[6] = 2 * q.i * q.k + 2 * q.j * q.r;
+            Data[7] = 2 * q.j * q.k - 2 * q.i * q.r;
+            Data[8] = 1 - (2 * q.i * q.i + 2 * q.j * q.j);
+        }
+
+        public Matrix3 LinearInterpolate(Matrix3 a, Matrix3 b, double prop)
+        {
+            Matrix3 result = new Matrix3();
+            for (int i = 0; i < ElementCount; i++)
+            {
+                result.Data[i] = a.Data[i] * (1 - prop) + b.Data[i] * prop;
+            }
+            return result;
         }
     }
 }
