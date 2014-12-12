@@ -19,6 +19,7 @@ public class Matrix4Test : MonoBehaviour
         Debug.Log("Matrix4Test.Test7 " + (Test7() ? "SUCCEEDED" : "FAILED"));
         Debug.Log("Matrix4Test.Test8 " + (Test8() ? "SUCCEEDED" : "FAILED"));
         Debug.Log("Matrix4Test.Test9 " + (Test9() ? "SUCCEEDED" : "FAILED"));
+        Debug.Log("Matrix4Test.Test10 " + (Test10() ? "SUCCEEDED" : "FAILED"));
     }
 
     /// <summary>
@@ -227,5 +228,32 @@ public class Matrix4Test : MonoBehaviour
             );
 
         return (m1 == m1Original) && (inverse == expected);
+    }
+
+    /// <summary>
+    /// Tests if a multiply-equals (*=) results in the correct matrix.
+    /// </summary>
+    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
+    private bool Test10()
+    {
+        Matrix4 m1 = new Matrix4
+            (
+            1.0, -2.0, 3.0, -4.0,
+            5.0, -6.0, 7.0, -8.0,
+            9.0, -10.0, 11.0, -12.0
+            );
+
+        Matrix4 m2 = new Matrix4
+            (
+            1.0, -2.0, 3.0, -4.0,
+            5.0, -6.0, 7.0, -8.0,
+            9.0, -10.0, 11.0, -12.0
+            );
+
+        Matrix4 result = m1*m2;
+
+        m1 *= m1;
+
+        return (result == m1);
     }
 }
