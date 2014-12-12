@@ -27,18 +27,14 @@ public class Matrix4Test : MonoBehaviour
     /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     private bool Test1()
     {
-        var m1 = new Matrix4
+        Matrix4 m1 = new Matrix4
             (
             1.0, 2.0, 3.0, 4.0,
             1.0, 2.0, 3.0, 4.0,
             1.0, 2.0, 3.0, 4.0
             );
-        var m2 = new Matrix4
-            (
-            1.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0
-            );
+
+        Matrix4 m2 = new Matrix4();
 
         Matrix4 m3 = m1 * m2;
 
@@ -64,12 +60,8 @@ public class Matrix4Test : MonoBehaviour
             1.0, 2.0, 3.0, 4.0,
             1.0, 2.0, 3.0, 4.0
             );
-        Matrix4 m2 = new Matrix4
-            (
-            1.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0
-            );
+
+        Matrix4 m2 = new Matrix4();
 
         Matrix4 m3 = m1 * m2;
 

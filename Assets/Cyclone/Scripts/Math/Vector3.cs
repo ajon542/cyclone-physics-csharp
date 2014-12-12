@@ -105,7 +105,7 @@ namespace Cyclone.Math
         }
 
         /// <summary>
-        /// Multiplication operator.
+        /// Dot product.
         /// </summary>
         /// <param name="lhs">The left vector.</param>
         /// <param name="value">The value to multiply the vector by.</param>
