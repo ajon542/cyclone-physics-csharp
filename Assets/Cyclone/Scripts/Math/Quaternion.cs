@@ -121,6 +121,10 @@ namespace Cyclone.Math
             k += q.k * 0.5;
         }
 
+        /// <summary>
+        /// Rotate the quaternion by a given vector.
+        /// </summary>
+        /// <param name="vector">The amount to rotate.</param>
         public void RotateByVector(Vector3 vector)
         {
             Quaternion q = new Quaternion(0, vector.x, vector.y, vector.z);
