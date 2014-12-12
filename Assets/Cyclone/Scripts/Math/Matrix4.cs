@@ -182,7 +182,7 @@ namespace Cyclone.Math
         }
 
         /// <summary>
-        /// Sets this matrix to the inverse of the argument matrix.
+        /// Sets this matrix to the inverse of the given matrix.
         /// </summary>
         /// <param name="m">The matrix to invert.</param>
         public void SetInverse(Matrix4 m)
@@ -228,9 +228,9 @@ namespace Cyclone.Math
         }
 
         /// <summary>
-        /// Returns a copy of this matrix inverted.
+        /// Returns a new matrix containing the inverse of this matrix.
         /// </summary>
-        /// <returns>A copy of this matrix inverted.</returns>
+        /// <returns>A new matrix containing the inverse of this matrix.</returns>
         public Matrix4 Inverse()
         {
             Matrix4 result = new Matrix4();
@@ -249,6 +249,11 @@ namespace Cyclone.Math
             SetInverse(thisMatrixCopy);
         }
 
+        /// <summary>
+        /// Transform the given direction vector by this matrix.
+        /// </summary>
+        /// <param name="vector">The vector to transform.</param>
+        /// <returns>The transformed vector.</returns>
         public Vector3 TransformDirection(Vector3 vector)
         {
             return new Vector3
@@ -267,6 +272,20 @@ namespace Cyclone.Math
                 );
         }
 
+        /// <summary>
+        /// Transform the given direction vector by the
+        /// transformational inverse of this matrix.
+        /// </summary>
+        /// <remarks>
+        /// This function relies on the fact that the inverse of
+        /// a pure rotation matrix is its transpose. It separates the
+        /// translational and rotation components, transposes the
+        /// rotation, and multiplies out. If the matrix is not a
+        /// scale and shear free transform matrix, then this function
+        /// will not give correct results.
+        /// </remarks>
+        /// <param name="vector">The vector to transform.</param>
+        /// <returns>The transformed vector.</returns>
         public Vector3 TransformInverseDirection(Vector3 vector)
         {
             return new Vector3
@@ -285,6 +304,20 @@ namespace Cyclone.Math
                 );
         }
 
+        /// <summary>
+        /// Transform the given direction vector by the
+        /// transformational inverse of this matrix.
+        /// </summary>
+        /// <remarks>
+        /// This function relies on the fact that the inverse of
+        /// a pure rotation matrix is its transpose. It separates the
+        /// translational and rotation components, transposes the
+        /// rotation, and multiplies out. If the matrix is not a
+        /// scale and shear free transform matrix, then this function
+        /// will not give correct results.
+        /// </remarks>
+        /// <param name="vector">The vector to transform.</param>
+        /// <returns>The transformed vector.</returns>
         public Vector3 TransformInverse(Vector3 vector)
         {
             Vector3 tmp = vector;
@@ -307,11 +340,24 @@ namespace Cyclone.Math
                 );
         }
 
+        /// <summary>
+        /// Gets a vector representing one axis (i.e. one column) in the matrix.
+        /// </summary>
+        /// <param name="i">
+        /// The row to return. Row 3 corresponds to the position
+        /// of the transform matrix.
+        /// </param>
+        /// <returns>The vector.</returns>
         public Vector3 GetAxisVector(int i)
         {
             return new Vector3(Data[i], Data[i + 4], Data[i + 8]);
         }
 
+        /// <summary>
+        /// Sets this matrix to be the rotation matrix corresponding to the given quaternion.
+        /// </summary>
+        /// <param name="q">The quaternion.</param>
+        /// <param name="pos">The position vector.</param>
         public void SetOrientationAndPos(Quaternion q, Vector3 pos)
         {
             //Data[0] = 1 - (2 * q.j * q.j + 2 * q.k * q.k);
