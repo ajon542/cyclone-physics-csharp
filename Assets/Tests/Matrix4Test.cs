@@ -10,16 +10,16 @@ public class Matrix4Test : MonoBehaviour
 {
     private void Start()
     {
-        Debug.Log("Matrix4Test.Test1 " + (Test1() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix4Test.Test2 " + (Test2() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix4Test.Test3 " + (Test3() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix4Test.Test4 " + (Test4() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix4Test.Test5 " + (Test5() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix4Test.Test6 " + (Test6() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix4Test.Test7 " + (Test7() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix4Test.Test8 " + (Test8() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix4Test.Test9 " + (Test9() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix4Test.Test10 " + (Test10() ? "SUCCEEDED" : "FAILED"));
+        TestLog.Instance.LogResult("Matrix4Test.Test1", Test1());
+        TestLog.Instance.LogResult("Matrix4Test.Test2", Test2());
+        TestLog.Instance.LogResult("Matrix4Test.Test3", Test3());
+        TestLog.Instance.LogResult("Matrix4Test.Test4", Test4());
+        TestLog.Instance.LogResult("Matrix4Test.Test5", Test5());
+        TestLog.Instance.LogResult("Matrix4Test.Test6", Test6());
+        TestLog.Instance.LogResult("Matrix4Test.Test7", Test7());
+        TestLog.Instance.LogResult("Matrix4Test.Test8", Test8());
+        TestLog.Instance.LogResult("Matrix4Test.Test9", Test9());
+        TestLog.Instance.LogResult("Matrix4Test.Test10", Test10());
     }
 
     /// <summary>

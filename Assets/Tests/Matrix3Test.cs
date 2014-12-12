@@ -10,11 +10,11 @@ public class Matrix3Test : MonoBehaviour
 {
     private void Start()
     {
-        Debug.Log("Matrix3Test.Test1 " + (Test1() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix3Test.Test2 " + (Test2() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix3Test.Test3 " + (Test3() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix3Test.Test4 " + (Test4() ? "SUCCEEDED" : "FAILED"));
-        Debug.Log("Matrix3Test.Test5 " + (Test5() ? "SUCCEEDED" : "FAILED"));
+        TestLog.Instance.LogResult("Matrix3Test.Test1", Test1());
+        TestLog.Instance.LogResult("Matrix3Test.Test2", Test2());
+        TestLog.Instance.LogResult("Matrix3Test.Test3", Test3());
+        TestLog.Instance.LogResult("Matrix3Test.Test4", Test4());
+        TestLog.Instance.LogResult("Matrix3Test.Test5", Test5());
     }
 
     /// <summary>
