@@ -38,12 +38,50 @@ namespace Cyclone
 
         /// <summary>
         /// Gets or sets the inverse mass of the rigid body.
+        /// </summary>
+        /// <remarks>
         /// It is more useful to hold the inverse mass because
         /// integration is simpler, and because in real-time simulation
         /// it is more useful to have bodies with infinite mass than
         /// zero mass.
-        /// </summary>
+        /// 
+        /// This invalidates internal data for the rigid body.
+        /// Either an integration function, or the calculateInternals
+        /// function should be called before trying to get any settings
+        /// from the rigid body.
+        /// </remarks>
         protected double InverseMass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mass of the rigid body.
+        /// </summary>
+        /// <remarks>
+        /// This invalidates internal data for the rigid body.
+        /// Either an integration function, or the calculateInternals
+        /// function should be called before trying to get any settings
+        /// from the rigid body. 
+        /// </remarks>
+        protected double Mass
+        {
+            get
+            {
+                if (Core.Equals(InverseMass, 0.0))
+                {
+                    return Double.MaxValue;
+                }
+                
+                return 1.0 / InverseMass;
+            }
+            set
+            {
+                if (Core.Equals(value, 0.0))
+                {
+                    throw new Exception("mass cannot equal zero");
+                }
+
+                InverseMass = 1.0 / value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the amount of damping applied to linear
@@ -336,34 +374,6 @@ namespace Cyclone
         /// from the body, since the class contains a number of
         /// dependent values that will need recalculating.
         #region Accessor Functions for the Rigid Body's State
-
-        /// <summary>
-        /// Sets the mass of the rigid body.
-        /// </summary>
-        /// <remarks>
-        /// This invalidates internal data for the rigid body.
-        /// Either an integration function, or the calculateInternals
-        /// function should be called before trying to get any settings
-        /// from the rigid body.
-        /// </remarks>
-        /// <param name="mass">
-        /// The new mass of the body. This may not be zero.
-        /// Small masses can produce unstable rigid bodies under
-        /// simulation.
-        /// </param>
-        void SetMass(double mass)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Gets the mass of the rigid body.
-        /// </summary>
-        /// <returns>The current mass of the rigid body.</returns>
-        double GetMass()
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Sets the inverse mass of the rigid body.
