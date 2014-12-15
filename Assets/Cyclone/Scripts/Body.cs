@@ -264,7 +264,7 @@ namespace Cyclone
         /// Small masses can produce unstable rigid bodies under
         /// simulation.
         /// </param>
-        void setMass(double mass)
+        void SetMass(double mass)
         {
             throw new NotImplementedException();
         }
@@ -273,7 +273,7 @@ namespace Cyclone
         /// Gets the mass of the rigid body.
         /// </summary>
         /// <returns>The current mass of the rigid body.</returns>
-        double getMass()
+        double GetMass()
         {
             throw new NotImplementedException();
         }
@@ -290,7 +290,7 @@ namespace Cyclone
         /// from the rigid body.
         /// </remarks>
         /// <param name="inverseMass"></param>
-        void setInverseMass(double inverseMass)
+        void SetInverseMass(double inverseMass)
         {
             throw new NotImplementedException();
         }
@@ -299,7 +299,7 @@ namespace Cyclone
         /// Gets the inverse mass of the rigid body.
         /// </summary>
         /// <returns>The current inverse mass of the rigid body.</returns>
-        double getInverseMass()
+        double GetInverseMass()
         {
             throw new NotImplementedException();
         }
@@ -308,7 +308,7 @@ namespace Cyclone
         /// Returns true if the mass of the body is not-infinite.
         /// </summary>
         /// <returns></returns>
-        bool hasFiniteMass()
+        bool HasFiniteMass()
         {
             throw new NotImplementedException();
         }
@@ -327,7 +327,7 @@ namespace Cyclone
         /// body. This must be a full rank matrix and must be
         /// invertible.
         /// </param>
-        void setInertiaTensor(Matrix3 inertiaTensor)
+        void SetInertiaTensor(Matrix3 inertiaTensor)
         {
             throw new NotImplementedException();
         }
@@ -340,7 +340,7 @@ namespace Cyclone
         /// A matrix to hold the current inertia tensor of the rigid body.
         /// The inertia tensor is expressed in the rigid body's local space.
         /// </param>
-        void getInertiaTensor(Matrix3 inertiaTensor)
+        void GetInertiaTensor(Matrix3 inertiaTensor)
         {
             throw new NotImplementedException();
         }
@@ -353,7 +353,7 @@ namespace Cyclone
         /// The inertia tensor is expressed in the rigid body's
         /// local space.
         /// </returns>
-        Matrix3 getInertiaTensor()
+        Matrix3 GetInertiaTensor()
         {
             throw new NotImplementedException();
         }
@@ -366,7 +366,7 @@ namespace Cyclone
         /// A matrix to hold the current inertia tensor of the rigid body.
         /// The inertia tensor is expressed in world space.
         /// </param>
-        void getInertiaTensorWorld(Matrix3 inertiaTensor)
+        void GetInertiaTensorWorld(Matrix3 inertiaTensor)
         {
             throw new NotImplementedException();
         }
@@ -378,7 +378,7 @@ namespace Cyclone
         /// A new matrix containing the current intertia tensor.
         /// The inertia tensor is expressed in world space.
         /// </returns>
-        Matrix3 getInertiaTensorWorld()
+        Matrix3 GetInertiaTensorWorld()
         {
             throw new NotImplementedException();
         }
@@ -396,7 +396,7 @@ namespace Cyclone
         /// The inverse inertia tensor for the rigid body.
         /// This must be a full rank matrix and must be invertible.
         /// </param>
-        void setInverseInertiaTensor(Matrix3 inverseInertiaTensor)
+        void SetInverseInertiaTensor(Matrix3 inverseInertiaTensor)
         {
             throw new NotImplementedException();
         }
@@ -409,7 +409,7 @@ namespace Cyclone
         /// A matrix to hold the current inverse inertia tensor of the rigid body.
         /// The inertia tensor is expressed in the rigid body's local space.
         /// </param>
-        void getInverseInertiaTensor(Matrix3 inverseInertiaTensor)
+        void GetInverseInertiaTensor(Matrix3 inverseInertiaTensor)
         {
             throw new NotImplementedException();
         }
@@ -423,7 +423,7 @@ namespace Cyclone
         /// intertia tensor. The inertia tensor is expressed in the
         /// rigid body's local space.
         /// </returns>
-        Matrix3 getInverseInertiaTensor()
+        Matrix3 GetInverseInertiaTensor()
         {
             throw new NotImplementedException();
         }
@@ -436,7 +436,7 @@ namespace Cyclone
         /// A matrix to hold the current inverse inertia tensor of the rigid body.
         /// The inertia tensor is expressed in world space.
         /// </param>
-        void getInverseInertiaTensorWorld(Matrix3 inverseInertiaTensor)
+        void GetInverseInertiaTensorWorld(Matrix3 inverseInertiaTensor)
         {
             throw new NotImplementedException();
         }
@@ -450,7 +450,7 @@ namespace Cyclone
         /// intertia tensor. The inertia tensor is expressed in world
         /// space.
         /// </returns>
-        Matrix3 getInverseInertiaTensorWorld()
+        Matrix3 GetInverseInertiaTensorWorld()
         {
             throw new NotImplementedException();
         }
@@ -460,7 +460,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="linearDamping">The speed that velocity is shed from the rigid body.</param>
         /// <param name="angularDamping">The speed that rotation is shed from the rigid body.</param>
-        void setDamping(double linearDamping, double angularDamping)
+        void SetDamping(double linearDamping, double angularDamping)
         {
             throw new NotImplementedException();
         }
@@ -469,7 +469,7 @@ namespace Cyclone
         /// Sets the linear damping for the rigid body.
         /// </summary>
         /// <param name="linearDamping">The speed that velocity is shed from the rigid body.</param>
-        void setLinearDamping(double linearDamping)
+        void SetLinearDamping(double linearDamping)
         {
             throw new NotImplementedException();
         }
@@ -478,7 +478,7 @@ namespace Cyclone
         /// Gets the current linear damping value.
         /// </summary>
         /// <returns>The current linear damping value.</returns>
-        double getLinearDamping()
+        double GetLinearDamping()
         {
             throw new NotImplementedException();
         }
@@ -487,7 +487,7 @@ namespace Cyclone
         /// Sets the angular damping for the rigid body.
         /// </summary>
         /// <param name="angularDamping">The speed that rotation is shed from the rigid body.</param>
-        void setAngularDamping(double angularDamping)
+        void SetAngularDamping(double angularDamping)
         {
             throw new NotImplementedException();
         }
@@ -496,7 +496,7 @@ namespace Cyclone
         /// Gets the current angular damping value.
         /// </summary>
         /// <returns>The current angular damping value.</returns>
-        double getAngularDamping()
+        double GetAngularDamping()
         {
             throw new NotImplementedException();
         }
@@ -505,7 +505,7 @@ namespace Cyclone
         /// Sets the position of the rigid body.
         /// </summary>
         /// <param name="position">The new position of the rigid body.</param>
-        void setPosition(Vector3 position)
+        void SetPosition(Vector3 position)
         {
             throw new NotImplementedException();
         }
@@ -516,7 +516,7 @@ namespace Cyclone
         /// <param name="x">The x coordinate of the new position of the rigid body.</param>
         /// <param name="y">The y coordinate of the new position of the rigid body.</param>
         /// <param name="z">The z coordinate of the new position of the rigid body.</param>
-        void setPosition(double x, double y, double z)
+        void SetPosition(double x, double y, double z)
         {
             throw new NotImplementedException();
         }
@@ -525,7 +525,7 @@ namespace Cyclone
         /// Fills the given vector with the position of the rigid body.
         /// </summary>
         /// <param name="position">A pointer to a vector into which to write the position.</param>
-        void getPosition(Vector3 position)
+        void GetPosition(Vector3 position)
         {
             throw new NotImplementedException();
         }
@@ -534,7 +534,7 @@ namespace Cyclone
         /// Gets the position of the rigid body.
         /// </summary>
         /// <returns>The position of the rigid body.</returns>
-        Vector3 getPosition()
+        Vector3 GetPosition()
         {
             throw new NotImplementedException();
         }
@@ -549,7 +549,7 @@ namespace Cyclone
         /// (1,0,0,0). 
         /// </remarks>
         /// <param name="orientation">The new orientation of the rigid body.</param>
-        void setOrientation(Quaternion orientation)
+        void SetOrientation(Quaternion orientation)
         {
             throw new NotImplementedException();
         }
@@ -566,7 +566,7 @@ namespace Cyclone
         /// <param name="i">The first complex component of the rigid body's orientation quaternion.</param>
         /// <param name="j">The second complex component of the rigid body's orientation quaternion.</param>
         /// <param name="k">The third complex component of the rigid body's orientation quaternion.</param>
-        void setOrientation(double r, double i, double j, double k)
+        void SetOrientation(double r, double i, double j, double k)
         {
             throw new NotImplementedException();
         }
@@ -576,7 +576,7 @@ namespace Cyclone
         /// rigid body's orientation.
         /// </summary>
         /// <param name="orientation">A quaternion to receive the orientation data.</param>
-        void getOrientation(Quaternion orientation)
+        void GetOrientation(Quaternion orientation)
         {
             throw new NotImplementedException();
         }
@@ -585,7 +585,7 @@ namespace Cyclone
         /// Gets the orientation of the rigid body.
         /// </summary>
         /// <returns>The orientation of the rigid body.</returns>
-        Quaternion getOrientation()
+        Quaternion GetOrientation()
         {
             throw new NotImplementedException();
         }
@@ -599,7 +599,7 @@ namespace Cyclone
         /// it from the body's local space to world space.
         /// </remarks>
         /// <param name="matrix">A matrix to fill.</param>
-        void getOrientation(Matrix3 matrix)
+        void GetOrientation(Matrix3 matrix)
         {
             throw new NotImplementedException();
         }
@@ -613,7 +613,7 @@ namespace Cyclone
         /// it from the body's local space to world space.
         /// </remarks>
         /// <param name="matrix">The matrix to fill.</param>
-        void getOrientation(/*double matrix[9]*/ double[] matrix)
+        void GetOrientation(/*double matrix[9]*/ double[] matrix)
         {
             throw new NotImplementedException();
         }
@@ -627,7 +627,7 @@ namespace Cyclone
         /// the body's local space to world space.
         /// </remarks>
         /// <param name="transform">The matrix to fill.</param>
-        void getTransform(Matrix4 transform)
+        void GetTransform(Matrix4 transform)
         {
             throw new NotImplementedException();
         }
@@ -642,7 +642,7 @@ namespace Cyclone
         /// the body's local space to world space.
         /// </remarks>
         /// <param name="matrix">The matrix to fill.</param>
-        void getTransform( /*real matrix[16]*/ double[] matrix)
+        void GetTransform( /*real matrix[16]*/ double[] matrix)
         {
             throw new NotImplementedException();
         }
@@ -659,7 +659,7 @@ namespace Cyclone
         /// the body's local space to world space.
         /// </remarks>
         /// <param name="matrix">A matrix to fill.</param>
-        void getGLTransform( /*float matrix[16]*/ float[] matrix)
+        void GetGLTransform( /*float matrix[16]*/ float[] matrix)
         {
             throw new NotImplementedException();
         }
@@ -673,7 +673,7 @@ namespace Cyclone
         /// the body's local space to world space.
         /// </remarks>
         /// <returns>The transform matrix for the rigid body.</returns>
-        Matrix4 getTransform()
+        Matrix4 GetTransform()
         {
             throw new NotImplementedException();
         }
@@ -684,7 +684,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="point">The point to covert, given in world space.</param>
         /// <returns>The converted point, in local space.</returns>
-        Vector3 getPointInLocalSpace(Vector3 point)
+        Vector3 GetPointInLocalSpace(Vector3 point)
         {
             throw new NotImplementedException();
         }
@@ -695,7 +695,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="point">The point to covert, given in local space.</param>
         /// <returns>The converted point, in world space.</returns>
-        Vector3 getPointInWorldSpace(Vector3 point)
+        Vector3 GetPointInWorldSpace(Vector3 point)
         {
             throw new NotImplementedException();
         }
@@ -708,7 +708,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="direction">The direction to covert, given in world space.</param>
         /// <returns>The converted direction, in local space.</returns>
-        Vector3 getDirectionInLocalSpace(Vector3 direction)
+        Vector3 GetDirectionInLocalSpace(Vector3 direction)
         {
             throw new NotImplementedException();
         }
@@ -721,7 +721,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="direction">The direction to covert, given in local space.</param>
         /// <returns>The converted direction, in world space.</returns>
-        Vector3 getDirectionInWorldSpace(Vector3 direction)
+        Vector3 GetDirectionInWorldSpace(Vector3 direction)
         {
             throw new NotImplementedException();
         }
@@ -732,7 +732,7 @@ namespace Cyclone
         /// <param name="velocity">
         /// The new velocity of the rigid body. The velocity is given in world space.
         /// </param>
-        void setVelocity(Vector3 velocity)
+        void SetVelocity(Vector3 velocity)
         {
             throw new NotImplementedException();
         }
@@ -744,7 +744,7 @@ namespace Cyclone
         /// <param name="x">The x coordinate of the new velocity of the rigid body.</param>
         /// <param name="y">The y coordinate of the new velocity of the rigid body.</param>
         /// <param name="z">The z coordinate of the new velocity of the rigid body.</param>
-        void setVelocity(double x, double y, double z)
+        void SetVelocity(double x, double y, double z)
         {
             throw new NotImplementedException();
         }
@@ -756,7 +756,7 @@ namespace Cyclone
         /// A vector into which to write the velocity.
         /// The velocity is given in world local space.
         /// </param>
-        void getVelocity(Vector3 velocity)
+        void GetVelocity(Vector3 velocity)
         {
             throw new NotImplementedException();
         }
@@ -768,7 +768,7 @@ namespace Cyclone
         /// The velocity of the rigid body. The velocity is
         /// given in world local space.
         /// </returns>
-        Vector3 getVelocity()
+        Vector3 SetVelocity()
         {
             throw new NotImplementedException();
         }
@@ -777,7 +777,7 @@ namespace Cyclone
         /// Applies the given change in velocity.
         /// </summary>
         /// <param name="deltaVelocity"></param>
-        void addVelocity(Vector3 deltaVelocity)
+        void AddVelocity(Vector3 deltaVelocity)
         {
             throw new NotImplementedException();
         }
@@ -788,7 +788,7 @@ namespace Cyclone
         /// <param name="rotation">
         /// The new rotation of the rigid body. The rotation is given in world space.
         /// </param>
-        void setRotation(Vector3 rotation)
+        void SetRotation(Vector3 rotation)
         {
             throw new NotImplementedException();
         }
@@ -800,7 +800,7 @@ namespace Cyclone
         /// <param name="x">The x coordinate of the new rotation of the rigid body.</param>
         /// <param name="y">The y coordinate of the new rotation of the rigid body.</param>
         /// <param name="z">The z coordinate of the new rotation of the rigid body.</param>
-        void setRotation(double x, double y, double z)
+        void SetRotation(double x, double y, double z)
         {
             throw new NotImplementedException();
         }
@@ -812,7 +812,7 @@ namespace Cyclone
         /// A vector into which to write the rotation. 
         /// The rotation is given in world local space.
         /// </param>
-        void getRotation(Vector3 rotation)
+        void GetRotation(Vector3 rotation)
         {
             throw new NotImplementedException();
         }
@@ -824,7 +824,7 @@ namespace Cyclone
         /// The rotation of the rigid body. The rotation is
         /// given in world local space.
         /// </returns>
-        Vector3 getRotation()
+        Vector3 GetRotation()
         {
             throw new NotImplementedException();
         }
@@ -833,7 +833,7 @@ namespace Cyclone
         /// Applies the given change in rotation.
         /// </summary>
         /// <param name="deltaRotation"></param>
-        void addRotation(Vector3 deltaRotation)
+        void AddRotation(Vector3 deltaRotation)
         {
             throw new NotImplementedException();
         }
@@ -842,7 +842,7 @@ namespace Cyclone
         /// Returns true if the body is awake and responding to integration.
         /// </summary>
         /// <returns></returns>
-        bool getAwake()
+        bool GetAwake()
         {
             return isAwake;
         }
@@ -854,7 +854,7 @@ namespace Cyclone
         /// simulation.
         /// </summary>
         /// <param name="awake">The new awake state of the body.</param>
-        void setAwake(bool awake = true)
+        void SetAwake(bool awake = true)
         {
             throw new NotImplementedException();
         }
@@ -901,7 +901,7 @@ namespace Cyclone
         /// <param name="linearAcceleration">
         /// A vector to receive the linear acceleration data.
         /// </param>
-        void getLastFrameAcceleration(Vector3 linearAcceleration)
+        void GetLastFrameAcceleration(Vector3 linearAcceleration)
         {
             throw new NotImplementedException();
         }
@@ -914,7 +914,7 @@ namespace Cyclone
         /// step. The linear acceleration is given in world space.
         /// </summary>
         /// <returns>The rigid body's linear acceleration.</returns>
-        Vector3 getLastFrameAcceleration()
+        Vector3 GetLastFrameAcceleration()
         {
             throw new NotImplementedException();
         }
@@ -929,7 +929,7 @@ namespace Cyclone
         /// Clears the forces and torques in the accumulators. This will
         /// be called automatically after each intergration step.
         /// </summary>
-        void clearAccumulators()
+        void ClearAccumulators()
         {
             throw new NotImplementedException();
         }
@@ -939,7 +939,7 @@ namespace Cyclone
         /// The force is expressed in world-coordinates.
         /// </summary>
         /// <param name="force">The force to apply.</param>
-        void addForce(Vector3 force)
+        void AddForce(Vector3 force)
         {
             throw new NotImplementedException();
         }
@@ -952,7 +952,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="force">The force to apply.</param>
         /// <param name="point">The location at which to apply the force, in world-coordinates.</param>
-        void addForceAtPoint(Vector3 force, Vector3 point)
+        void AddForceAtPoint(Vector3 force, Vector3 point)
         {
             throw new NotImplementedException();
         }
@@ -966,7 +966,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="force">The force to apply.</param>
         /// <param name="point">The location at which to apply the force, in body-coordinates.</param>
-        void addForceAtBodyPoint(Vector3 force, Vector3 point)
+        void AddForceAtBodyPoint(Vector3 force, Vector3 point)
         {
             throw new NotImplementedException();
         }
@@ -976,7 +976,7 @@ namespace Cyclone
         /// The force is expressed in world-coordinates.
         /// </summary>
         /// <param name="torque">The torque to apply.</param>
-        void addTorque(Vector3 torque)
+        void AddTorque(Vector3 torque)
         {
             throw new NotImplementedException();
         }
@@ -985,7 +985,7 @@ namespace Cyclone
         /// Sets the constant acceleration of the rigid body.
         /// </summary>
         /// <param name="acceleration">The new acceleration of the rigid body.</param>
-        void setAcceleration(Vector3 acceleration)
+        void SetAcceleration(Vector3 acceleration)
         {
             throw new NotImplementedException();
         }
@@ -996,7 +996,7 @@ namespace Cyclone
         /// <param name="x">The x coordinate of the new acceleration of the rigid body.</param>
         /// <param name="y">The y coordinate of the new acceleration of the rigid body.</param>
         /// <param name="z">The z coordinate of the new acceleration of the rigid body.</param>
-        void setAcceleration(double x, double y, double z)
+        void SetAcceleration(double x, double y, double z)
         {
             throw new NotImplementedException();
         }
@@ -1007,7 +1007,7 @@ namespace Cyclone
         /// <param name="acceleration">
         /// A vector into which to write the acceleration. The acceleration is given in world local space.
         /// </param>
-        void getAcceleration(Vector3 acceleration)
+        void GetAcceleration(Vector3 acceleration)
         {
             throw new NotImplementedException();
         }
@@ -1019,7 +1019,7 @@ namespace Cyclone
         /// The acceleration of the rigid body. The acceleration is
         /// given in world local space.
         /// </returns>
-        Vector3 getAcceleration()
+        Vector3 GetAcceleration()
         {
             throw new NotImplementedException();
         }
