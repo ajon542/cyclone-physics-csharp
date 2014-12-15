@@ -88,7 +88,7 @@ namespace Cyclone
 
         /// <summary>
         /// Holds the amount of damping applied to angular
-        /// motion.  Damping is required to remove energy added
+        /// motion. Damping is required to remove energy added
         /// through numerical instability in the integrator.
         /// </summary>
         protected double AngularDamping { get; set; }
@@ -188,6 +188,7 @@ namespace Cyclone
         {
             Orientation.Normalize();
             CalculateTransformMatrix(TransformMatrix, Position, Orientation);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -866,9 +867,139 @@ namespace Cyclone
         #endregion
 
         #region Retrieval Functions for Dynamic Quantities
+
+        /// <summary>
+        /// Fills the given vector with the current accumulated value
+        /// for linear acceleration. The acceleration accumulators
+        /// are set during the integration step. They can be read to
+        /// determine the rigid body's acceleration over the last
+        /// integration step. The linear acceleration is given in world
+        /// space.
+        /// </summary>
+        /// <param name="linearAcceleration">
+        /// A vector to receive the linear acceleration data.
+        /// </param>
+        void getLastFrameAcceleration(Vector3 linearAcceleration)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets the current accumulated value for linear
+        /// acceleration. The acceleration accumulators are set during
+        /// the integration step. They can be read to determine the
+        /// rigid body's acceleration over the last integration
+        /// step. The linear acceleration is given in world space.
+        /// </summary>
+        /// <returns>The rigid body's linear acceleration.</returns>
+        Vector3 getLastFrameAcceleration()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Force, Torque and Acceleration Set-up Functions
+
+        /// <summary>
+        /// Clears the forces and torques in the accumulators. This will
+        /// be called automatically after each intergration step.
+        /// </summary>
+        void clearAccumulators()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Adds the given force to centre of mass of the rigid body.
+        /// The force is expressed in world-coordinates.
+        /// </summary>
+        /// <param name="force">The force to apply.</param>
+        void addForce(Vector3 force)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Adds the given force to the given point on the rigid body.
+        /// Both the force and the application point are given in world space.
+        /// Because the force is not applied at the centre of mass, it may be split
+        /// into both a force and torque.
+        /// </summary>
+        /// <param name="force">The force to apply.</param>
+        /// <param name="point">The location at which to apply the force, in world-coordinates.</param>
+        void addForceAtPoint(Vector3 force, Vector3 point)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Adds the given force to the given point on the rigid body.
+        /// The direction of the force is given in world coordinates,
+        /// but the application point is given in body space. This is
+        /// useful for spring forces, or other forces fixed to the
+        /// body.
+        /// </summary>
+        /// <param name="force">The force to apply.</param>
+        /// <param name="point">The location at which to apply the force, in body-coordinates.</param>
+        void addForceAtBodyPoint(Vector3 force, Vector3 point)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Adds the given torque to the rigid body.
+        /// The force is expressed in world-coordinates.
+        /// </summary>
+        /// <param name="torque">The torque to apply.</param>
+        void addTorque(Vector3 torque)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Sets the constant acceleration of the rigid body.
+        /// </summary>
+        /// <param name="acceleration">The new acceleration of the rigid body.</param>
+        void setAcceleration(Vector3 acceleration)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Sets the constant acceleration of the rigid body by component.
+        /// </summary>
+        /// <param name="x">The x coordinate of the new acceleration of the rigid body.</param>
+        /// <param name="y">The y coordinate of the new acceleration of the rigid body.</param>
+        /// <param name="z">The z coordinate of the new acceleration of the rigid body.</param>
+        void setAcceleration(double x, double y, double z)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Fills the given vector with the acceleration of the rigid body.
+        /// </summary>
+        /// <param name="acceleration">
+        /// A vector into which to write the acceleration. The acceleration is given in world local space.
+        /// </param>
+        void getAcceleration(Vector3 acceleration)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets the acceleration of the rigid body.
+        /// </summary>
+        /// <returns>
+        /// The acceleration of the rigid body. The acceleration is
+        /// given in world local space.
+        /// </returns>
+        Vector3 getAcceleration()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
