@@ -54,6 +54,18 @@ namespace Cyclone.Math
         }
 
         /// <summary>
+        /// Creates an instance of the <see cref="Quaternion"/> class.
+        /// </summary>
+        /// <param name="other">The other quaternion.</param>
+        public Quaternion(Quaternion other)
+        {
+            r = other.r;
+            i = other.i;
+            j = other.j;
+            k = other.k;
+        }
+
+        /// <summary>
         /// Normalises the quaternion to unit length, making it a valid
         /// orientation quaternion.
         /// </summary>

@@ -533,43 +533,8 @@ namespace Cyclone
         /// <param name="angularDamping">The speed that rotation is shed from the rigid body.</param>
         void SetDamping(double linearDamping, double angularDamping)
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Sets the linear damping for the rigid body.
-        /// </summary>
-        /// <param name="linearDamping">The speed that velocity is shed from the rigid body.</param>
-        void SetLinearDamping(double linearDamping)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Gets the current linear damping value.
-        /// </summary>
-        /// <returns>The current linear damping value.</returns>
-        double GetLinearDamping()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Sets the angular damping for the rigid body.
-        /// </summary>
-        /// <param name="angularDamping">The speed that rotation is shed from the rigid body.</param>
-        void SetAngularDamping(double angularDamping)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Gets the current angular damping value.
-        /// </summary>
-        /// <returns>The current angular damping value.</returns>
-        double GetAngularDamping()
-        {
-            throw new NotImplementedException();
+            LinearDamping = linearDamping;
+            AngularDamping = angularDamping;
         }
 
         /// <summary>
@@ -578,7 +543,9 @@ namespace Cyclone
         /// <param name="position">The new position of the rigid body.</param>
         void SetPosition(Vector3 position)
         {
-            throw new NotImplementedException();
+            Position.x = position.x;
+            Position.y = position.y;
+            Position.z = position.z;
         }
 
         /// <summary>
@@ -589,7 +556,9 @@ namespace Cyclone
         /// <param name="z">The z coordinate of the new position of the rigid body.</param>
         void SetPosition(double x, double y, double z)
         {
-            throw new NotImplementedException();
+            Position.x = x;
+            Position.y = y;
+            Position.z = z;
         }
 
         /// <summary>
@@ -598,7 +567,9 @@ namespace Cyclone
         /// <param name="position">A pointer to a vector into which to write the position.</param>
         void GetPosition(Vector3 position)
         {
-            throw new NotImplementedException();
+            position.x = Position.x;
+            position.y = Position.y;
+            position.z = Position.z;
         }
 
         /// <summary>
@@ -607,7 +578,7 @@ namespace Cyclone
         /// <returns>The position of the rigid body.</returns>
         Vector3 GetPosition()
         {
-            throw new NotImplementedException();
+            return new Vector3(Position);
         }
 
         /// <summary>
@@ -622,7 +593,11 @@ namespace Cyclone
         /// <param name="orientation">The new orientation of the rigid body.</param>
         void SetOrientation(Quaternion orientation)
         {
-            throw new NotImplementedException();
+            Orientation.r = orientation.r;
+            Orientation.i = orientation.i;
+            Orientation.j = orientation.j;
+            Orientation.k = orientation.k;
+            Orientation.Normalize();
         }
 
         /// <summary>
@@ -639,7 +614,11 @@ namespace Cyclone
         /// <param name="k">The third complex component of the rigid body's orientation quaternion.</param>
         void SetOrientation(double r, double i, double j, double k)
         {
-            throw new NotImplementedException();
+            Orientation.r = r;
+            Orientation.i = i;
+            Orientation.j = j;
+            Orientation.k = k;
+            Orientation.Normalize();
         }
 
         /// <summary>
@@ -649,7 +628,10 @@ namespace Cyclone
         /// <param name="orientation">A quaternion to receive the orientation data.</param>
         void GetOrientation(Quaternion orientation)
         {
-            throw new NotImplementedException();
+            orientation.r = Orientation.r;
+            orientation.i = Orientation.i;
+            orientation.j = Orientation.j;
+            orientation.k = Orientation.k;
         }
 
         /// <summary>
@@ -658,7 +640,7 @@ namespace Cyclone
         /// <returns>The orientation of the rigid body.</returns>
         Quaternion GetOrientation()
         {
-            throw new NotImplementedException();
+            return new Quaternion(Orientation);
         }
 
         /// <summary>
@@ -805,7 +787,9 @@ namespace Cyclone
         /// </param>
         void SetVelocity(Vector3 velocity)
         {
-            throw new NotImplementedException();
+            Velocity.x = velocity.x;
+            Velocity.y = velocity.y;
+            Velocity.z = velocity.z;
         }
 
         /// <summary>
@@ -817,7 +801,9 @@ namespace Cyclone
         /// <param name="z">The z coordinate of the new velocity of the rigid body.</param>
         void SetVelocity(double x, double y, double z)
         {
-            throw new NotImplementedException();
+            Velocity.x = x;
+            Velocity.y = y;
+            Velocity.z = z;
         }
 
         /// <summary>
@@ -829,7 +815,9 @@ namespace Cyclone
         /// </param>
         void GetVelocity(Vector3 velocity)
         {
-            throw new NotImplementedException();
+            velocity.x = Velocity.x;
+            velocity.y = Velocity.y;
+            velocity.z = Velocity.z;
         }
 
         /// <summary>
@@ -839,9 +827,9 @@ namespace Cyclone
         /// The velocity of the rigid body. The velocity is
         /// given in world local space.
         /// </returns>
-        Vector3 SetVelocity()
+        Vector3 GetVelocity()
         {
-            throw new NotImplementedException();
+            return new Vector3(Velocity);
         }
 
         /// <summary>
@@ -861,7 +849,9 @@ namespace Cyclone
         /// </param>
         void SetRotation(Vector3 rotation)
         {
-            throw new NotImplementedException();
+            Rotation.x = rotation.x;
+            Rotation.y = rotation.y;
+            Rotation.z = rotation.z;
         }
 
         /// <summary>
@@ -873,7 +863,9 @@ namespace Cyclone
         /// <param name="z">The z coordinate of the new rotation of the rigid body.</param>
         void SetRotation(double x, double y, double z)
         {
-            throw new NotImplementedException();
+            Rotation.x = x;
+            Rotation.y = y;
+            Rotation.z = z;
         }
 
         /// <summary>
@@ -885,7 +877,9 @@ namespace Cyclone
         /// </param>
         void GetRotation(Vector3 rotation)
         {
-            throw new NotImplementedException();
+            rotation.x = Rotation.x;
+            rotation.y = Rotation.y;
+            rotation.z = Rotation.z;
         }
 
         /// <summary>
@@ -897,7 +891,7 @@ namespace Cyclone
         /// </returns>
         Vector3 GetRotation()
         {
-            throw new NotImplementedException();
+            return new Vector3(Rotation);
         }
 
         /// <summary>
