@@ -195,8 +195,12 @@ namespace Cyclone
         protected void CalculateDerivedData()
         {
             Orientation.Normalize();
+
+            // Calculate the transform matrix for the body.
             CalculateTransformMatrix(TransformMatrix, Position, Orientation);
-            throw new NotImplementedException();
+
+            // Calculate the inertiaTensor in world space.
+            TransformInertiaTensor(inverseInertiaTensorWorld, Orientation, InverseInertiaTensor, TransformMatrix);
         }
 
         /// <summary>
@@ -224,6 +228,38 @@ namespace Cyclone
         }
 
         /// <summary>
+        /// Internal function to do an intertia tensor transform by a quaternion.
+        /// Note that the implementation of this function was created by an
+        /// automated code-generator and optimizer.
+        /// </summary>
+        /// <param name="iitWorld"></param>
+        /// <param name="q"></param>
+        /// <param name="iitBody"></param>
+        /// <param name="rotmat"></param>
+        protected static void TransformInertiaTensor(Matrix3 iitWorld, Quaternion q, Matrix3 iitBody, Matrix4 rotmat)
+        {
+            double t4 = rotmat.Data[0] * iitBody.Data[0] + rotmat.Data[1] * iitBody.Data[3] + rotmat.Data[2] * iitBody.Data[6];
+            double t9 = rotmat.Data[0] * iitBody.Data[1] + rotmat.Data[1] * iitBody.Data[4] + rotmat.Data[2] * iitBody.Data[7];
+            double t14 = rotmat.Data[0] * iitBody.Data[2] + rotmat.Data[1] * iitBody.Data[5] + rotmat.Data[2] * iitBody.Data[8];
+            double t28 = rotmat.Data[4] * iitBody.Data[0] + rotmat.Data[5] * iitBody.Data[3] + rotmat.Data[6] * iitBody.Data[6];
+            double t33 = rotmat.Data[4] * iitBody.Data[1] + rotmat.Data[5] * iitBody.Data[4] + rotmat.Data[6] * iitBody.Data[7];
+            double t38 = rotmat.Data[4] * iitBody.Data[2] + rotmat.Data[5] * iitBody.Data[5] + rotmat.Data[6] * iitBody.Data[8];
+            double t52 = rotmat.Data[8] * iitBody.Data[0] + rotmat.Data[9] * iitBody.Data[3] + rotmat.Data[10] * iitBody.Data[6];
+            double t57 = rotmat.Data[8] * iitBody.Data[1] + rotmat.Data[9] * iitBody.Data[4] + rotmat.Data[10] * iitBody.Data[7];
+            double t62 = rotmat.Data[8] * iitBody.Data[2] + rotmat.Data[9] * iitBody.Data[5] + rotmat.Data[10] * iitBody.Data[8];
+
+            iitWorld.Data[0] = t4 * rotmat.Data[0] + t9 * rotmat.Data[1] + t14 * rotmat.Data[2];
+            iitWorld.Data[1] = t4 * rotmat.Data[4] + t9 * rotmat.Data[5] + t14 * rotmat.Data[6];
+            iitWorld.Data[2] = t4 * rotmat.Data[8] + t9 * rotmat.Data[9] + t14 * rotmat.Data[10];
+            iitWorld.Data[3] = t28 * rotmat.Data[0] + t33 * rotmat.Data[1] + t38 * rotmat.Data[2];
+            iitWorld.Data[4] = t28 * rotmat.Data[4] + t33 * rotmat.Data[5] + t38 * rotmat.Data[6];
+            iitWorld.Data[5] = t28 * rotmat.Data[8] + t33 * rotmat.Data[9] + t38 * rotmat.Data[10];
+            iitWorld.Data[6] = t52 * rotmat.Data[0] + t57 * rotmat.Data[1] + t62 * rotmat.Data[2];
+            iitWorld.Data[7] = t52 * rotmat.Data[4] + t57 * rotmat.Data[5] + t62 * rotmat.Data[6];
+            iitWorld.Data[8] = t52 * rotmat.Data[8] + t57 * rotmat.Data[9] + t62 * rotmat.Data[10];
+        }
+
+        /// <summary>
         /// Integrates the rigid body forward in time by the given amount.
         /// This function uses a Newton-Euler integration method, which is a
         /// linear approximation to the correct integral. For this reason it
@@ -235,7 +271,58 @@ namespace Cyclone
         /// </param>
         void Integrate(double duration)
         {
-            throw new NotImplementedException();
+            if (!isAwake)
+            {
+                return;
+            }
+
+            // Calculate linear acceleration from force inputs.
+            lastFrameAcceleration = GetAcceleration();
+            lastFrameAcceleration.AddScaledVector(forceAccum, InverseMass);
+
+            // Calculate angular acceleration from torque inputs.
+            Vector3 angularAcceleration = inverseInertiaTensorWorld.Transform(torqueAccum);
+
+            // Update linear velocity from both acceleration and impulse.
+            Velocity.AddScaledVector(lastFrameAcceleration, duration);
+
+            // Update angular velocity from both acceleration and impulse.
+            Rotation.AddScaledVector(angularAcceleration, duration);
+
+            // Impose drag.
+            Velocity *= System.Math.Pow(LinearDamping, duration);
+            Rotation *= System.Math.Pow(AngularDamping, duration);
+
+            // Update linear position.
+            Position.AddScaledVector(Velocity, duration);
+
+            // Update angular position.
+            Orientation.AddScaledVector(Rotation, duration);
+
+            // Normalise the orientation, and update the matrices with the new position and orientation.
+            CalculateDerivedData();
+
+            // Clear accumulators.
+            ClearAccumulators();
+
+            // Update the kinetic energy store, and possibly put the body to sleep.
+            if (canSleep)
+            {
+                double currentMotion = Velocity.ScalarProduct(Velocity) + Rotation.ScalarProduct(Rotation);
+
+                double bias = System.Math.Pow(0.5, duration);
+                motion = bias * motion + (1 - bias) * currentMotion;
+
+                double sleepEpsilon = 0.3;
+                if (motion < sleepEpsilon)
+                {
+                    SetAwake(false);
+                }
+                else if (motion > 10*sleepEpsilon)
+                {
+                    motion = 10 * sleepEpsilon;
+                }
+            }
         }
 
         #endregion
