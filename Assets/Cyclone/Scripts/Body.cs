@@ -376,38 +376,12 @@ namespace Cyclone
         #region Accessor Functions for the Rigid Body's State
 
         /// <summary>
-        /// Sets the inverse mass of the rigid body.
-        /// @param inverseMass The new inverse mass of the body. This
-        /// may be zero, for a body with infinite mass (i.e. unmovable).
-        /// </summary>
-        /// <remarks>
-        /// This invalidates internal data for the rigid body.
-        /// Either an integration function, or the calculateInternals
-        /// function should be called before trying to get any settings
-        /// from the rigid body.
-        /// </remarks>
-        /// <param name="inverseMass"></param>
-        void SetInverseMass(double inverseMass)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Gets the inverse mass of the rigid body.
-        /// </summary>
-        /// <returns>The current inverse mass of the rigid body.</returns>
-        double GetInverseMass()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Returns true if the mass of the body is not-infinite.
         /// </summary>
         /// <returns></returns>
         bool HasFiniteMass()
         {
-            throw new NotImplementedException();
+            return InverseMass >= 0.0f;
         }
 
         /// <summary>
