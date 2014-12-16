@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Cyclone.Math;
+﻿using Cyclone.Math;
 
 namespace Cyclone
 {

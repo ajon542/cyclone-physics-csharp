@@ -88,27 +88,27 @@ namespace Cyclone
         /// motion. Damping is required to remove energy added through
         /// numerical instability in the integrator.
         /// </summary>
-        protected double LinearDamping { get; set; }
+        public double LinearDamping { get; set; }
 
         /// <summary>
         /// Gets or sets the linear position of the rigid boy in world space.
         /// </summary>
-        protected Vector3 Position { get; set; }
+        public Vector3 Position { get; set; }
 
         /// <summary>
         /// Gets or sets the angular orientation of the rigid body in world space.
         /// </summary>
-        protected Quaternion Orientation { get; set; }
+        public Quaternion Orientation { get; set; }
 
         /// <summary>
         /// Gets or sets the linear velocity of the rigid body in world space.
         /// </summary>
-        protected Vector3 Velocity { get; set; }
+        public Vector3 Velocity { get; set; }
 
         /// <summary>
         /// Gets or sets the angular velocity, or rotation of the rigid body in world space.
         /// </summary>
-        protected Vector3 Rotation { get; set; }
+        public Vector3 Rotation { get; set; }
 
         /// <summary>
         /// Holds the inverse of the body's inertia tensor. The
@@ -122,14 +122,14 @@ namespace Cyclone
         /// The inertia tensor, unlike the other variables that
         /// define a rigid body, is given in body space.
         /// </summary>
-        protected Matrix3 InverseInertiaTensor { get; set; }
+        public Matrix3 InverseInertiaTensor { get; set; }
 
         /// <summary>
         /// Holds the amount of damping applied to angular
         /// motion. Damping is required to remove energy added
         /// through numerical instability in the integrator.
         /// </summary>
-        protected double AngularDamping { get; set; }
+        public double AngularDamping { get; set; }
 
         #endregion
 
@@ -307,7 +307,7 @@ namespace Cyclone
         /// Time interval over which to update the position and velocity.
         /// This is currently the time between frames.
         /// </param>
-        void Integrate(double duration)
+        public void Integrate(double duration)
         {
             if (!isAwake)
             {
@@ -545,7 +545,7 @@ namespace Cyclone
         /// Sets the position of the rigid body.
         /// </summary>
         /// <param name="position">The new position of the rigid body.</param>
-        void SetPosition(Vector3 position)
+        public void SetPosition(Vector3 position)
         {
             Position.x = position.x;
             Position.y = position.y;
@@ -558,7 +558,7 @@ namespace Cyclone
         /// <param name="x">The x coordinate of the new position of the rigid body.</param>
         /// <param name="y">The y coordinate of the new position of the rigid body.</param>
         /// <param name="z">The z coordinate of the new position of the rigid body.</param>
-        void SetPosition(double x, double y, double z)
+        public void SetPosition(double x, double y, double z)
         {
             Position.x = x;
             Position.y = y;
@@ -569,7 +569,7 @@ namespace Cyclone
         /// Fills the given vector with the position of the rigid body.
         /// </summary>
         /// <param name="position">A pointer to a vector into which to write the position.</param>
-        void GetPosition(Vector3 position)
+        public void GetPosition(Vector3 position)
         {
             position.x = Position.x;
             position.y = Position.y;
@@ -580,7 +580,7 @@ namespace Cyclone
         /// Gets the position of the rigid body.
         /// </summary>
         /// <returns>The position of the rigid body.</returns>
-        Vector3 GetPosition()
+        public Vector3 GetPosition()
         {
             return new Vector3(Position);
         }
@@ -821,7 +821,7 @@ namespace Cyclone
         /// <param name="velocity">
         /// The new velocity of the rigid body. The velocity is given in world space.
         /// </param>
-        void SetVelocity(Vector3 velocity)
+        public void SetVelocity(Vector3 velocity)
         {
             Velocity.x = velocity.x;
             Velocity.y = velocity.y;
@@ -835,7 +835,7 @@ namespace Cyclone
         /// <param name="x">The x coordinate of the new velocity of the rigid body.</param>
         /// <param name="y">The y coordinate of the new velocity of the rigid body.</param>
         /// <param name="z">The z coordinate of the new velocity of the rigid body.</param>
-        void SetVelocity(double x, double y, double z)
+        public void SetVelocity(double x, double y, double z)
         {
             Velocity.x = x;
             Velocity.y = y;
@@ -849,7 +849,7 @@ namespace Cyclone
         /// A vector into which to write the velocity.
         /// The velocity is given in world local space.
         /// </param>
-        void GetVelocity(Vector3 velocity)
+        public void GetVelocity(Vector3 velocity)
         {
             velocity.x = Velocity.x;
             velocity.y = Velocity.y;
@@ -863,7 +863,7 @@ namespace Cyclone
         /// The velocity of the rigid body. The velocity is
         /// given in world local space.
         /// </returns>
-        Vector3 GetVelocity()
+        public Vector3 GetVelocity()
         {
             return new Vector3(Velocity);
         }
@@ -872,7 +872,7 @@ namespace Cyclone
         /// Applies the given change in velocity.
         /// </summary>
         /// <param name="deltaVelocity"></param>
-        void AddVelocity(Vector3 deltaVelocity)
+        public void AddVelocity(Vector3 deltaVelocity)
         {
             Velocity += deltaVelocity;
         }
@@ -1117,7 +1117,7 @@ namespace Cyclone
         /// Sets the constant acceleration of the rigid body.
         /// </summary>
         /// <param name="acceleration">The new acceleration of the rigid body.</param>
-        void SetAcceleration(Vector3 acceleration)
+        public void SetAcceleration(Vector3 acceleration)
         {
             this.acceleration.x = acceleration.x;
             this.acceleration.y = acceleration.y;
@@ -1130,7 +1130,7 @@ namespace Cyclone
         /// <param name="x">The x coordinate of the new acceleration of the rigid body.</param>
         /// <param name="y">The y coordinate of the new acceleration of the rigid body.</param>
         /// <param name="z">The z coordinate of the new acceleration of the rigid body.</param>
-        void SetAcceleration(double x, double y, double z)
+        public void SetAcceleration(double x, double y, double z)
         {
             acceleration.x = x;
             acceleration.y = y;
@@ -1143,7 +1143,7 @@ namespace Cyclone
         /// <param name="acceleration">
         /// A vector into which to write the acceleration. The acceleration is given in world local space.
         /// </param>
-        void GetAcceleration(Vector3 acceleration)
+        public void GetAcceleration(Vector3 acceleration)
         {
             acceleration.x = this.acceleration.x;
             acceleration.y = this.acceleration.y;
@@ -1157,7 +1157,7 @@ namespace Cyclone
         /// The acceleration of the rigid body. The acceleration is
         /// given in world local space.
         /// </returns>
-        Vector3 GetAcceleration()
+        public Vector3 GetAcceleration()
         {
             return new Vector3(acceleration);
         }
