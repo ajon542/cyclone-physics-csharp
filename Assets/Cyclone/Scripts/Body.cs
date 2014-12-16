@@ -399,7 +399,7 @@ namespace Cyclone
         /// </param>
         void SetInertiaTensor(Matrix3 inertiaTensor)
         {
-            throw new NotImplementedException();
+            InverseInertiaTensor.SetInverse(inertiaTensor);
         }
 
         /// <summary>
@@ -412,7 +412,7 @@ namespace Cyclone
         /// </param>
         void GetInertiaTensor(Matrix3 inertiaTensor)
         {
-            throw new NotImplementedException();
+            inertiaTensor.SetInverse(InverseInertiaTensor);
         }
 
         /// <summary>
@@ -425,7 +425,9 @@ namespace Cyclone
         /// </returns>
         Matrix3 GetInertiaTensor()
         {
-            throw new NotImplementedException();
+            Matrix3 it = new Matrix3();
+            GetInertiaTensor(it);
+            return it;
         }
 
         /// <summary>
@@ -438,7 +440,7 @@ namespace Cyclone
         /// </param>
         void GetInertiaTensorWorld(Matrix3 inertiaTensor)
         {
-            throw new NotImplementedException();
+            inertiaTensor.SetInverse(inverseInertiaTensorWorld);
         }
 
         /// <summary>
@@ -450,7 +452,9 @@ namespace Cyclone
         /// </returns>
         Matrix3 GetInertiaTensorWorld()
         {
-            throw new NotImplementedException();
+            Matrix3 it = new Matrix3();
+            GetInertiaTensorWorld(it);
+            return it;
         }
 
         /// <summary>
@@ -468,7 +472,7 @@ namespace Cyclone
         /// </param>
         void SetInverseInertiaTensor(Matrix3 inverseInertiaTensor)
         {
-            throw new NotImplementedException();
+            inverseInertiaTensor = new Matrix3(InverseInertiaTensor);
         }
 
         /// <summary>
@@ -481,7 +485,7 @@ namespace Cyclone
         /// </param>
         void GetInverseInertiaTensor(Matrix3 inverseInertiaTensor)
         {
-            throw new NotImplementedException();
+            inverseInertiaTensor = new Matrix3(InverseInertiaTensor);
         }
 
         /// <summary>
@@ -495,7 +499,7 @@ namespace Cyclone
         /// </returns>
         Matrix3 GetInverseInertiaTensor()
         {
-            throw new NotImplementedException();
+            return new Matrix3(InverseInertiaTensor);
         }
 
         /// <summary>
@@ -508,7 +512,7 @@ namespace Cyclone
         /// </param>
         void GetInverseInertiaTensorWorld(Matrix3 inverseInertiaTensor)
         {
-            throw new NotImplementedException();
+            inverseInertiaTensor = new Matrix3(inverseInertiaTensorWorld);
         }
 
         /// <summary>
@@ -522,7 +526,7 @@ namespace Cyclone
         /// </returns>
         Matrix3 GetInverseInertiaTensorWorld()
         {
-            throw new NotImplementedException();
+            return new Matrix3(inverseInertiaTensorWorld);
         }
 
         /// <summary>
@@ -899,7 +903,7 @@ namespace Cyclone
         /// <param name="deltaRotation"></param>
         void AddRotation(Vector3 deltaRotation)
         {
-            throw new NotImplementedException();
+            Rotation += deltaRotation;
         }
 
         /// <summary>
@@ -1082,7 +1086,9 @@ namespace Cyclone
         /// <param name="acceleration">The new acceleration of the rigid body.</param>
         void SetAcceleration(Vector3 acceleration)
         {
-            throw new NotImplementedException();
+            this.acceleration.x = acceleration.x;
+            this.acceleration.y = acceleration.y;
+            this.acceleration.z = acceleration.z;
         }
 
         /// <summary>
@@ -1093,7 +1099,9 @@ namespace Cyclone
         /// <param name="z">The z coordinate of the new acceleration of the rigid body.</param>
         void SetAcceleration(double x, double y, double z)
         {
-            throw new NotImplementedException();
+            acceleration.x = x;
+            acceleration.y = y;
+            acceleration.z = z;
         }
 
         /// <summary>
@@ -1104,7 +1112,9 @@ namespace Cyclone
         /// </param>
         void GetAcceleration(Vector3 acceleration)
         {
-            throw new NotImplementedException();
+            acceleration.x = this.acceleration.x;
+            acceleration.y = this.acceleration.y;
+            acceleration.z = this.acceleration.z;
         }
 
         /// <summary>
@@ -1116,7 +1126,7 @@ namespace Cyclone
         /// </returns>
         Vector3 GetAcceleration()
         {
-            throw new NotImplementedException();
+            return new Vector3(acceleration);
         }
 
         #endregion
