@@ -135,6 +135,7 @@ namespace Cyclone
 
         /// These data members hold information that is derived from
         /// the other data in the class.
+
         #region Derived Data
 
         /// <summary>
@@ -142,7 +143,7 @@ namespace Cyclone
         /// space. The inverse inertia tensor member is specified in
         /// the body's local space.
         /// </summary>
-        Matrix3 inverseInertiaTensorWorld;
+        private Matrix3 InverseInertiaTensorWorld { get; set; }
 
         /// <summary>
         /// Holds the amount of motion of the body. This is a recency
@@ -184,32 +185,33 @@ namespace Cyclone
         /// their constituents, accumulating them for the next
         /// simulation step. At the simulation step, the accelerations
         /// are calculated and stored to be applied to the rigid body.
+
         #region Force and Torque Accumulators
 
         /// <summary>
         /// Holds the accumulated force to be applied at the next
         /// integration step.
         /// </summary> 
-        Vector3 forceAccum;
+        private Vector3 ForceAccum { get; set; }
 
         /// <summary>
         /// Holds the accumulated torque to be applied at the next
         /// integration step.
         /// </summary>
-        Vector3 torqueAccum;
+        private Vector3 TorqueAccum { get; set; }
 
         /// <summary>
         /// Holds the acceleration of the rigid body.  This value
         /// can be used to set acceleration due to gravity (its primary
         /// use), or any other constant acceleration.
         /// </summary>
-        Vector3 acceleration;
+        private Vector3 Acceleration { get; set; }
 
         /// <summary>
         /// Holds the linear acceleration of the rigid body, for the
         /// previous frame.
         /// </summary>
-        Vector3 lastFrameAcceleration;
+        private Vector3 LastFrameAcceleration { get; set; }
 
         #endregion
 
@@ -220,18 +222,17 @@ namespace Cyclone
         /// </summary>
         public RigidBody()
         {
-            // TODO: Revisit the combination of properties and fields. It's slightly confusing.
             Position = new Vector3();
             Orientation = new Quaternion();
             Velocity = new Vector3();
             Rotation = new Vector3();
             InverseInertiaTensor = new Matrix3();
-            inverseInertiaTensorWorld = new Matrix3();
+            InverseInertiaTensorWorld = new Matrix3();
             TransformMatrix = new Matrix4();
-            forceAccum = new Vector3();
-            torqueAccum = new Vector3();
-            acceleration = new Vector3();
-            lastFrameAcceleration = new Vector3();
+            ForceAccum = new Vector3();
+            TorqueAccum = new Vector3();
+            Acceleration = new Vector3();
+            LastFrameAcceleration = new Vector3();
         }
 
         #endregion
@@ -261,7 +262,7 @@ namespace Cyclone
             CalculateTransformMatrix(TransformMatrix, Position, Orientation);
 
             // Calculate the inertiaTensor in world space.
-            TransformInertiaTensor(inverseInertiaTensorWorld, Orientation, InverseInertiaTensor, TransformMatrix);
+            TransformInertiaTensor(InverseInertiaTensorWorld, Orientation, InverseInertiaTensor, TransformMatrix);
         }
 
         /// <summary>
@@ -338,14 +339,14 @@ namespace Cyclone
             }
 
             // Calculate linear acceleration from force inputs.
-            lastFrameAcceleration = GetAcceleration();
-            lastFrameAcceleration.AddScaledVector(forceAccum, InverseMass);
+            LastFrameAcceleration = GetAcceleration();
+            LastFrameAcceleration.AddScaledVector(ForceAccum, InverseMass);
 
             // Calculate angular acceleration from torque inputs.
-            Vector3 angularAcceleration = inverseInertiaTensorWorld.Transform(torqueAccum);
+            Vector3 angularAcceleration = InverseInertiaTensorWorld.Transform(TorqueAccum);
 
             // Update linear velocity from both acceleration and impulse.
-            Velocity.AddScaledVector(lastFrameAcceleration, duration);
+            Velocity.AddScaledVector(LastFrameAcceleration, duration);
 
             // Update angular velocity from both acceleration and impulse.
             Rotation.AddScaledVector(angularAcceleration, duration);
@@ -463,7 +464,7 @@ namespace Cyclone
         /// </param>
         void GetInertiaTensorWorld(Matrix3 inertiaTensor)
         {
-            inertiaTensor.SetInverse(inverseInertiaTensorWorld);
+            inertiaTensor.SetInverse(InverseInertiaTensorWorld);
         }
 
         /// <summary>
@@ -536,7 +537,7 @@ namespace Cyclone
         /// </param>
         void GetInverseInertiaTensorWorld(Matrix3 inverseInertiaTensor)
         {
-            inverseInertiaTensor = new Matrix3(inverseInertiaTensorWorld);
+            inverseInertiaTensor = new Matrix3(InverseInertiaTensorWorld);
         }
 
         /// <summary>
@@ -550,7 +551,7 @@ namespace Cyclone
         /// </returns>
         Matrix3 GetInverseInertiaTensorWorld()
         {
-            return new Matrix3(inverseInertiaTensorWorld);
+            return new Matrix3(InverseInertiaTensorWorld);
         }
 
         /// <summary>
@@ -1044,9 +1045,9 @@ namespace Cyclone
         /// </param>
         void GetLastFrameAcceleration(Vector3 linearAcceleration)
         {
-            linearAcceleration.x = lastFrameAcceleration.x;
-            linearAcceleration.y = lastFrameAcceleration.y;
-            linearAcceleration.z = lastFrameAcceleration.z;
+            linearAcceleration.x = LastFrameAcceleration.x;
+            linearAcceleration.y = LastFrameAcceleration.y;
+            linearAcceleration.z = LastFrameAcceleration.z;
         }
 
         /// <summary>
@@ -1059,7 +1060,7 @@ namespace Cyclone
         /// <returns>The rigid body's linear acceleration.</returns>
         Vector3 GetLastFrameAcceleration()
         {
-            return new Vector3(lastFrameAcceleration);
+            return new Vector3(LastFrameAcceleration);
         }
 
         #endregion
@@ -1074,8 +1075,8 @@ namespace Cyclone
         /// </summary>
         void ClearAccumulators()
         {
-            forceAccum.Clear();
-            torqueAccum.Clear();
+            ForceAccum.Clear();
+            TorqueAccum.Clear();
         }
 
         /// <summary>
@@ -1085,7 +1086,7 @@ namespace Cyclone
         /// <param name="force">The force to apply.</param>
         public void AddForce(Vector3 force)
         {
-            forceAccum += force;
+            ForceAccum += force;
             isAwake = true;
         }
 
@@ -1103,8 +1104,8 @@ namespace Cyclone
             Vector3 pt = point;
             pt -= Position;
 
-            forceAccum += force;
-            torqueAccum += pt.VectorProduct(force);
+            ForceAccum += force;
+            TorqueAccum += pt.VectorProduct(force);
 
             isAwake = true;
         }
@@ -1132,7 +1133,7 @@ namespace Cyclone
         /// <param name="torque">The torque to apply.</param>
         void AddTorque(Vector3 torque)
         {
-            torqueAccum += torque;
+            TorqueAccum += torque;
             isAwake = true;
         }
 
@@ -1142,9 +1143,9 @@ namespace Cyclone
         /// <param name="acceleration">The new acceleration of the rigid body.</param>
         public void SetAcceleration(Vector3 acceleration)
         {
-            this.acceleration.x = acceleration.x;
-            this.acceleration.y = acceleration.y;
-            this.acceleration.z = acceleration.z;
+            this.Acceleration.x = acceleration.x;
+            this.Acceleration.y = acceleration.y;
+            this.Acceleration.z = acceleration.z;
         }
 
         /// <summary>
@@ -1155,9 +1156,9 @@ namespace Cyclone
         /// <param name="z">The z coordinate of the new acceleration of the rigid body.</param>
         public void SetAcceleration(double x, double y, double z)
         {
-            acceleration.x = x;
-            acceleration.y = y;
-            acceleration.z = z;
+            Acceleration.x = x;
+            Acceleration.y = y;
+            Acceleration.z = z;
         }
 
         /// <summary>
@@ -1168,9 +1169,9 @@ namespace Cyclone
         /// </param>
         public void GetAcceleration(Vector3 acceleration)
         {
-            acceleration.x = this.acceleration.x;
-            acceleration.y = this.acceleration.y;
-            acceleration.z = this.acceleration.z;
+            acceleration.x = this.Acceleration.x;
+            acceleration.y = this.Acceleration.y;
+            acceleration.z = this.Acceleration.z;
         }
 
         /// <summary>
@@ -1182,7 +1183,7 @@ namespace Cyclone
         /// </returns>
         public Vector3 GetAcceleration()
         {
-            return new Vector3(acceleration);
+            return new Vector3(Acceleration);
         }
 
         #endregion
