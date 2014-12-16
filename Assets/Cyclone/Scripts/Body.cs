@@ -1041,7 +1041,7 @@ namespace Cyclone
         {
             // Convert to coordinates relative to center of mass.
             Vector3 pt = point;
-            pt -= position;
+            pt -= Position;
 
             forceAccum += force;
             torqueAccum += pt.VectorProduct(force);
