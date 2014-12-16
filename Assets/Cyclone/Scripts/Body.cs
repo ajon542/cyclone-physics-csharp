@@ -657,7 +657,7 @@ namespace Cyclone
         /// <param name="matrix">A matrix to fill.</param>
         void GetOrientation(Matrix3 matrix)
         {
-            throw new NotImplementedException();
+            GetOrientation(matrix.Data);
         }
 
         /// <summary>
@@ -671,7 +671,18 @@ namespace Cyclone
         /// <param name="matrix">The matrix to fill.</param>
         void GetOrientation(/*double matrix[9]*/ double[] matrix)
         {
-            throw new NotImplementedException();
+            matrix = new double[9];
+            matrix[0] = TransformMatrix.Data[0];
+            matrix[1] = TransformMatrix.Data[1];
+            matrix[2] = TransformMatrix.Data[2];
+
+            matrix[3] = TransformMatrix.Data[4];
+            matrix[4] = TransformMatrix.Data[5];
+            matrix[5] = TransformMatrix.Data[6];
+
+            matrix[6] = TransformMatrix.Data[8];
+            matrix[7] = TransformMatrix.Data[9];
+            matrix[8] = TransformMatrix.Data[10];
         }
 
         /// <summary>
@@ -685,7 +696,7 @@ namespace Cyclone
         /// <param name="transform">The matrix to fill.</param>
         void GetTransform(Matrix4 transform)
         {
-            throw new NotImplementedException();
+            TransformMatrix.Data.CopyTo(transform.Data, 0);
         }
 
         /// <summary>
@@ -700,7 +711,10 @@ namespace Cyclone
         /// <param name="matrix">The matrix to fill.</param>
         void GetTransform( /*real matrix[16]*/ double[] matrix)
         {
-            throw new NotImplementedException();
+            matrix = new double[16];
+            TransformMatrix.Data.CopyTo(matrix, 0);
+            matrix[12] = matrix[13] = matrix[14] = 0;
+            matrix[15] = 1;
         }
 
         /// <summary>
@@ -717,7 +731,25 @@ namespace Cyclone
         /// <param name="matrix">A matrix to fill.</param>
         void GetGLTransform( /*float matrix[16]*/ float[] matrix)
         {
-            throw new NotImplementedException();
+            matrix[0] = (float)TransformMatrix.Data[0];
+            matrix[1] = (float)TransformMatrix.Data[4];
+            matrix[2] = (float)TransformMatrix.Data[8];
+            matrix[3] = 0;
+
+            matrix[4] = (float)TransformMatrix.Data[1];
+            matrix[5] = (float)TransformMatrix.Data[5];
+            matrix[6] = (float)TransformMatrix.Data[9];
+            matrix[7] = 0;
+
+            matrix[8] = (float)TransformMatrix.Data[2];
+            matrix[9] = (float)TransformMatrix.Data[6];
+            matrix[10] = (float)TransformMatrix.Data[10];
+            matrix[11] = 0;
+
+            matrix[12] = (float)TransformMatrix.Data[3];
+            matrix[13] = (float)TransformMatrix.Data[7];
+            matrix[14] = (float)TransformMatrix.Data[11];
+            matrix[15] = 1;
         }
 
         /// <summary>
@@ -731,7 +763,7 @@ namespace Cyclone
         /// <returns>The transform matrix for the rigid body.</returns>
         Matrix4 GetTransform()
         {
-            throw new NotImplementedException();
+            return new Matrix4(TransformMatrix);
         }
 
         /// <summary>
