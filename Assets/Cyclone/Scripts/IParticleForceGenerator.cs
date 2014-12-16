@@ -2,7 +2,7 @@
 namespace Cyclone
 {
     /// <summary>
-    /// A force generator can be asked to add a force to one of more particles.
+    /// A force generator can be asked to add a force to one or more particles.
     /// </summary>
     public interface IParticleForceGenerator
     {

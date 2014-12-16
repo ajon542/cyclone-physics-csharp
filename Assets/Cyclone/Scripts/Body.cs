@@ -61,7 +61,7 @@ namespace Cyclone
         /// function should be called before trying to get any settings
         /// from the rigid body. 
         /// </remarks>
-        protected double Mass
+        public double Mass
         {
             get
             {
@@ -378,7 +378,7 @@ namespace Cyclone
         /// Returns true if the mass of the body is not-infinite.
         /// </summary>
         /// <returns></returns>
-        bool HasFiniteMass()
+        public bool HasFiniteMass()
         {
             return InverseMass >= 0.0f;
         }
@@ -472,6 +472,7 @@ namespace Cyclone
         /// </param>
         void SetInverseInertiaTensor(Matrix3 inverseInertiaTensor)
         {
+            // TODO: Instead of creating a new Matrix3, we could just populate the data.
             inverseInertiaTensor = new Matrix3(InverseInertiaTensor);
         }
 
@@ -1059,7 +1060,7 @@ namespace Cyclone
         /// The force is expressed in world-coordinates.
         /// </summary>
         /// <param name="force">The force to apply.</param>
-        void AddForce(Vector3 force)
+        public void AddForce(Vector3 force)
         {
             forceAccum += force;
             isAwake = true;
