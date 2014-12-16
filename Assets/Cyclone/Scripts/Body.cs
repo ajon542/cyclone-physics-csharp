@@ -69,7 +69,7 @@ namespace Cyclone
                 {
                     return Double.MaxValue;
                 }
-                
+
                 return 1.0 / InverseMass;
             }
             set
@@ -355,7 +355,7 @@ namespace Cyclone
                 {
                     SetAwake(false);
                 }
-                else if (motion > 10 *Core.SleepEpsilon)
+                else if (motion > 10 * Core.SleepEpsilon)
                 {
                     motion = 10 * Core.SleepEpsilon;
                 }
@@ -698,7 +698,7 @@ namespace Cyclone
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// Fills the given matrix data structure with a
         /// transformation representing the rigid body's position and
@@ -951,7 +951,7 @@ namespace Cyclone
         /// should be kept awake.
         /// </summary>
         /// <param name="canSleep">Whether the body can now be put to sleep.</param>
-        void SetCanSleep(bool canSleep=true)
+        void SetCanSleep(bool canSleep = true)
         {
             this.canSleep = canSleep;
 
@@ -984,7 +984,9 @@ namespace Cyclone
         /// </param>
         void GetLastFrameAcceleration(Vector3 linearAcceleration)
         {
-            throw new NotImplementedException();
+            linearAcceleration.x = lastFrameAcceleration.x;
+            linearAcceleration.y = lastFrameAcceleration.y;
+            linearAcceleration.z = lastFrameAcceleration.z;
         }
 
         /// <summary>
@@ -997,7 +999,7 @@ namespace Cyclone
         /// <returns>The rigid body's linear acceleration.</returns>
         Vector3 GetLastFrameAcceleration()
         {
-            throw new NotImplementedException();
+            return new Vector3(lastFrameAcceleration);
         }
 
         #endregion
@@ -1012,7 +1014,8 @@ namespace Cyclone
         /// </summary>
         void ClearAccumulators()
         {
-            throw new NotImplementedException();
+            forceAccum.Clear();
+            torqueAccum.Clear();
         }
 
         /// <summary>
@@ -1022,7 +1025,8 @@ namespace Cyclone
         /// <param name="force">The force to apply.</param>
         void AddForce(Vector3 force)
         {
-            throw new NotImplementedException();
+            forceAccum += force;
+            isAwake = true;
         }
 
         /// <summary>
@@ -1035,7 +1039,14 @@ namespace Cyclone
         /// <param name="point">The location at which to apply the force, in world-coordinates.</param>
         void AddForceAtPoint(Vector3 force, Vector3 point)
         {
-            throw new NotImplementedException();
+            // Convert to coordinates relative to center of mass.
+            Vector3 pt = point;
+            pt -= position;
+
+            forceAccum += force;
+            torqueAccum += pt.VectorProduct(force);
+
+            isAwake = true;
         }
 
         /// <summary>
@@ -1049,7 +1060,9 @@ namespace Cyclone
         /// <param name="point">The location at which to apply the force, in body-coordinates.</param>
         void AddForceAtBodyPoint(Vector3 force, Vector3 point)
         {
-            throw new NotImplementedException();
+            // Convert to coordinates relative to center of mass.
+            Vector3 pt = GetPointInWorldSpace(point);
+            AddForceAtPoint(force, pt);
         }
 
         /// <summary>
@@ -1059,7 +1072,8 @@ namespace Cyclone
         /// <param name="torque">The torque to apply.</param>
         void AddTorque(Vector3 torque)
         {
-            throw new NotImplementedException();
+            torqueAccum += torque;
+            isAwake = true;
         }
 
         /// <summary>
