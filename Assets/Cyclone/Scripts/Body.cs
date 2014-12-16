@@ -351,14 +351,13 @@ namespace Cyclone
                 double bias = System.Math.Pow(0.5, duration);
                 motion = bias * motion + (1 - bias) * currentMotion;
 
-                double sleepEpsilon = 0.3;
-                if (motion < sleepEpsilon)
+                if (motion < Core.SleepEpsilon)
                 {
                     SetAwake(false);
                 }
-                else if (motion > 10*sleepEpsilon)
+                else if (motion > 10 *Core.SleepEpsilon)
                 {
-                    motion = 10 * sleepEpsilon;
+                    motion = 10 * Core.SleepEpsilon;
                 }
             }
         }
@@ -739,7 +738,7 @@ namespace Cyclone
         /// <returns>The converted point, in local space.</returns>
         Vector3 GetPointInLocalSpace(Vector3 point)
         {
-            throw new NotImplementedException();
+            return TransformMatrix.TransformInverse(point);
         }
 
         /// <summary>
@@ -750,7 +749,7 @@ namespace Cyclone
         /// <returns>The converted point, in world space.</returns>
         Vector3 GetPointInWorldSpace(Vector3 point)
         {
-            throw new NotImplementedException();
+            return TransformMatrix.Transform(point);
         }
 
         /// <summary>
@@ -763,7 +762,7 @@ namespace Cyclone
         /// <returns>The converted direction, in local space.</returns>
         Vector3 GetDirectionInLocalSpace(Vector3 direction)
         {
-            throw new NotImplementedException();
+            return TransformMatrix.TransformInverseDirection(direction);
         }
 
         /// <summary>
@@ -776,7 +775,7 @@ namespace Cyclone
         /// <returns>The converted direction, in world space.</returns>
         Vector3 GetDirectionInWorldSpace(Vector3 direction)
         {
-            throw new NotImplementedException();
+            return TransformMatrix.TransformDirection(direction);
         }
 
         /// <summary>
@@ -838,7 +837,7 @@ namespace Cyclone
         /// <param name="deltaVelocity"></param>
         void AddVelocity(Vector3 deltaVelocity)
         {
-            throw new NotImplementedException();
+            Velocity += deltaVelocity;
         }
 
         /// <summary>
@@ -921,7 +920,19 @@ namespace Cyclone
         /// <param name="awake">The new awake state of the body.</param>
         void SetAwake(bool awake = true)
         {
-            throw new NotImplementedException();
+            if (awake)
+            {
+                isAwake = true;
+
+                // Add a bit of motion to avoid it falling asleep immediately.
+                motion = Core.SleepEpsilon * 2.0f;
+            }
+            else
+            {
+                isAwake = false;
+                Velocity.Clear();
+                Rotation.Clear();
+            }
         }
 
         /// <summary>
@@ -942,7 +953,12 @@ namespace Cyclone
         /// <param name="canSleep">Whether the body can now be put to sleep.</param>
         void SetCanSleep(bool canSleep=true)
         {
-            throw new NotImplementedException();
+            this.canSleep = canSleep;
+
+            if (!canSleep && !isAwake)
+            {
+                SetAwake();
+            }
         }
 
         #endregion

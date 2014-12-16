@@ -7,6 +7,8 @@ namespace Cyclone
 {
     public class Core
     {
+        public static readonly double SleepEpsilon = 0.3;
+
         public static readonly double Epsilon = 0.001;
 
         public static bool Equals(double lhs, double rhs)
