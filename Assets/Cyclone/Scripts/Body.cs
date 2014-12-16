@@ -213,6 +213,29 @@ namespace Cyclone
 
         #endregion
 
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="RigidBody"/> class.
+        /// </summary>
+        public RigidBody()
+        {
+            // TODO: Revisit the combination of properties and fields. It's slightly confusing.
+            Position = new Vector3();
+            Orientation = new Quaternion();
+            Velocity = new Vector3();
+            Rotation = new Vector3();
+            InverseInertiaTensor = new Matrix3();
+            inverseInertiaTensorWorld = new Matrix3();
+            TransformMatrix = new Matrix4();
+            forceAccum = new Vector3();
+            torqueAccum = new Vector3();
+            acceleration = new Vector3();
+            lastFrameAcceleration = new Vector3();
+        }
+
+        #endregion
+
         /// These functions are used to simulate the rigid body's
         /// motion over time. A normal application sets up one or more
         /// rigid bodies, applies permanent forces (i.e. gravity), then
@@ -943,7 +966,7 @@ namespace Cyclone
         /// Returns true if the body is awake and responding to integration.
         /// </summary>
         /// <returns></returns>
-        bool GetAwake()
+        public bool GetAwake()
         {
             return isAwake;
         }
@@ -955,7 +978,7 @@ namespace Cyclone
         /// simulation.
         /// </summary>
         /// <param name="awake">The new awake state of the body.</param>
-        void SetAwake(bool awake = true)
+        public void SetAwake(bool awake = true)
         {
             if (awake)
             {

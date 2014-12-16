@@ -14,8 +14,10 @@ public class RigidbodyGravity : MonoBehaviour
     {
         body.Mass = 2.0f;
         body.SetPosition(transform.position.x, transform.position.y, transform.position.z);
-        body.SetVelocity(0.0f, 10.0f, 10.0f);
+        body.SetAcceleration(0.0f, -10.0f, 0.0f);
+        body.SetVelocity(0.0f, 10.0f, 30.0f);
         body.LinearDamping = 0.95f;
+        body.SetAwake();
     }
 
     /// <summary>
