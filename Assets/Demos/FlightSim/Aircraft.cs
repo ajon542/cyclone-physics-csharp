@@ -85,9 +85,9 @@ public class Aircraft : MonoBehaviour
         aircraft.ClearAccumulators();
 
         // Add the propeller force
-        //Cyclone.Math.Vector3 propulsion = new Cyclone.Math.Vector3(-10.0f, 0, 0);
-        //propulsion = aircraft.GetTransform().TransformDirection(propulsion);
-        //aircraft.AddForce(propulsion);
+        Cyclone.Math.Vector3 propulsion = new Cyclone.Math.Vector3(0, 0, 10);
+        propulsion = aircraft.GetTransform().TransformDirection(propulsion);
+        aircraft.AddForce(propulsion);
 
         // Add the forces acting on the aircraft.
         registry.UpdateForces(duration);
@@ -96,17 +96,17 @@ public class Aircraft : MonoBehaviour
         aircraft.Integrate(duration);
 
         // Do a very basic collision detection and response with the ground.
-        /*cyclone::Vector3 pos = aircraft.getPosition();
+        Cyclone.Math.Vector3 pos = aircraft.GetPosition();
         if (pos.y < 0.0f)
         {
             pos.y = 0.0f;
-            aircraft.setPosition(pos);
+            aircraft.SetPosition(pos);
 
-            if (aircraft.getVelocity().y < -10.0f)
+            if (aircraft.GetVelocity().y < -10.0f)
             {
-                resetPlane();
+                ResetPlane();
             }
-        }*/
+        }
 
         SetObjectPosition(aircraft.Position);
     }
