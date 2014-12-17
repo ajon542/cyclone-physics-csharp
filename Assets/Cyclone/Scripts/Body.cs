@@ -1073,7 +1073,7 @@ namespace Cyclone
         /// Clears the forces and torques in the accumulators. This will
         /// be called automatically after each intergration step.
         /// </summary>
-        void ClearAccumulators()
+        public void ClearAccumulators()
         {
             ForceAccum.Clear();
             TorqueAccum.Clear();
