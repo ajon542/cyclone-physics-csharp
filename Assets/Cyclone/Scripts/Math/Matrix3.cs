@@ -105,7 +105,7 @@ namespace Cyclone.Math
         /// </summary>
         /// <param name="halfSizes"></param>
         /// <param name="mass"></param>
-        void SetBlockInertiaTensor(Vector3 halfSizes, double mass)
+        public void SetBlockInertiaTensor(Vector3 halfSizes, double mass)
         {
             Vector3 squares = halfSizes.ComponentProduct(halfSizes);
             SetInertiaTensorCoeffs

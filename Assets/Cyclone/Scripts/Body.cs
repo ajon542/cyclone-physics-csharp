@@ -254,7 +254,7 @@ namespace Cyclone
         /// to integrate before querying any data (such as the transform matrix),
         /// then you can omit this step.
         /// </summary>
-        protected void CalculateDerivedData()
+        public void CalculateDerivedData()
         {
             Orientation.Normalize();
 
@@ -421,7 +421,7 @@ namespace Cyclone
         /// body. This must be a full rank matrix and must be
         /// invertible.
         /// </param>
-        void SetInertiaTensor(Matrix3 inertiaTensor)
+        public void SetInertiaTensor(Matrix3 inertiaTensor)
         {
             InverseInertiaTensor.SetInverse(inertiaTensor);
         }
@@ -434,7 +434,7 @@ namespace Cyclone
         /// A matrix to hold the current inertia tensor of the rigid body.
         /// The inertia tensor is expressed in the rigid body's local space.
         /// </param>
-        void GetInertiaTensor(Matrix3 inertiaTensor)
+        public void GetInertiaTensor(Matrix3 inertiaTensor)
         {
             inertiaTensor.SetInverse(InverseInertiaTensor);
         }
@@ -447,7 +447,7 @@ namespace Cyclone
         /// The inertia tensor is expressed in the rigid body's
         /// local space.
         /// </returns>
-        Matrix3 GetInertiaTensor()
+        public Matrix3 GetInertiaTensor()
         {
             Matrix3 it = new Matrix3();
             GetInertiaTensor(it);
@@ -462,7 +462,7 @@ namespace Cyclone
         /// A matrix to hold the current inertia tensor of the rigid body.
         /// The inertia tensor is expressed in world space.
         /// </param>
-        void GetInertiaTensorWorld(Matrix3 inertiaTensor)
+        public void GetInertiaTensorWorld(Matrix3 inertiaTensor)
         {
             inertiaTensor.SetInverse(InverseInertiaTensorWorld);
         }
@@ -474,7 +474,7 @@ namespace Cyclone
         /// A new matrix containing the current intertia tensor.
         /// The inertia tensor is expressed in world space.
         /// </returns>
-        Matrix3 GetInertiaTensorWorld()
+        public Matrix3 GetInertiaTensorWorld()
         {
             Matrix3 it = new Matrix3();
             GetInertiaTensorWorld(it);
@@ -559,7 +559,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="linearDamping">The speed that velocity is shed from the rigid body.</param>
         /// <param name="angularDamping">The speed that rotation is shed from the rigid body.</param>
-        void SetDamping(double linearDamping, double angularDamping)
+        public void SetDamping(double linearDamping, double angularDamping)
         {
             LinearDamping = linearDamping;
             AngularDamping = angularDamping;
@@ -619,7 +619,7 @@ namespace Cyclone
         /// (1,0,0,0). 
         /// </remarks>
         /// <param name="orientation">The new orientation of the rigid body.</param>
-        void SetOrientation(Quaternion orientation)
+        public void SetOrientation(Quaternion orientation)
         {
             Orientation.r = orientation.r;
             Orientation.i = orientation.i;
@@ -640,7 +640,7 @@ namespace Cyclone
         /// <param name="i">The first complex component of the rigid body's orientation quaternion.</param>
         /// <param name="j">The second complex component of the rigid body's orientation quaternion.</param>
         /// <param name="k">The third complex component of the rigid body's orientation quaternion.</param>
-        void SetOrientation(double r, double i, double j, double k)
+        public void SetOrientation(double r, double i, double j, double k)
         {
             Orientation.r = r;
             Orientation.i = i;
@@ -654,7 +654,7 @@ namespace Cyclone
         /// rigid body's orientation.
         /// </summary>
         /// <param name="orientation">A quaternion to receive the orientation data.</param>
-        void GetOrientation(Quaternion orientation)
+        public void GetOrientation(Quaternion orientation)
         {
             orientation.r = Orientation.r;
             orientation.i = Orientation.i;
@@ -666,7 +666,7 @@ namespace Cyclone
         /// Gets the orientation of the rigid body.
         /// </summary>
         /// <returns>The orientation of the rigid body.</returns>
-        Quaternion GetOrientation()
+        public Quaternion GetOrientation()
         {
             return new Quaternion(Orientation);
         }
@@ -680,7 +680,7 @@ namespace Cyclone
         /// it from the body's local space to world space.
         /// </remarks>
         /// <param name="matrix">A matrix to fill.</param>
-        void GetOrientation(Matrix3 matrix)
+        public void GetOrientation(Matrix3 matrix)
         {
             GetOrientation(matrix.Data);
         }
@@ -694,7 +694,7 @@ namespace Cyclone
         /// it from the body's local space to world space.
         /// </remarks>
         /// <param name="matrix">The matrix to fill.</param>
-        void GetOrientation(/*double matrix[9]*/ double[] matrix)
+        public void GetOrientation(/*double matrix[9]*/ double[] matrix)
         {
             matrix = new double[9];
             matrix[0] = TransformMatrix.Data[0];
@@ -907,7 +907,7 @@ namespace Cyclone
         /// <param name="rotation">
         /// The new rotation of the rigid body. The rotation is given in world space.
         /// </param>
-        void SetRotation(Vector3 rotation)
+        public void SetRotation(Vector3 rotation)
         {
             Rotation.x = rotation.x;
             Rotation.y = rotation.y;
@@ -921,7 +921,7 @@ namespace Cyclone
         /// <param name="x">The x coordinate of the new rotation of the rigid body.</param>
         /// <param name="y">The y coordinate of the new rotation of the rigid body.</param>
         /// <param name="z">The z coordinate of the new rotation of the rigid body.</param>
-        void SetRotation(double x, double y, double z)
+        public void SetRotation(double x, double y, double z)
         {
             Rotation.x = x;
             Rotation.y = y;
@@ -935,7 +935,7 @@ namespace Cyclone
         /// A vector into which to write the rotation. 
         /// The rotation is given in world local space.
         /// </param>
-        void GetRotation(Vector3 rotation)
+        public void GetRotation(Vector3 rotation)
         {
             rotation.x = Rotation.x;
             rotation.y = Rotation.y;
@@ -949,7 +949,7 @@ namespace Cyclone
         /// The rotation of the rigid body. The rotation is
         /// given in world local space.
         /// </returns>
-        Vector3 GetRotation()
+        public Vector3 GetRotation()
         {
             return new Vector3(Rotation);
         }
@@ -1000,7 +1000,7 @@ namespace Cyclone
         /// Returns true if the body is allowed to go to sleep at any time.
         /// </summary>
         /// <returns></returns>
-        bool GetCanSleep()
+        public bool GetCanSleep()
         {
             return canSleep;
         }
@@ -1012,7 +1012,7 @@ namespace Cyclone
         /// should be kept awake.
         /// </summary>
         /// <param name="canSleep">Whether the body can now be put to sleep.</param>
-        void SetCanSleep(bool canSleep = true)
+        public void SetCanSleep(bool canSleep = true)
         {
             this.canSleep = canSleep;
 
