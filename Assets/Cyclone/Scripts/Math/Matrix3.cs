@@ -385,7 +385,7 @@ namespace Cyclone.Math
         /// <param name="b">The second matrix.</param>
         /// <param name="prop">The proportion to interpolate.</param>
         /// <returns>A new matrix representing the interpolation.</returns>
-        public Matrix3 LinearInterpolate(Matrix3 a, Matrix3 b, double prop)
+        public static Matrix3 LinearInterpolate(Matrix3 a, Matrix3 b, double prop)
         {
             Matrix3 result = new Matrix3();
             for (int i = 0; i < ElementCount; i++)
