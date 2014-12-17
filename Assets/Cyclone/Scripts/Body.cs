@@ -719,7 +719,7 @@ namespace Cyclone
         /// the body's local space to world space.
         /// </remarks>
         /// <param name="transform">The matrix to fill.</param>
-        void GetTransform(Matrix4 transform)
+        public void GetTransform(Matrix4 transform)
         {
             TransformMatrix.Data.CopyTo(transform.Data, 0);
         }
@@ -734,7 +734,7 @@ namespace Cyclone
         /// the body's local space to world space.
         /// </remarks>
         /// <param name="matrix">The matrix to fill.</param>
-        void GetTransform( /*real matrix[16]*/ double[] matrix)
+        public void GetTransform( /*real matrix[16]*/ double[] matrix)
         {
             matrix = new double[16];
             TransformMatrix.Data.CopyTo(matrix, 0);
@@ -786,7 +786,7 @@ namespace Cyclone
         /// the body's local space to world space.
         /// </remarks>
         /// <returns>The transform matrix for the rigid body.</returns>
-        Matrix4 GetTransform()
+        public Matrix4 GetTransform()
         {
             return new Matrix4(TransformMatrix);
         }
@@ -1119,7 +1119,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="force">The force to apply.</param>
         /// <param name="point">The location at which to apply the force, in body-coordinates.</param>
-        void AddForceAtBodyPoint(Vector3 force, Vector3 point)
+        public void AddForceAtBodyPoint(Vector3 force, Vector3 point)
         {
             // Convert to coordinates relative to center of mass.
             Vector3 pt = GetPointInWorldSpace(point);
