@@ -797,7 +797,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="point">The point to covert, given in world space.</param>
         /// <returns>The converted point, in local space.</returns>
-        Vector3 GetPointInLocalSpace(Vector3 point)
+        public Vector3 GetPointInLocalSpace(Vector3 point)
         {
             return TransformMatrix.TransformInverse(point);
         }
@@ -808,7 +808,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="point">The point to covert, given in local space.</param>
         /// <returns>The converted point, in world space.</returns>
-        Vector3 GetPointInWorldSpace(Vector3 point)
+        public Vector3 GetPointInWorldSpace(Vector3 point)
         {
             return TransformMatrix.Transform(point);
         }
@@ -821,7 +821,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="direction">The direction to covert, given in world space.</param>
         /// <returns>The converted direction, in local space.</returns>
-        Vector3 GetDirectionInLocalSpace(Vector3 direction)
+        public Vector3 GetDirectionInLocalSpace(Vector3 direction)
         {
             return TransformMatrix.TransformInverseDirection(direction);
         }
@@ -834,7 +834,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="direction">The direction to covert, given in local space.</param>
         /// <returns>The converted direction, in world space.</returns>
-        Vector3 GetDirectionInWorldSpace(Vector3 direction)
+        public Vector3 GetDirectionInWorldSpace(Vector3 direction)
         {
             return TransformMatrix.TransformDirection(direction);
         }
@@ -1098,7 +1098,7 @@ namespace Cyclone
         /// </summary>
         /// <param name="force">The force to apply.</param>
         /// <param name="point">The location at which to apply the force, in world-coordinates.</param>
-        void AddForceAtPoint(Vector3 force, Vector3 point)
+        public void AddForceAtPoint(Vector3 force, Vector3 point)
         {
             // Convert to coordinates relative to center of mass.
             Vector3 pt = point;

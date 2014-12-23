@@ -39,6 +39,73 @@ namespace Cyclone
         }
     }
 
+        /**
+     * A force generator that applies a Spring force.
+     */
+    public class Spring : IForceGenerator
+    {
+        /**
+         * The point of connection of the spring, in local
+         * coordinates.
+         */
+        private Vector3 connectionPoint;
+
+        /**
+         * The point of connection of the spring to the other object,
+         * in that object's local coordinates.
+         */
+        private Vector3 otherConnectionPoint;
+
+        /** The particle at the other end of the spring. */
+        private RigidBody other;
+
+        /** Holds the sprint constant. */
+        private double springConstant;
+
+        /** Holds the rest length of the spring. */
+        private double restLength;
+
+        /** Creates a new spring with the given parameters. */
+        public Spring(Vector3 connectionPoint,
+               RigidBody other,
+               Vector3 otherConnectionPoint,
+               double springConstant,
+               double restLength)
+        {
+            this.connectionPoint = connectionPoint;
+            this.otherConnectionPoint = otherConnectionPoint;
+            this.other = other;
+            this.springConstant = springConstant;
+            this.restLength = restLength;
+        }
+
+        /** Applies the spring force to the given rigid body. */
+        public virtual void UpdateForce(RigidBody body, double duration)
+        {
+            // Calculate the two ends in world space
+            Vector3 lws = body.GetPointInWorldSpace(connectionPoint);
+            Vector3 ows = other.GetPointInWorldSpace(otherConnectionPoint);
+
+            // Calculate the vector of the spring
+            Vector3 force = lws - ows;
+
+            // Calculate the magnitude of the force
+            double magnitude = force.Magnitude;
+            // TODO: Not sure why this Abs calculation is used here.
+            // If the distance between the two particles is less than the restLength,
+            // the particles have a force which pulls them together. I would have expected
+            // the two particles to push apart.
+            //magnitude = System.Math.Abs(magnitude - restLength);
+            magnitude -= restLength;
+            magnitude *= springConstant;
+
+            // Calculate the final force and apply it
+            force.Normalize();
+            force *= -magnitude;
+            body.AddForceAtPoint(force, lws);
+        }
+    };
+
     /// <summary>
     /// A force generator that applies an aerodynamic force.
     /// </summary>
