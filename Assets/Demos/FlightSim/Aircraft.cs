@@ -79,6 +79,27 @@ public class Aircraft : MonoBehaviour
 
     private void Update()
     {
+        // Update the aircraft controls.
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            leftWingControl += 0.1f;
+            rightWingControl -= 0.1f;
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            leftWingControl -= 0.1f;
+            rightWingControl += 0.1f;
+        }
+
+        // Make sure the controls are in range
+        if (leftWingControl < -1.0f) leftWingControl = -1.0f;
+        else if (leftWingControl > 1.0f) leftWingControl = 1.0f;
+        if (rightWingControl < -1.0f) rightWingControl = -1.0f;
+        else if (rightWingControl > 1.0f) rightWingControl = 1.0f;
+
+        leftWing.SetControl(leftWingControl);
+        rightWing.SetControl(rightWingControl);
+
         double duration = Time.deltaTime;
 
         // Add the propeller force
@@ -119,5 +140,8 @@ public class Aircraft : MonoBehaviour
     private void SetObjectPosition(Cyclone.Math.Vector3 position)
     {
         transform.position = new Vector3((float)position.x, (float)position.y, (float)position.z);
+
+        Cyclone.Math.Quaternion r = aircraft.GetOrientation();
+        transform.rotation = new Quaternion((float)r.i, (float)r.j, (float)r.k, (float)r.r);
     }
 }
