@@ -147,5 +147,16 @@ namespace Cyclone.Math
             j = thisQuaternion.j;
             k = thisQuaternion.k;
         }
+
+        /// <summary>
+        /// Convert to a string representation.
+        /// </summary>
+        /// <returns>A string representation of the quaternion.</returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("({0}, {1}, {2}, {3})", i, j, k, r);
+            return sb.ToString();
+        }
     }
 }

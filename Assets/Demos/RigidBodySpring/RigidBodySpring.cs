@@ -97,7 +97,7 @@ public class RigidBodySpring : MonoBehaviour
     }
 
     /// <summary>
-    /// Update the particle positions.
+    /// Update the object position and rotation.
     /// </summary>
     void Update()
     {

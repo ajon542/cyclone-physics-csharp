@@ -364,7 +364,7 @@ namespace Cyclone.Math
         /// <summary>
         /// Convert to a string representation.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A string representation of the vector.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

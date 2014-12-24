@@ -39,33 +39,48 @@ namespace Cyclone
         }
     }
 
-        /**
-     * A force generator that applies a Spring force.
-     */
+    /// <summary>
+    /// A force generator that applies a Spring force.
+    /// </summary>
     public class Spring : IForceGenerator
     {
-        /**
-         * The point of connection of the spring, in local
-         * coordinates.
-         */
+        /// <summary>
+        /// The point of connection of the spring, in local
+        /// coordinates.
+        /// </summary>
         private Vector3 connectionPoint;
 
-        /**
-         * The point of connection of the spring to the other object,
-         * in that object's local coordinates.
-         */
+        /// <summary>
+        /// The point of connection of the spring to the other object,
+        /// in that object's local coordinates.
+        /// </summary>
         private Vector3 otherConnectionPoint;
 
-        /** The particle at the other end of the spring. */
+        /// <summary>
+        /// The particle at the other end of the spring.
+        /// </summary>
         private RigidBody other;
 
-        /** Holds the sprint constant. */
+        /// <summary>
+        /// The spring constant.
+        /// </summary>
         private double springConstant;
 
-        /** Holds the rest length of the spring. */
+        /// <summary>
+        /// The rest length of the spring.
+        /// </summary>
         private double restLength;
 
-        /** Creates a new spring with the given parameters. */
+        /// <summary>
+        /// Creates a new instance of the <see cref="Spring"/> class.
+        /// </summary>
+        /// <param name="connectionPoint">The point of connection of the spring, in local
+        /// coordinates.</param>
+        /// <param name="other">The particle at the other end of the spring.</param>
+        /// <param name="otherConnectionPoint">The point of connection of the spring to the other object,
+        /// in that object's local coordinates.</param>
+        /// <param name="springConstant">The spring constant.</param>
+        /// <param name="restLength">The rest length of the spring.</param>
         public Spring(Vector3 connectionPoint,
                RigidBody other,
                Vector3 otherConnectionPoint,
@@ -79,7 +94,11 @@ namespace Cyclone
             this.restLength = restLength;
         }
 
-        /** Applies the spring force to the given rigid body. */
+        /// <summary>
+        /// Applies the spring force to the given rigid body.
+        /// </summary>
+        /// <param name="body">The rigid body.</param>
+        /// <param name="duration">Time interval over which to update the force.</param>
         public virtual void UpdateForce(RigidBody body, double duration)
         {
             // Calculate the two ends in world space
