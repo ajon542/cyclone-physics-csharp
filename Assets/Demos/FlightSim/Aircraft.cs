@@ -115,9 +115,9 @@ public class Aircraft : MonoBehaviour
 
         // Do a very basic collision detection and response with the ground.
         Cyclone.Math.Vector3 pos = aircraft.GetPosition();
-        if (pos.y < 0.0f)
+        if (pos.y < 3.0f)
         {
-            pos.y = 0.0f;
+            pos.y = 3.0f;
             aircraft.SetPosition(pos);
         }
 
