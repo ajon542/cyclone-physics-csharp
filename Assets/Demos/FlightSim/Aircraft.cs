@@ -35,7 +35,7 @@ public class Aircraft : MonoBehaviour
             new Cyclone.Math.Matrix3(0, 0, 0, -1, -0.5f, 0, 0, 0, 0),
             new Cyclone.Math.Matrix3(0, 0, 0, -0.995f, -0.5f, 0, 0, 0, 0),
             new Cyclone.Math.Matrix3(0, 0, 0, -1.005f, -0.5f, 0, 0, 0, 0),
-            new Cyclone.Math.Vector3(-1.0f, 0.0f, 2.0f),
+            new Cyclone.Math.Vector3(-1.0f, 0.0f, -2.0f),
             windspeed
             );
 
@@ -59,7 +59,7 @@ public class Aircraft : MonoBehaviour
 
         aircraft.Mass = 2.5f;
         Cyclone.Math.Matrix3 it = new Cyclone.Math.Matrix3();
-        it.SetBlockInertiaTensor(new Cyclone.Math.Vector3(2, 1, 1), 1);
+        it.SetBlockInertiaTensor(new Cyclone.Math.Vector3(1, 1, 1), 1);
         aircraft.SetInertiaTensor(it);
 
         aircraft.SetDamping(0.8f, 0.8f);
@@ -81,11 +81,8 @@ public class Aircraft : MonoBehaviour
     {
         double duration = Time.deltaTime;
 
-        // Start with no forces or acceleration.
-        aircraft.ClearAccumulators();
-
         // Add the propeller force
-        Cyclone.Math.Vector3 propulsion = new Cyclone.Math.Vector3(0, 0, 10);
+        Cyclone.Math.Vector3 propulsion = new Cyclone.Math.Vector3(-10, 0, 0);
         propulsion = aircraft.GetTransform().TransformDirection(propulsion);
         aircraft.AddForce(propulsion);
 
@@ -101,11 +98,6 @@ public class Aircraft : MonoBehaviour
         {
             pos.y = 0.0f;
             aircraft.SetPosition(pos);
-
-            if (aircraft.GetVelocity().y < -10.0f)
-            {
-                ResetPlane();
-            }
         }
 
         SetObjectPosition(aircraft.Position);

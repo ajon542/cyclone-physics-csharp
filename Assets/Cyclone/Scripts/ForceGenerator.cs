@@ -191,7 +191,7 @@ namespace Cyclone
             Vector3 bodyVel = body.GetTransform().TransformInverseDirection(velocity);
 
             // Calculate the force in body coordinates
-            Vector3 bodyForce = Tensor.Transform(bodyVel);
+            Vector3 bodyForce = tensor.Transform(bodyVel);
             Vector3 force = body.GetTransform().TransformDirection(bodyForce);
 
             // Apply the force
