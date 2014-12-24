@@ -90,7 +90,16 @@ public class Aircraft : MonoBehaviour
             leftWingControl -= 0.1f;
             rightWingControl += 0.1f;
         }
-
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            leftWingControl -= 0.1f;
+            rightWingControl -= 0.1f;
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            leftWingControl += 0.1f;
+            rightWingControl += 0.1f;
+        }
         // Make sure the controls are in range
         if (leftWingControl < -1.0f) leftWingControl = -1.0f;
         else if (leftWingControl > 1.0f) leftWingControl = 1.0f;
