@@ -26,7 +26,7 @@ public class Aircraft : MonoBehaviour
             new Cyclone.Math.Matrix3(0, 0, 0, -1, -0.5f, 0, 0, 0, 0),
             new Cyclone.Math.Matrix3(0, 0, 0, -0.995f, -0.5f, 0, 0, 0, 0),
             new Cyclone.Math.Matrix3(0, 0, 0, -1.005f, -0.5f, 0, 0, 0, 0),
-            new Cyclone.Math.Vector3(-1.0f, 0.0f, 2.0f),
+            new Cyclone.Math.Vector3(-1.0f, 0.0f, -2.0f),
             windspeed
             );
 
@@ -35,7 +35,7 @@ public class Aircraft : MonoBehaviour
             new Cyclone.Math.Matrix3(0, 0, 0, -1, -0.5f, 0, 0, 0, 0),
             new Cyclone.Math.Matrix3(0, 0, 0, -0.995f, -0.5f, 0, 0, 0, 0),
             new Cyclone.Math.Matrix3(0, 0, 0, -1.005f, -0.5f, 0, 0, 0, 0),
-            new Cyclone.Math.Vector3(-1.0f, 0.0f, -2.0f),
+            new Cyclone.Math.Vector3(-1.0f, 0.0f, 2.0f),
             windspeed
             );
 
