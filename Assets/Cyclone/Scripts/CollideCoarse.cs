@@ -7,7 +7,6 @@ namespace Cyclone
         public RigidBody[] body = new RigidBody[2];
     }
 
-    // C# generics are shit!
     abstract class BoundingVolume
     {
         public abstract double Size { get; }
@@ -64,7 +63,7 @@ namespace Cyclone
             else
             {
                 distance = System.Math.Sqrt(distance);
-                radius = (distance + one.radius + two.radius) * ((double)0.5);
+                radius = (distance + one.radius + two.radius) * 0.5;
 
                 // The new centre is based on one's centre, moved towards
                 // two's centre by an ammount proportional to the spheres'
@@ -114,7 +113,7 @@ namespace Cyclone
         {
             get
             {
-                return ((double)1.333333) * 3.141 * radius * radius * radius;
+                return 1.333333 * 3.141593 * radius * radius * radius;
             }
         }
     };
@@ -246,8 +245,7 @@ namespace Cyclone
             // Determine which node to descend into. If either is
             // a leaf, then we descend the other. If both are branches,
             // then we use the one with the largest size.
-            if (other.IsLeaf() ||
-                (!IsLeaf() && volume.Size >= other.volume.Size))
+            if (other.IsLeaf() || (!IsLeaf() && volume.Size >= other.volume.Size))
             {
                 // Recurse into ourself
                 uint count = children[0].GetPotentialContactsWith(other, contacts, limit);
