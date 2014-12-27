@@ -100,14 +100,33 @@ public class Aircraft : MonoBehaviour
             leftWingControl += 0.1f;
             rightWingControl += 0.1f;
         }
-        // Make sure the controls are in range
-        if (leftWingControl < -1.0f) leftWingControl = -1.0f;
-        else if (leftWingControl > 1.0f) leftWingControl = 1.0f;
-        if (rightWingControl < -1.0f) rightWingControl = -1.0f;
-        else if (rightWingControl > 1.0f) rightWingControl = 1.0f;
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            rudderControl += 0.1f;
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            rudderControl -= 0.1f;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            leftWingControl = 0;
+            rightWingControl = 0;
+            rudderControl = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetPlane();
+        }
+
+        // Make sure the controls are in range.
+        Clamp(ref leftWingControl);
+        Clamp(ref rightWingControl);
+        Clamp(ref rudderControl);
 
         leftWing.SetControl(leftWingControl);
         rightWing.SetControl(rightWingControl);
+        rudder.SetControl(rudderControl);
 
         double duration = Time.deltaTime;
 
@@ -140,6 +159,10 @@ public class Aircraft : MonoBehaviour
 
         aircraft.SetVelocity(0, 0, 0);
         aircraft.SetRotation(0, 0, 0);
+
+        leftWingControl = 0;
+        rightWingControl = 0;
+        rudderControl = 0;
     }
 
     /// <summary>
@@ -152,5 +175,17 @@ public class Aircraft : MonoBehaviour
 
         Cyclone.Math.Quaternion r = aircraft.GetOrientation();
         transform.rotation = new Quaternion((float)r.i, (float)r.j, (float)r.k, (float)r.r);
+    }
+
+    private void Clamp(ref float value)
+    {
+        if (value < -1.0f)
+        {
+            value = -1.0f;
+        }
+        else if (value > 1.0f)
+        {
+            value = 1.0f;
+        }
     }
 }
