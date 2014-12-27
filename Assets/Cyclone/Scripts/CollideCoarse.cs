@@ -134,18 +134,63 @@ namespace Cyclone
         }
 
         /**
-         * Deltes this node, removing it first from the hierarchy, along
-         * with its associated
-         * rigid body and child nodes. This method deletes the node
+         * Deletes this node, removing it first from the hierarchy, along
+         * with its associated rigid body and child nodes. This method deletes the node
          * and all its children (but obviously not the rigid bodies). This
          * also has the effect of deleting the sibling of this node, and
          * changing the parent node so that it contains the data currently
          * in that sibling. Finally it forces the hierarchy above the
          * current node to reconsider its bounding volume.
          */
-        ~BVHNode()
+        public void Remove()
         {
             // TODO: This shouldn't be a destructor, maybe Remove??
+            // If we don't have a parent, then we ignore the sibling
+            // processing
+            if (parent != null)
+            {
+                // Find our sibling
+                BVHNode sibling;
+                if (parent.children[0] == this)
+                {
+                    sibling = parent.children[1];
+                }
+                else
+                {
+                    sibling = parent.children[0];
+                }
+
+                // Write its data to our parent
+                parent.volume = sibling.volume;
+                parent.body = sibling.body;
+                parent.children[0] = sibling.children[0];
+                parent.children[1] = sibling.children[1];
+
+                // Delete the sibling (we blank its parent and
+                // children to avoid processing/deleting them)
+                sibling.parent = null;
+                sibling.body = null;
+                sibling.children[0] = null;
+                sibling.children[1] = null;
+                sibling = null;
+
+                // Recalculate the parent's bounding volume
+                parent.RecalculateBoundingVolume();
+            }
+
+            // Delete our children (again we remove their
+            // parent data so we don't try to process their siblings
+            // as they are deleted).
+            if (children[0] != null)
+            {
+                children[0].parent = null;
+                children[0] = null;
+            }
+            if (children[1] != null)
+            {
+                children[1].parent = null;
+                children[1] = null;
+            }
         }
 
         /**
