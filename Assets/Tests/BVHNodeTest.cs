@@ -19,7 +19,7 @@ public class BVHNodeTest : MonoBehaviour
         BoundingSphere volume = new BoundingSphere(new Cyclone.Math.Vector3(0, 0, 0), 1);
         Cyclone.RigidBody body = new Cyclone.RigidBody();
 
-        root.Insert(body, volume);
+        //root.Insert(body, volume);
 
         return true;
     }

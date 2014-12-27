@@ -1,0 +1,6 @@
+﻿namespace Cyclone
+{
+    class CollideFine
+    {
+    }
+}
