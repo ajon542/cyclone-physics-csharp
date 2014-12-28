@@ -1,104 +1,120 @@
 ﻿namespace Cyclone
 {
-    /**
-     * Represents a bounding sphere that can be tested for overlap.
-     */
+    /// <summary>
+    /// Represents a bounding sphere that can be tested for overlap.
+    /// </summary>
     class BoundingSphere
     {
-        public Math.Vector3 centre;
-        public double radius { get; private set; }
+        /// <summary>
+        /// Gets or sets the center position of this bounding sphere.
+        /// </summary>
+        public Math.Vector3 Center { get; set; }
 
-        /**
-         * Creates a new bounding sphere at the given centre and radius.
-         */
-        public BoundingSphere(Math.Vector3 centre, double radius)
+        /// <summary>
+        /// Gets or sets the radius of this bounding sphere.
+        /// </summary>
+        public double Radius { get; set; }
+
+        /// <summary>
+        /// Gets the volume of this bounding volume. This is used
+        /// to calculate how to recurse into the bounding volume tree.
+        /// For a bounding sphere it is a simple calculation.
+        /// </summary>
+        public double Size
         {
-            this.centre = centre;
-            this.radius = radius;
+            get
+            {
+                return 1.333333 * 3.141593 * Radius * Radius * Radius;
+            }
         }
 
-        /**
-         * Creates a bounding sphere to enclose the two given bounding
-         * spheres.
-         */
+        /// <summary>
+        /// Creates a new instance of the <see cref="BoundingSphere"/> class
+        /// given a center and radius.
+        /// </summary>
+        /// <param name="centre">The center of the bounding sphere.</param>
+        /// <param name="radius">The radius of the bounding sphere.</param>
+        public BoundingSphere(Math.Vector3 center, double radius)
+        {
+            Center = center;
+            Radius = radius;
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="BoundingSphere"/> class.
+        /// to enclose the two given bounding spheres.
+        /// </summary>
+        /// <param name="one">The first bounding sphere to enclose.</param>
+        /// <param name="two">The second bounding sphere to enclose.</param>
         public BoundingSphere(BoundingSphere one, BoundingSphere two)
         {
-            Math.Vector3 centreOffset = two.centre - one.centre;
+            Math.Vector3 centreOffset = two.Center - one.Center;
             double distance = centreOffset.SquareMagnitude;
-            double radiusDiff = two.radius - one.radius;
+            double radiusDiff = two.Radius - one.Radius;
 
-            // Check if the larger sphere encloses the small one
+            // Check if the larger sphere encloses the small one.
             if (radiusDiff * radiusDiff >= distance)
             {
-                if (one.radius > two.radius)
+                if (one.Radius > two.Radius)
                 {
-                    centre = one.centre;
-                    radius = one.radius;
+                    Center = one.Center;
+                    Radius = one.Radius;
                 }
                 else
                 {
-                    centre = two.centre;
-                    radius = two.radius;
+                    Center = two.Center;
+                    Radius = two.Radius;
                 }
             }
 
             // Otherwise we need to work with partially
-            // overlapping spheres
+            // overlapping spheres.
             else
             {
                 distance = System.Math.Sqrt(distance);
-                radius = (distance + one.radius + two.radius) * 0.5;
+                Radius = (distance + one.Radius + two.Radius) * 0.5;
 
                 // The new centre is based on one's centre, moved towards
                 // two's centre by an ammount proportional to the spheres'
                 // radii.
-                centre = one.centre;
+                Center = one.Center;
                 if (distance > 0)
                 {
-                    centre += centreOffset * ((radius - one.radius) / distance);
+                    Center += centreOffset * ((Radius - one.Radius) / distance);
                 }
             }
         }
 
-        /**
-         * Checks if the bounding sphere overlaps with the other given
-         * bounding sphere.
-         */
+        /// <summary>
+        /// Checks if the bounding sphere overlaps with the other given
+        /// bounding sphere.
+        /// </summary>
+        /// <param name="other">The other bounding sphere.</param>
+        /// <returns><c>true</c> if the bounding spheres overlap; otherwise, <c>false</c>.</returns>
         public bool Overlaps(BoundingSphere other)
         {
-            double distanceSquared = (centre - other.centre).SquareMagnitude;
+            double distanceSquared = (Center - other.Center).SquareMagnitude;
 
-            return distanceSquared < (radius + other.radius) * (radius + other.radius);
+            return distanceSquared < (Radius + other.Radius) * (Radius + other.Radius);
         }
 
-        /**
-         * Reports how much this bounding sphere would have to grow
-         * by to incorporate the given bounding sphere. Note that this
-         * calculation returns a value not in any particular units (i.e.
-         * its not a volume growth). In fact the best implementation
-         * takes into account the growth in surface area (after the
-         * Goldsmith-Salmon algorithm for tree construction).
-         */
+        /// <summary>
+        /// Reports how much this bounding sphere would have to grow
+        /// by to incorporate the given bounding sphere. Note that this
+        /// calculation returns a value not in any particular units (i.e.
+        /// its not a volume growth). In fact the best implementation
+        /// takes into account the growth in surface area (after the
+        /// Goldsmith-Salmon algorithm for tree construction).
+        /// </summary>
+        /// <param name="other">The other bounding sphere.</param>
+        /// <returns>The amount the bounding sphere has to grow.</returns>
         public double GetGrowth(BoundingSphere other)
         {
             BoundingSphere newSphere = new BoundingSphere(this, other);
 
             // We return a value proportional to the change in surface
             // area of the sphere.
-            return newSphere.radius * newSphere.radius - radius * radius;
-        }
-
-        /**
-         * Returns the volume of this bounding volume. This is used
-         * to calculate how to recurse into the bounding volume tree.
-         * For a bounding sphere it is a simple calculation.
-         */
-        public double Size
-        {
-            get
-            {
-                return 1.333333 * 3.141593 * radius * radius * radius;
-            }
+            return newSphere.Radius * newSphere.Radius - Radius * Radius;
         }
     };
 }
