@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Cyclone;
 
 public class BVHNodeTest : MonoBehaviour
 {
@@ -14,9 +13,9 @@ public class BVHNodeTest : MonoBehaviour
     /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     private bool Test1()
     {
-        BVHNode root = new BVHNode(null, null, null);
+        Cyclone.BVHNode root = new Cyclone.BVHNode(null, null, null);
 
-        BoundingSphere volume = new BoundingSphere(new Cyclone.Math.Vector3(0, 0, 0), 1);
+        Cyclone.BoundingSphere volume = new Cyclone.BoundingSphere(new Cyclone.Math.Vector3(0, 0, 0), 1);
         Cyclone.RigidBody body = new Cyclone.RigidBody();
 
         //root.Insert(body, volume);

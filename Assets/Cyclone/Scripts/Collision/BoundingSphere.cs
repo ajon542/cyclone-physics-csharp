@@ -32,7 +32,7 @@
         /// Creates a new instance of the <see cref="BoundingSphere"/> class
         /// given a center and radius.
         /// </summary>
-        /// <param name="centre">The center of the bounding sphere.</param>
+        /// <param name="center">The center of the bounding sphere.</param>
         /// <param name="radius">The radius of the bounding sphere.</param>
         public BoundingSphere(Math.Vector3 center, double radius)
         {
