@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Cyclone
 {
@@ -247,6 +248,13 @@ namespace Cyclone
             {
                 parent.RecalculateBoundingVolume(true);
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0}", volume);
+            return sb.ToString();
         }
     }
 }

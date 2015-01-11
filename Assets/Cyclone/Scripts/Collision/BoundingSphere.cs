@@ -1,9 +1,11 @@
-﻿namespace Cyclone
+﻿using System.Text;
+
+namespace Cyclone
 {
     /// <summary>
     /// Represents a bounding sphere that can be tested for overlap.
     /// </summary>
-    class BoundingSphere
+    public class BoundingSphere
     {
         /// <summary>
         /// Gets or sets the center position of this bounding sphere.
@@ -115,6 +117,13 @@
             // We return a value proportional to the change in surface
             // area of the sphere.
             return newSphere.Radius * newSphere.Radius - Radius * Radius;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("C: {0}, R: {1}", Center, Radius);
+            return sb.ToString();
         }
     };
 }
