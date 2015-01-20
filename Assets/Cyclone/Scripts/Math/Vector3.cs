@@ -105,7 +105,7 @@ namespace Cyclone.Math
         }
 
         /// <summary>
-        /// Dot product.
+        /// Scale a vector by an amount.
         /// </summary>
         /// <param name="lhs">The left vector.</param>
         /// <param name="value">The value to multiply the vector by.</param>
