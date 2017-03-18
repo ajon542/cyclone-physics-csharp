@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+/*
 public class BVHNodeTest : MonoBehaviour
 {
     private void Start()
@@ -62,3 +62,4 @@ public class BVHNodeTest : MonoBehaviour
     // TODO: Test to make sure the leaf nodes are the ones we actually added to the tree.
     // TODO: Test parent of two child nodes actually encompass them.
 }
+*/

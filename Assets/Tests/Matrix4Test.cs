@@ -6,7 +6,7 @@ using UnityEngine;
 /// Is this the best way to do this, probably not, but
 /// it's better than nothing.
 /// </summary>
-public class Matrix4Test : MonoBehaviour
+/*public class Matrix4Test : MonoBehaviour
 {
     private void Start()
     {
@@ -257,3 +257,4 @@ public class Matrix4Test : MonoBehaviour
         return (result == m1);
     }
 }
+*/

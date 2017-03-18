@@ -5,8 +5,7 @@ using UnityEngine;
 /// A class to validate the matrix3 implementation.
 /// Is this the best way to do this, probably not, but
 /// it's better than nothing.
-/// </summary>
-public class Matrix3Test : MonoBehaviour
+/*public class Matrix3Test : MonoBehaviour
 {
     private void Start()
     {
@@ -149,3 +148,4 @@ public class Matrix3Test : MonoBehaviour
         return (result == m1);
     }
 }
+*/
