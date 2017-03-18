@@ -3,12 +3,12 @@ using System.Text;
 
 namespace Cyclone
 {
-    class PotentialContact
+    public class PotentialContact
     {
         public RigidBody[] body = new RigidBody[2];
     }
 
-    abstract class BoundingVolume
+    public abstract class BoundingVolume
     {
         public abstract double Size { get; }
 
@@ -17,7 +17,7 @@ namespace Cyclone
         public abstract double GetGrowth(BoundingVolume other);
     }
 
-    class BVHNode
+    public class BVHNode
     {
         public BVHNode parent;
         public BVHNode[] children = new BVHNode[2];
