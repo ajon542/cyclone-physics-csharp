@@ -107,37 +107,37 @@ namespace Cyclone
          */
         public uint GetPotentialContacts(PotentialContact[] contacts, uint limit)
         {
-            // Early out if we don't have the room for contacts, or
-            // if we're a leaf node.
+            // Early out if we don't have the room for contacts, or if we're a leaf node.
             if (IsLeaf() || limit == 0)
             {
                 return 0;
             }
 
-            // Get the potential contacts of one of our children with
-            // the other
-            return children[0].GetPotentialContactsWith(children[1], contacts, limit);
+            uint index = 0;
+
+            // Get the potential contacts of one of our children with the other.
+            return children[0].GetPotentialContactsWith(children[1], contacts, index, limit);
         }
 
         /**
- * Checks the potential contacts between this node and the given
- * other node, writing them to the given array (up to the
- * given limit). Returns the number of potential contacts it
- * found.
- */
-        // TODO: Make sure this contacts array works correctly, it isn't like a pointer where we can just
-        // increment it like "contacts + count".
-        public uint GetPotentialContactsWith(BVHNode other, PotentialContact[] contacts, uint limit)
+         * Checks the potential contacts between this node and the given
+         * other node, writing them to the given array (up to the
+         * given limit). Returns the number of potential contacts it
+         * found.
+         */
+        public uint GetPotentialContactsWith(BVHNode other, PotentialContact[] contacts, uint index, uint limit)
         {
-            // Early out if we don't overlap or if we have no room
-            // to report contacts
-            if (!Overlaps(other) || limit == 0) return 0;
+            // Early out if we don't overlap or if we have no room to report contacts.
+            if (!Overlaps(other) || limit == 0)
+            {
+                return 0;
+            }
 
-            // If we're both at leaf nodes, then we have a potential contact
+            // If we're both at leaf nodes, then we have a potential contact.
             if (IsLeaf() && other.IsLeaf())
             {
-                contacts[0].body[0] = body;
-                contacts[0].body[1] = other.body;
+                contacts[index].body[0] = body;
+                contacts[index].body[1] = other.body;
                 return 1;
             }
 
@@ -146,14 +146,13 @@ namespace Cyclone
             // then we use the one with the largest size.
             if (other.IsLeaf() || (!IsLeaf() && volume.Size >= other.volume.Size))
             {
-                // Recurse into ourself
-                uint count = children[0].GetPotentialContactsWith(other, contacts, limit);
+                // Recurse into ourself.
+                uint count = children[0].GetPotentialContactsWith(other, contacts, index, limit);
 
-                // Check we have enough slots to do the other side too
+                // Check we have enough slots to do the other side too.
                 if (limit > count)
                 {
-                    throw new NotImplementedException();
-                    //return count + children[1].GetPotentialContactsWith(other, contacts + count, limit - count);
+                    return count + children[1].GetPotentialContactsWith(other, contacts, index + count, limit - count);
                 }
                 else
                 {
@@ -162,14 +161,13 @@ namespace Cyclone
             }
             else
             {
-                // Recurse into the other node
-                uint count = GetPotentialContactsWith(other.children[0], contacts, limit);
+                // Recurse into the other node.
+                uint count = GetPotentialContactsWith(other.children[0], contacts, index, limit);
 
-                // Check we have enough slots to do the other side too
+                // Check we have enough slots to do the other side too.
                 if (limit > count)
                 {
-                    throw new NotImplementedException();
-                    //return count + getPotentialContactsWith(other.children[1], contacts + count, limit - count);
+                    return count + GetPotentialContactsWith(other.children[1], contacts, index + count, limit - count);
                 }
                 else
                 {
@@ -205,7 +203,7 @@ namespace Cyclone
                 // Child two holds the new body
                 children[1] = new BVHNode(this, newVolume, newBody);
 
-                // And we now loose the body (we're no longer a leaf)
+                // And we now lose the body (we're no longer a leaf)
                 this.body = null;
 
                 // We need to recalculate our bounding volume
