@@ -7,7 +7,6 @@ public class Matrix3Tests
     /// <summary>
     /// Tests the inverse of a matrix.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test1()
     {
@@ -34,7 +33,6 @@ public class Matrix3Tests
     /// <summary>
     /// Tests if a matrix multiplied by its inverse is equal to the identity matrix.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test2()
     {
@@ -61,7 +59,6 @@ public class Matrix3Tests
     /// <summary>
     /// Tests the different matrix inversion methods.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test3()
     {
@@ -83,7 +80,6 @@ public class Matrix3Tests
     /// <summary>
     /// Tests the different matrix inversion methods.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test4()
     {
@@ -117,7 +113,6 @@ public class Matrix3Tests
     /// <summary>
     /// Tests if a multiply-equals (*=) results in the correct matrix.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test5()
     {

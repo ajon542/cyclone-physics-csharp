@@ -7,7 +7,6 @@ public class Matrix4Tests
     /// <summary>
     /// Tests a valid matrix multiplication.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test1()
     {
@@ -35,7 +34,6 @@ public class Matrix4Tests
     /// <summary>
     /// Tests an invalid matrix multiplication.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test2()
     {
@@ -63,7 +61,6 @@ public class Matrix4Tests
     /// <summary>
     /// Tests the determinant of a matrix.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test3()
     {
@@ -82,7 +79,6 @@ public class Matrix4Tests
     /// <summary>
     /// Tests the determinant of a matrix.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test4()
     {
@@ -100,7 +96,6 @@ public class Matrix4Tests
     /// <summary>
     /// Tests the determinant of a matrix.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test5()
     {
@@ -119,7 +114,6 @@ public class Matrix4Tests
     /// <summary>
     /// Tests the inverse of a matrix.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test6()
     {
@@ -146,7 +140,6 @@ public class Matrix4Tests
     /// <summary>
     /// Tests if a matrix multiplied by its inverse is equal to the identity matrix.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test7()
     {
@@ -168,7 +161,6 @@ public class Matrix4Tests
     /// <summary>
     /// Tests the different matrix inversion methods.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test8()
     {
@@ -190,7 +182,6 @@ public class Matrix4Tests
     /// <summary>
     /// Tests the different matrix inversion methods.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test9()
     {
@@ -224,7 +215,6 @@ public class Matrix4Tests
     /// <summary>
     /// Tests if a multiply-equals (*=) results in the correct matrix.
     /// </summary>
-    /// <returns><c>true</c> if test succeeded; otherwise, <c>false</c>.</returns>
     [Test]
     public void Test10()
     {

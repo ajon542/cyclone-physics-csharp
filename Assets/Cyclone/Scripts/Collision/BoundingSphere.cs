@@ -8,14 +8,14 @@ namespace Cyclone
     public class BoundingSphere
     {
         /// <summary>
-        /// Gets or sets the center position of this bounding sphere.
+        /// Gets the center position of this bounding sphere.
         /// </summary>
-        public Math.Vector3 Center { get; set; }
+        public Math.Vector3 Center { get; private set; }
 
         /// <summary>
-        /// Gets or sets the radius of this bounding sphere.
+        /// Gets the radius of this bounding sphere.
         /// </summary>
-        public double Radius { get; set; }
+        public double Radius { get; private set; }
 
         /// <summary>
         /// Gets the volume of this bounding volume. This is used
@@ -91,6 +91,7 @@ namespace Cyclone
         /// Checks if the bounding sphere overlaps with the other given
         /// bounding sphere.
         /// </summary>
+        /// <remarks>If two bounding spheres edges just touch, they are not overlapping.</remarks>
         /// <param name="other">The other bounding sphere.</param>
         /// <returns><c>true</c> if the bounding spheres overlap; otherwise, <c>false</c>.</returns>
         public bool Overlaps(BoundingSphere other)
