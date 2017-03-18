@@ -111,6 +111,30 @@ public class Sheet : MonoBehaviour
                 contactGenerators.Add(rod);
             }
         }
+
+        for (int z = 0; z < GridSize - 1; z++)
+        {
+            for (int x = 0; x < GridSize - 1; x++)
+            {
+                Cyclone.ParticleRod rodA = new Cyclone.ParticleRod();
+                rodA.particle = new Cyclone.Particle[2];
+
+                rodA.particle[0] = particles[z * GridSize + x];
+                rodA.particle[1] = particles[((z + 1) * GridSize) + x + 1];
+
+                rodA.Length = 1.4f;
+                contactGenerators.Add(rodA);
+
+                Cyclone.ParticleRod rodB = new Cyclone.ParticleRod();
+                rodB.particle = new Cyclone.Particle[2];
+
+                rodB.particle[0] = particles[z * GridSize + x + 1];
+                rodB.particle[1] = particles[((z + 1) * GridSize) + x];
+
+                rodB.Length = 1.42f;
+                contactGenerators.Add(rodB);
+            }
+        }
     }
 
     /// <summary>
