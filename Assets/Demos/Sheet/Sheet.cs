@@ -41,8 +41,8 @@ public class Sheet : MonoBehaviour
             {
                 Cyclone.Particle particle = new Cyclone.Particle();
                 particle.Mass = BaseMass;
-                particle.Damping = 0.9f;
-                particle.SetAcceleration(0.0f, -1.0f, 0.0f);
+                particle.Damping = 0.3f;
+                particle.SetAcceleration(0.0f,-11.0f, 0.0f);
                 particle.SetPosition(x, 0, z);
                 particles.Add(particle);
 
